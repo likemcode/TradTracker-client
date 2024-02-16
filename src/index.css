@@ -23,3 +23,18 @@
  font-size:1rem;
  position:relative;
 }
+
+.toggle-theme-btn{
+  position: relative;
+  bottom: 30px;
+  left:1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size:1rem;
+}
+
+.toggle{
+  margin-top:10px;
+  margin-left:65px ;
+}
