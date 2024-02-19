@@ -8,17 +8,17 @@ const Navbar = ({darkTheme}) => {
   return (
         
         <Menu theme={darkTheme ? 'dark' : 'light'} mode="inline" className='menu-bar'>
-            <Menu.Item key='Dashoard' icon={<AreaChartOutlined />}>
-              Dashboard  
+            <Menu.Item key='Dashboard' icon={<AreaChartOutlined />}>
+              <Link to="/">Dashboard</Link>
             </Menu.Item>
             <Menu.Item key='History' icon={<TableOutlined />}>
-              History  
+              <Link to="/History">History</Link>
             </Menu.Item>
             <Menu.Item key='Import' icon={<CloudDownloadOutlined />}>
-              Import 
+              <Link to="/Import">Import</Link>
             </Menu.Item>
             <Menu.Item key='Profile' icon={<UserOutlined />}>
-              Profile
+              <Link to="/Profile">Profile</Link>
             </Menu.Item>
         </Menu>
 
