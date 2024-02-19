@@ -38,3 +38,11 @@
   margin-top:10px;
   margin-left:65px ;
 }
+
+.metrics-row{
+  margin-top:20px;
+  margin-left: 50px;
+  margin-right: 50px;
+  display: flex;
+  justify-content: space-between;
+}
