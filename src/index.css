@@ -35,8 +35,11 @@
 }
 
 .toggle{
-  margin-top:10px;
-  margin-left:65px ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 30px;
+  left:1px;
 }
 
 .metrics-row{
