@@ -49,3 +49,9 @@
   display: flex;
   justify-content: space-between;
 }
+
+.import-cards{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
