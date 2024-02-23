@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import { Row,Col,Card,Statistic,Radio, Flex  } from 'antd'
-
-
+import LineChart from './charts/LineChart'; // Assuming LineChart is a default export
+import BarChart from './charts/BarChart'; // Corrected import for BarChart
+import PieChart from './charts/PieChart'; // Assuming PieChart is a default export
 const Dashboard = () => {
   
   const [selectedPeriod, setSelectedPeriod] =useState('daily');
@@ -47,10 +48,15 @@ const Dashboard = () => {
         </div>
       </Row>
       <Row>
-
+        <Col>
+          <BarChart/>
+        </Col>
+        <Col>
+          <PieChart/>
+        </Col>
       </Row>
       <Row>
-        
+        <LineChart/>
       </Row>
     </>
   )
