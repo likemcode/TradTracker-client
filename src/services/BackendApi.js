@@ -8,7 +8,7 @@ export const tradesApi = createApi({
         query: () => 'backend/trades/list',
       }),
       getKeyMetrics: builder.query({
-        query: () => '/backend/trades/key-metrics',
+        query: () => 'backend/trades/key-metrics',
       }),
     }),
   });
