@@ -1,21 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Table , Tag} from 'antd';
+import { Table , Tag, Spin} from 'antd';
+import { useGetTradesQuery } from '../services/BackendApi';
+
 
 const History = () => {
-  const [data, setData] = useState([]);
+  const { data: trades, isLoading, error } = useGetTradesQuery();
 
-  // Simulate fetching data from the backend
-  useEffect(() => {
-    const fetchData = async () => {
-      // Replace this with your actual API call
-      const response = await fetch('http://127.0.0.1:8000/backend/trades/list');
-      console.log(response)
-      const result = await response.json();
-      setData(result);
-    };
-
-    fetchData();
-  }, []);
+  if (isLoading) return (<Spin/>)
+  if (error) return <div>Error: {error.message}</div>;
 
   // Define the columns for the table
   const columns = [
@@ -66,7 +58,7 @@ const History = () => {
   return (
     <Table
       columns={columns}
-      dataSource={data}
+      dataSource={trades}
       rowKey="id"
       pagination={{ pageSize: 30 }}
     />

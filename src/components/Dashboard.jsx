@@ -1,9 +1,16 @@
 import React, {useState} from 'react'
-import { Row,Col,Card,Statistic,Radio, Flex  } from 'antd'
-import LineChart from './charts/LineChart'; // Assuming LineChart is a default export
-import BarChart from './charts/BarChart'; // Corrected import for BarChart
-import PieChart from './charts/PieChart'; // Assuming PieChart is a default export
+import { Row,Col,Card,Statistic,Radio, Flex, Spin  } from 'antd'
+
+import { useGetKeyMetricsQuery } from '../services/BackendApi';
+
+import LineChart from './charts/LineChart'; 
+import BarChart from './charts/BarChart'; 
+import PieChart from './charts/PieChart'; 
 const Dashboard = () => {
+  const { data: metrics, isLoading, error } = useGetKeyMetricsQuery();
+
+  if (isLoading) return (<Spin/>)
+  if (error) return <div>Error: {error.message}</div>;
   
   const [selectedPeriod, setSelectedPeriod] =useState('daily');
   const handlePeriodChange = (e) => {
@@ -31,13 +38,13 @@ const Dashboard = () => {
       <Row>
       <div className='metrics-row'>
         <Card>
-          <Statistic title="Balance" value={1000} prefix='$' />
+          <Statistic title="Balance" value={metrics.account_balance} prefix='$' />
         </Card>
         <Card>
-          <Statistic title="Profit/Loss" value={25000} prefix="$" />
+          <Statistic title="Profit/Loss" value={metrics.pnl} prefix="$" />
         </Card>
         <Card>
-          <Statistic title="Win Rate" value={70} suffix="%" />
+          <Statistic title="Win Rate" value={metrics.win_rate} suffix="%" />
         </Card>
         <Card>
           <Statistic title="Avg Ratio" value={8} suffix="R" />
