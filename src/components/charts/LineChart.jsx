@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Chart from 'chart.js/auto';
+import { Line } from 'react-chartjs-2';
+import { Card } from 'antd';
 
 const LineChart = () => {
   const [chartData, setChartData] = useState([]);
@@ -18,44 +19,31 @@ const LineChart = () => {
     }
   };
 
-  useEffect(() => {
-    if (chartData.length > 0) {
-      renderChart();
-    }
-  }, [chartData]);
-
-  const renderChart = () => {
-    const dates = chartData.map(data => data.dates);
-    const accumulatedProfit = chartData.map(data => data.accumulated_profit);
-
-    const ctx = document.getElementById('myLineChart');
-    if (ctx) {
-      new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: dates,
-          datasets: [{
-            label: 'Accumulated Profit',
-            data: accumulatedProfit,
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: false
-            }
-          }
-        }
-      });
+  const chartOptions = {
+    scales: {
+      y: {
+        beginAtZero: false
+      }
     }
   };
 
   return (
     <div>
-      <canvas id="myLineChart" width="400" height="400"></canvas>
+      <Card>
+        <Line
+          data={{
+            labels: chartData.map(data => new Date(data.dates).toLocaleDateString()),
+            datasets: [{
+              label: 'Accumulated Profit',
+              data: chartData.map(data => data.profit),
+              fill: true,
+              borderColor: 'rgb(75, 192, 192)',
+              tension: 0.1
+            }]
+          }}
+          options={chartOptions}
+        />
+      </Card>
     </div>
   );
 };
