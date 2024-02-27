@@ -5,7 +5,7 @@ import { useGetKeyMetricsQuery } from '../services/BackendApi';
 
 import LineChart from './charts/LineChart';
 import BarChart from './charts/BarChart';
-import PieChart from './charts/PieChart';
+import DoughnutChart from './charts/DoughnutChart';
 
 const Dashboard = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('daily');
@@ -55,7 +55,9 @@ const Dashboard = () => {
           <BarChart />
         </Col>
         <Col>
-          <PieChart />
+        <Card>
+          <DoughnutChart />
+          </Card>
         </Col>
       </Row>
       <Row>
