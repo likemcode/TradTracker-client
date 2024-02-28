@@ -19,8 +19,8 @@ const Dashboard = () => {
   };
 
   const renderMetricCard = (title, value, prefix = '', suffix = '') => (
-    <Col>
-      <Card>
+    <Col flex={1}>
+      <Card style={{ height: '100%', width:'100%' }}>
         <Statistic title={title} value={value.toFixed(2)} prefix={prefix} suffix={suffix}  />
       </Card>
     </Col>
@@ -41,7 +41,7 @@ const Dashboard = () => {
           </Flex>
         </Col>
       </Row>
-      <Row gutter={16}>
+      <Row gutter={16} style={{ marginBottom: '16px' }}>
         <div className="metrics-row">
           {renderMetricCard("Balance", metrics.account_balance, '$')}
           {renderMetricCard("Profit/Loss", metrics.pnl, '$')}
@@ -50,18 +50,24 @@ const Dashboard = () => {
           {renderMetricCard("Progress",  80, '', '%')}
         </div>
       </Row>
-      <Row>
-        <Col>
-          <BarChart />
+      <Row gutter={16} style={{ marginLeft: '50px' }}>
+        <Col flex={8}>
+        <Card style={{ height: '100%' }}>
+
+          <LineChart />
+        </Card>
         </Col>
-        <Col>
-        <Card>
-          <DoughnutChart />
+        <Col flex={2}>
+          <Card style={{ height: '100%' }}>
+            <DoughnutChart />
           </Card>
         </Col>
       </Row>
       <Row>
-        <LineChart />
+        <Card>
+        <BarChart />
+        </Card>
+        
       </Row>
     </>
   );
