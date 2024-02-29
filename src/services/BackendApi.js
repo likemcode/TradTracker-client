@@ -10,7 +10,10 @@ export const tradesApi = createApi({
       getKeyMetrics: builder.query({
         query: () => 'backend/trades/key-metrics',
       }),
+      getDoughnutData: builder.query({
+        query: () => 'backend/trades/pie-chart-data',
+      }),
     }),
   });
   
-  export const { useGetTradesQuery, useGetKeyMetricsQuery } = tradesApi;
+  export const { useGetTradesQuery, useGetKeyMetricsQuery, useGetDoughnutDataQuery } = tradesApi;

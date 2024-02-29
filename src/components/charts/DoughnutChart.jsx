@@ -1,9 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
+import { useGetDoughnutDataQuery } from '../services/BackendApi';
 
 const MyDoughnutChartComponent = () => {
   const chartRef = useRef(null);
   const [chartData, setChartData] = useState([]);
+  const { data: data, isLoading, error } = useGetDoughnutDataQuery();
+  
+  if (isLoading) return 'loading';
+  if (error) return <div>Error: {error.message}</div>;
+
+  // Set chart data when data is available
+  useEffect(() => {
+    if (data) {
+      setChartData(data);
+    }
+  }, [data]);
+
 
   // Component-level cleanup using useEffect
   useEffect(() => {
@@ -13,20 +26,8 @@ const MyDoughnutChartComponent = () => {
       }
     };
   }, []);
+  
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:8000/backend/trades/pie-chart-data');
-        const data = await response.json();
-        setChartData(data);
-      } catch (error) {
-        console.error('Error fetching pie chart data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const options = {
     // aspectRatio:2
