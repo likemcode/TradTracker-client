@@ -1,24 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
+import { useGetAccountProgressQuery } from '../../services/BackendApi';
 import { Card } from 'antd';
 
 const LineChart = () => {
   const [chartData, setChartData] = useState([]);
+  const { data: progressData, isLoading, error } = useGetAccountProgressQuery();
 
   useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch('http://127.0.0.1:8000/backend/trades/progress');
-      const data = await response.json();
-      setChartData(data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
+    if (progressData) {
+      setChartData(progressData);
     }
-  };
+  }, [progressData]);
 
   const chartOptions = {
     scales: {
@@ -27,6 +21,9 @@ const LineChart = () => {
       }
     }
   };
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div>

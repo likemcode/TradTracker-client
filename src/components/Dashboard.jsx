@@ -53,7 +53,6 @@ const Dashboard = () => {
       <Row gutter={16} style={{ marginLeft: '50px' }}>
         <Col flex={8}>
         <Card style={{ height: '100%' }}>
-
           <LineChart />
         </Card>
         </Col>

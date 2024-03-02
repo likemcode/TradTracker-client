@@ -1,22 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Doughnut } from 'react-chartjs-2';
-import { useGetDoughnutDataQuery } from '../services/BackendApi';
+import { useGetDoughnutDataQuery } from '../../services/BackendApi';
+import 'chart.js/auto';
+
 
 const MyDoughnutChartComponent = () => {
   const chartRef = useRef(null);
-  const [chartData, setChartData] = useState([]);
-  const { data: data, isLoading, error } = useGetDoughnutDataQuery();
-  
-  if (isLoading) return 'loading';
-  if (error) return <div>Error: {error.message}</div>;
-
-  // Set chart data when data is available
-  useEffect(() => {
-    if (data) {
-      setChartData(data);
-    }
-  }, [data]);
-
+  const { data, isLoading, error } = useGetDoughnutDataQuery();
 
   // Component-level cleanup using useEffect
   useEffect(() => {
@@ -26,22 +16,27 @@ const MyDoughnutChartComponent = () => {
       }
     };
   }, []);
-  
 
+  // Handle loading state
+  if (isLoading) return 'Loading...';
+
+  // Handle error state
+  if (error) return <div>Error: {error.message}</div>;
 
   const options = {
     // aspectRatio:2
     // Add your desired chart options here
   };
 
+  // Render chart when data is available
   return (
     <div className="my-chart">
       <Doughnut
         ref={chartRef}
         data={{
-          labels: chartData.map(item => item.symbol),
+          labels: data.map(item => item.symbol),
           datasets: [{
-            data: chartData.map(item => item.frequency),
+            data: data.map(item => item.frequency),
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
               'rgba(54, 162, 235, 0.2)',
