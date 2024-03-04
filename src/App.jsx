@@ -20,7 +20,7 @@ const App = () => {
   return (
     <Router>
     <Layout>
-        <Sider collapsed={collapsed} collapsible trigger={null} theme={darkTheme? 'dark' : 'light'} className='sidebar'>
+        <Sider collapsed={collapsed} collapsible trigger={null} theme={darkTheme? 'dark' : 'light'} className='sidebar' >
           <Button type='text' className='toggle' onClick={()=>setCollapsed(!collapsed)} icon={collapsed ? <MenuUnfoldOutlined/>: <MenuFoldOutlined/> } style={{padding:0, background: colorBgContainer}}/>
           <Navbar darkTheme={darkTheme}/>
           <ToggleThemeButton darkTheme={darkTheme} toggleTheme={toggleTheme}/>

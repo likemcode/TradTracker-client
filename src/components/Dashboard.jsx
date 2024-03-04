@@ -50,7 +50,7 @@ const Dashboard = () => {
             <Card style={{ height: '100%', width: '100%' }}>
               <Flex justify="space-between">
               <Col><Statistic title='Win Rate' value={metrics.win_rate.toFixed(2)} prefix='' suffix='%' /></Col>
-              <Col flex={1}>
+              <Col flex={1} style={{ maxWidth: '300px' }}>
                 <SemiDoughnutChart />
               </Col>
               </Flex>

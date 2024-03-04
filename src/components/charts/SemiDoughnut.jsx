@@ -29,6 +29,7 @@ const SemiDoughnutChart = () => {
       {
         data: tradeData ? [tradeData.won, tradeData.lost, tradeData.zero_profit] : [0, 0, 0],
         backgroundColor: ['green', 'red', 'blue'],
+        cutout:'84%',
         circumference: 180,
         rotation:270,
       },
@@ -36,14 +37,14 @@ const SemiDoughnutChart = () => {
   };
 
   const options = {
-    cutout:25,
     responsive: true,
-    aspectRatio: 6,
+    aspectRatio: 8,
     maintainAspectRatio: true,
     plugins: {
         legend: false,
         textInside: true // Enable the custom plugin
-      }
+      },
+    backgroundColor: 'transparent',
 
   };
   return (
