@@ -5,6 +5,7 @@ import { useGetKeyMetricsQuery } from '../services/BackendApi';
 
 import LineChart from './charts/LineChart';
 import BarChart from './charts/BarChart';
+import SemiDoughnutChart from './charts/SemiDoughnut';
 import DoughnutChart from './charts/DoughnutChart';
 
 const Dashboard = () => {
@@ -45,7 +46,18 @@ const Dashboard = () => {
         <div className="metrics-row">
           {renderMetricCard("Balance", metrics.account_balance, '$')}
           {renderMetricCard("Profit/Loss", metrics.pnl, '$')}
-          {renderMetricCard("Win Rate", metrics.win_rate, '', '%')}
+          <Col flex={1}>
+            <Card style={{ height: '100%', width: '100%' }}>
+              <Flex justify="space-between">
+              <Col><Statistic title='Win Rate' value={metrics.win_rate.toFixed(2)} prefix='' suffix='%' /></Col>
+              <Col flex={1}>
+                <SemiDoughnutChart />
+              </Col>
+              </Flex>
+            </Card>
+            
+          </Col>
+
           {renderMetricCard("Avg Ratio",  8, '', 'R')}
           {renderMetricCard("Progress",  80, '', '%')}
         </div>

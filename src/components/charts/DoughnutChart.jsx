@@ -24,7 +24,7 @@ const MyDoughnutChartComponent = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   const options = {
-    // aspectRatio:2
+    aspectRatio:2
     // Add your desired chart options here
   };
 

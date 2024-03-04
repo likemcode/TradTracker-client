@@ -27,15 +27,13 @@ const Navbar = ({darkTheme}) => {
             </Menu.Item>
             <Menu.Item key="Import" icon={<CloudDownloadOutlined />} onClick={handleOpenImportModal}>
               Import
-              {isImportModalVisible && (
-                <ImportComponent isImportModalVisible={isImportModalVisible} handleCloseImportModal={handleCloseImportModal} />
-              )}
           </Menu.Item>
             <Menu.Item key='Profile' icon={<UserOutlined />}>
               <Link to="/Profile">Profile</Link>
             </Menu.Item>
 
         </Menu>
+        <ImportComponent visible={isImportModalVisible} onClose={handleCloseImportModal} />
         
         </>
       

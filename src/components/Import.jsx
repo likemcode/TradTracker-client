@@ -3,19 +3,11 @@ import React, { useState } from 'react';
 import ImportModal from './ImportModal';
 import { Modal, Button, Card } from 'antd';
 
-const ImportComponent = ({ isImportModalVisible, handleCloseImportModal }) => {
-  const [modalVisible, setModalVisible] = useState(false);
+const ImportComponent = ({ visible, onClose  }) => {
   const [formModalVisible, setformModalVisible] = useState(false);
-  const handleOpenModal = () => {
-    setModalVisible(true);
-  };
 
   const handleOpenformModal = () => {
     setformModalVisible(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalVisible(false);
   };
   const handleCloseformModal = () => {
     setformModalVisible(false);
@@ -29,8 +21,8 @@ const ImportComponent = ({ isImportModalVisible, handleCloseImportModal }) => {
   return (
     <>
       <Modal
-        open={modalVisible}
-        onCancel={handleCloseModal}
+        open={visible}
+        onCancel={onClose}
         footer={null}
       >
         <div className='import-cards' style={{marginTop:'15px'}}>
