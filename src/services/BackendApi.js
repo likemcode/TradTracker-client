@@ -16,7 +16,9 @@ export const tradesApi = createApi({
       getDoughnutData: builder.query({
         query: () => 'backend/trades/pie-chart-data',
       }),
+      getSemiDoughnutData: builder.query({
+        query: () => 'backend/trades/win-rate',
     }),
-  });
-  
-  export const { useGetTradesQuery, useGetKeyMetricsQuery, useGetDoughnutDataQuery, useGetAccountProgressQuery } = tradesApi;
+  })
+});
+  export const { useGetTradesQuery, useGetKeyMetricsQuery, useGetDoughnutDataQuery, useGetAccountProgressQuery, useGetSemiDoughnutDataQuery } = tradesApi;

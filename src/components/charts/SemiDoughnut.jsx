@@ -1,27 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
+import { useGetSemiDoughnutDataQuery } from '../../services/BackendApi'; // Adjust the import path as necessary
 
 const SemiDoughnutChart = () => {
-  const [tradeData, setTradeData] = useState(null);
-  const [error, setError] = useState(null);
-  const apiUrl = 'http://127.0.0.1:8000/backend/trades/win-rate/';
+  const { data: tradeData, isLoading, error } = useGetSemiDoughnutDataQuery();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(apiUrl);
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const data = await response.json();
-        setTradeData(data);
-      } catch (error) {
-        setError(error.message);
-      }
-    };
-
-    fetchData();
-  }, []);
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error.message}</div>;
 
   const chartData = {
     labels: ['Won', 'Lost', 'Zero Profit'],

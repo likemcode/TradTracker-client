@@ -63,13 +63,13 @@ const Dashboard = () => {
         </div>
       </Row>
       <Row gutter={16} style={{ marginLeft: '50px' }}>
-        <Col flex={8}>
-        <Card style={{ height: '100%' }}>
+        <Col flex={1} style={{ height: '100%',  width:'fit-content'}}>
+        <Card style={{ height: '100%', width:'fit-content'}} >
           <LineChart />
         </Card>
         </Col>
-        <Col flex={2}>
-          <Card style={{ height: '100%' }}>
+        <Col flex={1}>
+          <Card style={{ height: '100%',  width:'fit-content'}}>
             <DoughnutChart />
           </Card>
         </Col>

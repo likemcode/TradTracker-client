@@ -19,7 +19,10 @@ const LineChart = () => {
       y: {
         beginAtZero: false
       }
-    }
+    },
+    responsive:false,
+    
+    maintainAspectRatio:true
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -36,10 +39,12 @@ const LineChart = () => {
               data: chartData.map(data => data.profit),
               fill: true,
               borderColor: 'rgb(75, 192, 192)',
-              tension: 0.1
+              tension: 0.4
             }]
           }}
           options={chartOptions}
+          width={500}
+        height={275}
         />
       </Card>
     </div>

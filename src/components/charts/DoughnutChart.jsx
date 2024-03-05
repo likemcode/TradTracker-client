@@ -24,8 +24,9 @@ const MyDoughnutChartComponent = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   const options = {
-    aspectRatio:2
-    // Add your desired chart options here
+    responsive:false,
+    aspectRatio:1,
+    maintainAspectRatio:true
   };
 
   // Render chart when data is available
@@ -57,6 +58,8 @@ const MyDoughnutChartComponent = () => {
           }],
         }}
         options={options}
+        width={300}
+        height={300}
       />
     </div>
   );
