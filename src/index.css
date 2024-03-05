@@ -26,7 +26,7 @@
 
 .toggle-theme-btn{
   position: relative;
-  bottom: 30px;
+  bottom: 20px;
   left:1px;
   display: flex;
   align-items: center;
@@ -35,11 +35,13 @@
 }
 
 .toggle{
+  position: relative;
+  top: 20px;
+  left:1px;
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 30px;
-  left:1px;
+  font-size:1rem;
 }
 
 .metrics-row{

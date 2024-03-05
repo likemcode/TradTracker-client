@@ -1,7 +1,7 @@
 import React,  { useState } from 'react';
 import {Menu} from 'antd';
 import{Link} from 'react-router-dom';
-import {CloudDownloadOutlined, TableOutlined,AreaChartOutlined,UserOutlined} from '@ant-design/icons';
+import {CloudDownloadOutlined, TableOutlined,AreaChartOutlined,UserOutlined, ReadOutlined} from '@ant-design/icons';
 import  ImportComponent  from './Import';
 
 const Navbar = ({darkTheme}) => {
@@ -28,11 +28,14 @@ const Navbar = ({darkTheme}) => {
             <Menu.Item key="Import" icon={<CloudDownloadOutlined />} onClick={handleOpenImportModal}>
               Import
           </Menu.Item>
+          <Menu.Item key='Journal' icon={<ReadOutlined />}>
+              <Link to="/Journal">Journal</Link>
+            </Menu.Item>
             <Menu.Item key='Profile' icon={<UserOutlined />}>
               <Link to="/Profile">Profile</Link>
             </Menu.Item>
-
         </Menu>
+        
         <ImportComponent visible={isImportModalVisible} onClose={handleCloseImportModal} />
         
         </>
