@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useGetSemiDoughnutDataQuery } from '../../services/BackendApi'; // Adjust the import path as necessary
 
-const SemiDoughnutChart = () => {
-  const { data: tradeData, isLoading, error } = useGetSemiDoughnutDataQuery();
+const SemiDoughnutChart = ({timeRange}) => {
+  const { data: tradeData, isLoading, error } = useGetSemiDoughnutDataQuery(timeRange);
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;

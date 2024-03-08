@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Row, Col, Card, Statistic, Radio, Flex, Spin } from 'antd';
+import { Row, Col, Card, Statistic, Select, Flex, Spin } from 'antd';
 
 import { useGetKeyMetricsQuery } from '../services/BackendApi';
 
@@ -9,39 +9,45 @@ import SemiDoughnutChart from './charts/SemiDoughnut';
 import DoughnutChart from './charts/DoughnutChart';
 
 const Dashboard = () => {
-  const [selectedPeriod, setSelectedPeriod] = useState('daily');
+  const [selectedPeriod, setSelectedPeriod] = useState('All');
   const { data: metrics, isLoading, error } = useGetKeyMetricsQuery();
-
+ 
   if (isLoading) return <Spin />;
   if (error) return <div>Error: {error.message}</div>;
-
-  const handlePeriodChange = (e) => {
-    setSelectedPeriod(e.target.value);
+ 
+  const handlePeriodChange = (value) => {
+     setSelectedPeriod(value);
+     // Here you can add logic to filter or display data based on the selected period
   };
-
+ 
   const renderMetricCard = (title, value, prefix = '', suffix = '') => (
-    <Col flex={1}>
-      <Card style={{ height: '100%', width:'100%' }}>
-        <Statistic title={title} value={value.toFixed(2)} prefix={prefix} suffix={suffix}  />
-      </Card>
-    </Col>
+     <Col flex={1}>
+       <Card style={{ height: '100%', width:'100%' }}>
+         <Statistic title={title} value={value.toFixed(2)} prefix={prefix} suffix={suffix} />
+       </Card>
+     </Col>
   );
-
+ 
   return (
-    <>
-      <Row>
-        <Col span={24}>
-          <Flex justify="start" align="center" gap="middle">
-            <Radio.Group value={selectedPeriod} onChange={handlePeriodChange} style={{ gap: '10px' }}>
-              {['Daily', 'Weekly', 'Monthly', 'Yearly'].map((period) => (
-                <Radio.Button key={period.toLowerCase()} value={period.toLowerCase()} style={{ margin: '5px', borderRadius: '10px' }}>
-                  {period}
-                </Radio.Button>
-              ))}
-            </Radio.Group>
-          </Flex>
-        </Col>
-      </Row>
+     <>
+       <Row>
+         <Col span={24}>
+           <Select
+             defaultValue="All"
+             style={{ width: 120 }}
+             popupMatchSelectWidth={false}
+             onChange={handlePeriodChange}
+             options={[
+               { value: 'All', label: 'All' },
+               { value: 'year', label: 'Year' },
+               { value: 'week', label: 'Week' },
+               { value: 'month', label: 'Month' },
+               { value: 'day', label: 'Day' },
+             ]}
+           />
+         </Col>
+       </Row>
+
       <Row gutter={16} style={{ marginBottom: '16px' }}>
         <div className="metrics-row">
           {renderMetricCard("Balance", metrics.account_balance, '$')}
@@ -51,7 +57,7 @@ const Dashboard = () => {
               <Flex justify="space-between">
               <Col><Statistic title='Win Rate' value={metrics.win_rate.toFixed(2)} prefix='' suffix='%' /></Col>
               <Col flex={1} style={{ maxWidth: '300px' }}>
-                <SemiDoughnutChart />
+                <SemiDoughnutChart timeRange={selectedPeriod} />
               </Col>
               </Flex>
             </Card>
@@ -65,18 +71,18 @@ const Dashboard = () => {
       <Row gutter={16} style={{ marginLeft: '50px' }}>
         <Col flex={1} style={{ height: '100%',  width:'fit-content'}}>
         <Card style={{ height: '100%', width:'fit-content'}} >
-          <LineChart />
+          <LineChart  timeRange={selectedPeriod}/>
         </Card>
         </Col>
         <Col flex={1}>
           <Card style={{ height: '100%',  width:'fit-content'}}>
-            <DoughnutChart />
+            <DoughnutChart timeRange={selectedPeriod}/>
           </Card>
         </Col>
       </Row>
       <Row>
         <Card>
-        <BarChart />
+        <BarChart timeRange={selectedPeriod}/>
         </Card>
         
       </Row>

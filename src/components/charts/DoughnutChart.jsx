@@ -1,12 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useGetDoughnutDataQuery } from '../../services/BackendApi';
 import 'chart.js/auto';
 
 
-const MyDoughnutChartComponent = () => {
+const MyDoughnutChartComponent = ({timeRange}) => {
   const chartRef = useRef(null);
-  const { data, isLoading, error } = useGetDoughnutDataQuery();
+  const { data, isLoading, error } = useGetDoughnutDataQuery(timeRange);
+
+  
 
   // Component-level cleanup using useEffect
   useEffect(() => {

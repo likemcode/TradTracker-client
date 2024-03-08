@@ -4,14 +4,14 @@ import 'chart.js/auto';
 import { useGetAccountProgressQuery } from '../../services/BackendApi';
 import { Card } from 'antd';
 
-const LineChart = () => {
+const LineChart = ({ timeRange }) => { // Correctly receiving timeRange as a prop
   const [chartData, setChartData] = useState([]);
-  const { data: progressData, isLoading, error } = useGetAccountProgressQuery();
-
+  const { data: progressData, isLoading, error } = useGetAccountProgressQuery(timeRange);
+ 
   useEffect(() => {
-    if (progressData) {
-      setChartData(progressData);
-    }
+     if (progressData) {
+       setChartData(progressData);
+     }
   }, [progressData]);
 
   const chartOptions = {
