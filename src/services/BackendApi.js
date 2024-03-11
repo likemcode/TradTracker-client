@@ -6,7 +6,7 @@ export const tradesApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://127.0.0.1:8000' }),
   endpoints: (builder) => ({
      getTrades: builder.query({
-       query: (timeRange) => `backend/trades/list/${timeRange}`,
+       query: () => `backend/trades/list`,
      }),
      getKeyMetrics: builder.query({
        query: () => `backend/trades/key-metrics`,

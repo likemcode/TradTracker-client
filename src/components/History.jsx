@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Table , Tag, Spin} from 'antd';
+import { Table , Tag, Spin, DatePicker} from 'antd';
 import { useGetTradesQuery } from '../services/BackendApi';
 
-
+const { RangePicker } = DatePicker;
 const History = () => {
   const { data: trades, isLoading, error } = useGetTradesQuery();
 
@@ -56,12 +56,15 @@ const History = () => {
   ];
 
   return (
+    <>
+    <RangePicker/>
     <Table
       columns={columns}
       dataSource={trades}
       rowKey="id"
       pagination={{ pageSize: 30 }}
     />
+   </>
   );
 };
 
