@@ -4,6 +4,7 @@ import { useGetDoughnutDataQuery } from '../../services/BackendApi';
 import 'chart.js/auto';
 
 
+
 const MyDoughnutChartComponent = ({timeRange}) => {
   const chartRef = useRef(null);
   const { data, isLoading, error } = useGetDoughnutDataQuery(timeRange);
@@ -25,10 +26,38 @@ const MyDoughnutChartComponent = ({timeRange}) => {
   // Handle error state
   if (error) return <div>Error: {error.message}</div>;
 
+  const doughnutLabel={
+    id: 'doughnutLabel',
+    afterDatasetsDraw(chart,args,plugins){
+      const {ctx,data} = chart;
+
+      const centerX= chart.getDatasetMeta(0).data[0].x;
+      const centerY= chart.getDatasetMeta(0).data[0].y;
+
+      ctx.save();
+      ctx.fillStyle='black';
+      ctx.textAlign='center';
+      ctx.textBaseline='middle';
+      ctx.fillText(`${data.datasets[0].data[0]} symbols`, centerX, centerY);
+    }
+  }
   const options = {
     responsive:false,
     aspectRatio:1,
-    maintainAspectRatio:true
+    maintainAspectRatio:true,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          usePointStyle: true, // Use circles instead of squares
+          // Adjust point radius for a small circle
+          pointRadius: 4,
+        },
+
+        
+      },
+    },
+    doughnutLabel:doughnutLabel
   };
 
   // Render chart when data is available

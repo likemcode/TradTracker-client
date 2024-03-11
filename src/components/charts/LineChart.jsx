@@ -7,6 +7,7 @@ import { Card } from 'antd';
 const LineChart = ({ timeRange }) => { // Correctly receiving timeRange as a prop
   const [chartData, setChartData] = useState([]);
   const { data: progressData, isLoading, error } = useGetAccountProgressQuery(timeRange);
+  
  
   useEffect(() => {
      if (progressData) {
@@ -24,6 +25,7 @@ const LineChart = ({ timeRange }) => { // Correctly receiving timeRange as a pro
     
     maintainAspectRatio:true
   };
+  console.log(chartData)
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
