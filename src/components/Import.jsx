@@ -1,7 +1,7 @@
 // ImportComponent.js
 import React, { useState } from 'react';
 import ImportModal from './ImportModal';
-import { Modal, Button, Card } from 'antd';
+import { Modal, Button, Card, message} from 'antd';
 
 const ImportComponent = ({ visible, onClose  }) => {
   const [formModalVisible, setformModalVisible] = useState(false);
@@ -13,9 +13,35 @@ const ImportComponent = ({ visible, onClose  }) => {
     setformModalVisible(false);
   };
 
-  const handleImportSampleTrades = () => {
+  const handleImportSampleTrades = async () => {
     // Handle import sample trades logic here
-    console.log('Importing sample trades...');
+      
+      try {
+          const response = await fetch('http://127.0.0.1:8000/backend/trades/import-sample-trades/', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              }
+
+          });
+  
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+  
+          const data = await response.json();
+          onClose()
+          if (data.message){
+            message.success(data.message)
+        }
+          
+          if (data.sorry){
+              message.error(data.sorry)
+          }
+      } catch (error) {
+        message.error('An error occurred while importing sample trades. Please try again.');
+      }
+
   };
 
   return (
@@ -41,6 +67,7 @@ const ImportComponent = ({ visible, onClose  }) => {
             </Button>
           </Card>
         </div>
+        
       </Modal>
     </>
   );
