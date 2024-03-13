@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import {MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import {Collapse, Layout, Button, theme} from 'antd'
-import {Navbar,Dashboard,History,Profile, Journal} from './components'
+import {Navbar,Dashboard,History,Profile, Journal, JournalDetails} from './components'
 import ToggleThemeButton from './components/ToggleThemeButton';
 
 const {Header, Sider, Content}= Layout;
@@ -36,6 +36,7 @@ const App = () => {
                     <Route exact path='/' element={<Dashboard/>} />
                     <Route exact path='/History' element={<History/>} />
                     <Route exact path='/Journal' element={<Journal/>} />
+                    <Route exact path='/JournalDetails/:journalId' element={<JournalDetails/>} />
                     <Route exact path='/Profile' element={<Profile/>} />
                 </Routes>
           </div>
