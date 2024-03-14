@@ -97,4 +97,5 @@ const MyDoughnutChartComponent = ({timeRange}) => {
   );
 };
 
+
 export default MyDoughnutChartComponent;
