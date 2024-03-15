@@ -24,11 +24,10 @@ const Journal = () => (
     renderItem={(item, index) => (
       <List.Item
         key={index}
-        onClick={() => window.location.href = `/journalDetails/${index + 1}`}
       >
         <List.Item.Meta
           avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`} />}
-          title={item.title}
+          title={<Link to={`/journalDetails/${index + 1}`}>{item.title}</Link>}
           description="Ant Design, a design language for background applications, is refined by Ant UED Team"
         />
       </List.Item>
