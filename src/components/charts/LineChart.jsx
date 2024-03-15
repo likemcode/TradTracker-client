@@ -25,7 +25,7 @@ const LineChart = ({ timeRange }) => { // Correctly receiving timeRange as a pro
     
     maintainAspectRatio:true
   };
-  console.log(chartData)
+
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;

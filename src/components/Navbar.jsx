@@ -8,9 +8,8 @@ const Navbar = ({darkTheme}) => {
   const [isImportModalVisible, setIsImportModalVisible] = useState(false);
 
   const handleOpenImportModal = () => {
-    console.log('working quite well');
     setIsImportModalVisible(true);
-    console.log(isImportModalVisible)
+    
   };
 
   const handleCloseImportModal = () => {

@@ -17,7 +17,7 @@ const data = [
  },
 ];
 
-const App = () => (
+const Journal = () => (
  <List
     itemLayout="horizontal"
     dataSource={data}
@@ -36,4 +36,4 @@ const App = () => (
  />
 );
 
-export default App;
+export default Journal;

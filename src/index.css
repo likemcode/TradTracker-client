@@ -58,3 +58,12 @@
   align-items: center;
   justify-content: center;
 }
+
+.journal-details-container {
+  width: 100%;
+}
+
+.ql-editor {
+  min-height: 300px; /* Adjust as needed */
+  font-size: 16px; /* Adjust as needed */
+}
