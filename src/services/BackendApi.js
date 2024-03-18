@@ -23,9 +23,12 @@ export const tradesApi = createApi({
      getSemiDoughnutData: builder.query({
        query: (timeRange) => `backend/trades/win-rate/${timeRange}`,
      }),
+     getJournalList: builder.query({
+      query: () => `backend/trades/journals`,
+    }),
   }),
  });
-export const { useGetTradesQuery, useGetKeyMetricsQuery, useGetDoughnutDataQuery, useGetAccountProgressQuery, useGetSemiDoughnutDataQuery , useGetBarChartDataQuery} = tradesApi;
+export const { useGetTradesQuery, useGetKeyMetricsQuery, useGetDoughnutDataQuery, useGetAccountProgressQuery, useGetSemiDoughnutDataQuery , useGetBarChartDataQuery,useGetJournalListQuery} = tradesApi;
 
 
 export const importData = createAsyncThunk(

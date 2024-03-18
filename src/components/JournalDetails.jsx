@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ReactQuill, { Quill } from 'react-quill'; // Import Quill object
 // import ImageResize from 'quill-image-resize-module';
-import { Button } from 'antd';
+import { Button , message} from 'antd';
 import 'react-quill/dist/quill.snow.css'; // Import Quill's snow theme CSS
 
 // Quill.register('modules/imageResize', ImageResize);
@@ -56,9 +56,9 @@ const JournalDetails = () => {
       if (!response.ok) {
         throw new Error('Failed to save journal entry');
       }
-      console.log('Journal entry saved successfully');
+      message.success('Journal entry saved successfully');
     } catch (error) {
-      console.error('Error saving journal entry:', error);
+      message.error('Error saving journal entry:', error);
     }
   };
   return (
