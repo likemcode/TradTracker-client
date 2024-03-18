@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import ReactQuill from 'react-quill'; 
+import ReactQuill, { Quill } from 'react-quill'; // Import Quill object
+// import ImageResize from 'quill-image-resize-module';
 import { Button } from 'antd';
 import 'react-quill/dist/quill.snow.css'; // Import Quill's snow theme CSS
-import { ImageResize } from 'quill-image-resize-module';
 
-Quill.register('modules/imageResize', ImageResize);
+// Quill.register('modules/imageResize', ImageResize);
+
 const customToolbar = [
   [{ header: [1, 2, 3, 4, 5, 6, false] }],
   ['bold', 'italic', 'underline', 'strike'],
@@ -64,9 +65,12 @@ const JournalDetails = () => {
     <div className="journal-details-container">
       <ReactQuill
         theme="snow"
-        modules={{ toolbar: customToolbar, imageResize: {
-          displaySize: true, // Display the size of the image when resizing
-        }, }}
+        modules={{ toolbar: customToolbar, 
+        //   imageResize: {
+        //   displaySize: true, // Display the size of the image when resizing
+        // }, 
+      }
+      }
         value={content}
         onChange={setContent}
       />
