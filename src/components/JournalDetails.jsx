@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import ReactQuill, { Quill } from 'react-quill'; // Import Quill object
-// import ImageResize from 'quill-image-resize-module';
+import { useParams, useLocation } from 'react-router-dom';
+import ReactQuill from 'react-quill'; // Import Quill object
 import { Button , message} from 'antd';
 import 'react-quill/dist/quill.snow.css'; // Import Quill's snow theme CSS
 
-// Quill.register('modules/imageResize', ImageResize);
 
 const customToolbar = [
   [{ header: [1, 2, 3, 4, 5, 6, false] }],
+ [{ font: [] }],
   ['bold', 'italic', 'underline', 'strike'],
   [{ color: [] }, { background: [] }],
   [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
@@ -21,6 +20,8 @@ const customToolbar = [
 
 const JournalDetails = () => {
   const { journalId } = useParams();
+  const location = useLocation();
+  const title = location.state?.title || 'Default Title'; // Access the title passed from the Journal component
   const [content, setContent] = useState('');
  
 
@@ -50,7 +51,7 @@ const JournalDetails = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          title: 'Your Journal Entry Title', // You can set the title dynamically or prompt the user to enter it
+          title: title, // You can set the title dynamically or prompt the user to enter it
           content:content }),
       });
       if (!response.ok) {
@@ -65,11 +66,7 @@ const JournalDetails = () => {
     <div className="journal-details-container">
       <ReactQuill
         theme="snow"
-        modules={{ toolbar: customToolbar, 
-        //   imageResize: {
-        //   displaySize: true, // Display the size of the image when resizing
-        // }, 
-      }
+        modules={{ toolbar: customToolbar }
       }
         value={content}
         onChange={setContent}

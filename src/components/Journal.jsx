@@ -1,10 +1,23 @@
-import React from 'react';
-import { Avatar, List } from 'antd';
-import { Link } from 'react-router-dom';
+import React, {useState} from 'react';
+import { Avatar, List, Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { useGetJournalListQuery } from '../services/BackendApi';
+import NewJournalModal from './NewJournalModal';
 
 const Journal = () => {
   const { data: journals, error, isLoading } = useGetJournalListQuery();
+  const [modalVisible, setModalVisible] = useState(false);
+  const navigate = useNavigate();
+
+  const handleCreateJournal = title => {
+   const newId = journals.length > 0 ? Math.max(...journals.map(journal => journal.id)) + 1 : 1;
+   // Perform action to create new journal entry with the provided title
+   console.log('Creating journal entry with title:', title);
+   setModalVisible(false); // Close the modal after creating the entry
+   
+   navigate(`/JournalDetails/${newId}`,  { state: { title } });
+ };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -14,7 +27,20 @@ const Journal = () => {
     return <div>Error: {error.message}</div>;
   }
 
+  
+  console.log(journals)
   return (
+   <div>
+   {/* Button to add new journal entry */}
+   <Button type="primary" style={{ marginBottom: '16px' }} onClick={() => setModalVisible(true)}>
+      Add Journal
+   </Button>
+ 
+   <NewJournalModal
+        visible={modalVisible}
+        onCreate={handleCreateJournal}
+        onCancel={() => setModalVisible(false)}
+   />
     <List
       itemLayout="horizontal"
       dataSource={journals}
@@ -28,6 +54,7 @@ const Journal = () => {
         </List.Item>
       )}
     />
+    </div>
   );
 };
 
