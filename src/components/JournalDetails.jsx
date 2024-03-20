@@ -21,7 +21,8 @@ const customToolbar = [
 const JournalDetails = () => {
   const { journalId } = useParams();
   const location = useLocation();
-  const title = location.state?.title || 'Default Title'; // Access the title passed from the Journal component
+  const { title, symbol, buySell, experience, date } = location.state || {};
+  
   const [content, setContent] = useState('');
  
 
@@ -35,7 +36,7 @@ const JournalDetails = () => {
         const data = await response.json();
         setContent(data.content);
       } catch (error) {
-        console.error('Error fetching journal entry:', error);
+        
       }
     };
 
@@ -51,8 +52,13 @@ const JournalDetails = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          title: title, // You can set the title dynamically or prompt the user to enter it
-          content:content }),
+          title:title,
+          content: content,
+          symbol:symbol,
+          buy_or_sell:buySell,
+          experience:experience,
+          
+          }),
       });
       if (!response.ok) {
         throw new Error('Failed to save journal entry');
