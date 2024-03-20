@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link} from 'react-router-dom';
 import { useGetJournalListQuery } from '../services/BackendApi';
 import NewJournalModal from './NewJournalModal';
+import { SmileOutlined, FrownOutlined, MehOutlined } from '@ant-design/icons'; // Import emoji icons
 
 const Journal = () => {
   const { data: journals, error, isLoading } = useGetJournalListQuery();
@@ -51,14 +52,22 @@ const Journal = () => {
             avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`} />}
             title={<Link to={`/journalDetails/${item.id}`}>{item.title}</Link>}
             
-            description={item.content.innerText(0,20)||'okay ohhh'}
+            description={
+              <div>
+                <p>Symbol: {item.symbol}</p>
+                <Tag><p> {item.buy_or_sell}</p></Tag>
+                <p>Experience: {item.experience}</p>
+                <p>Date: {item.date}</p>
+                <p>Created At: {item.created_at}</p>
+              </div>
+            }
             
           />
           <p><strong>Symbol:</strong> {item.symbol}</p>
-          <Tag><p><strong>Buy/Sell:</strong> {item.buy_or_sell}</p></Tag>
-          <p><strong>Experience:</strong> {item.experience.join(', ')}</p>
-          <p><strong>Date:</strong> {item.date}</p>
-          <p><strong>Created At:</strong> {item.created_at}</p>
+          <Tag><p> {item.buy_or_sell}</p></Tag>
+          <p> {item.experience}</p>
+          <p>{item.date}</p>
+          
         </List.Item>
       )}
     />
