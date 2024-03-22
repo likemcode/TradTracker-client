@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useGetJournalListQuery } from '../services/BackendApi';
 import NewJournalModal from './NewJournalModal';
-import { SmileOutlined, FrownOutlined, MehOutlined } from '@ant-design/icons'; // Import emoji icons
+import { SmileTwoTone, FrownTwoTone, MehTwoTone } from '@ant-design/icons'; // Import emoji icons
+import moment from 'moment';
 
 const Journal = () => {
   const { data: journals, error, isLoading } = useGetJournalListQuery();
@@ -29,6 +30,16 @@ const Journal = () => {
     return <div>Error: {error.message}</div>;
   }
 
+  const itemContentTruncated = (content) => {
+    
+    
+  
+    // Truncate to the first 30 characters
+    const truncatedContent = sanitizedContent.slice(0, 30);
+  
+    return truncatedContent;
+  };
+
   return (
     <div>
       {/* Button to add new journal entry */}
@@ -38,38 +49,41 @@ const Journal = () => {
         onCancel={() => setModalVisible(false)}
       />
       <List
-        header={<div> <p>My Trading Journal 📝</p> <Button type="primary" style={{ marginBottom: '16px' }} onClick={() => setModalVisible(true)}>
+        header={<Flex justify="space-between"  style={{ margin: '16px' }}> <h3>My Trading Journal 📝</h3> <Button type="primary" style={{ marginBottom: '16px' }} onClick={() => setModalVisible(true)}>
           Add Journal
-        </Button> </div>}
+        </Button> </Flex>}
         itemLayout="horizontal"
         dataSource={journals}
         renderItem={(item, index) => (
-          <List.Item key={index}>
+          <List.Item key={item.id} className="journal-item" style={{ padding: '16px' }} onClick={() => navigate(`/journalDetails/${item.id}`)}>
             <List.Item.Meta
+            
               avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`} />}
               title={<Link to={`/journalDetails/${item.id}`}>{item.title}</Link>}
+              description={ <div dangerouslySetInnerHTML={{ __html: item.content }}/>}
+            />
+            <List.Item.Meta
+              style={{ marginLeft: '16px' }}
               description={
-                <div style={{ display: 'grid', gridTemplateColumns: 'auto auto', alignItems: 'center', gap: '8px' }}>
-                  <Flex>
+                <Flex justify="space-between" align="middle" wrap="wrap">
+                  <div style={{ marginLeft: '16px' }}>
+                    <p><strong>Symbol:</strong> {item.symbol}</p>
+                    </div>
+                    <Tag color={item.buy_or_sell === 'buy' ? '#108ee9' : '#f50'}>{item.buy_or_sell}</Tag>
+                  
                   <div>
                     
-                    <p><strong>Symbol:</strong> {item.symbol}</p>
-                    <Tag color={item.buy_or_sell === 'buy' ? '#108ee9' : '#f50'}>{item.buy_or_sell}</Tag>
-                  </div>
-                  <div>
-                    <p><strong>Experience:</strong></p>
                     <div>
-                      {item.experience === 'happy' && <SmileOutlined style={{ color: 'green' }} />}
-                      {item.experience === 'neutral' && <MehOutlined style={{ color: 'grey' }} />}
-                      {item.experience === 'sad' && <FrownOutlined style={{ color: 'red' }} />}
+                      {item.experience === 'happy' && <SmileTwoTone twoToneColor='#6dd142' style={{ fontSize: '20px' }} />}
+                      {item.experience === 'neutral' && <MehTwoTone twoToneColor='b0bfaa' style={{  fontSize: '20px' }} />}
+                      {item.experience === 'sad' && <FrownTwoTone twoToneColor='#d33024' style={{ fontSize: '20px' }} />}
                     </div>
                   </div>
                   <div>
-                    <p><strong>Date:</strong> {item.date}</p>
-                    <p><strong>Created At:</strong> {item.created_at}</p>
+                  <p><strong>Date:</strong> {moment(item.date).format('MMMM Do, YYYY')}</p>
+                    
                   </div>
-                  </Flex>
-                </div>
+                </Flex>
               }
             />
           </List.Item>

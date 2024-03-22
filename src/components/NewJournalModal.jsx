@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Form, Input, Button, Select, DatePicker } from 'antd';
 import { SmileOutlined, FrownOutlined, MehOutlined } from '@ant-design/icons'; // Import emoji icons
 
+
 const { Option } = Select;
 
 const NewJournalModal = ({ visible, onCreate, onCancel }) => {

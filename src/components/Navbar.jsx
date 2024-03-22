@@ -1,7 +1,7 @@
 import React,  { useState } from 'react';
 import {Menu, Dropdown} from 'antd';
 import{Link} from 'react-router-dom';
-import {CloudDownloadOutlined, TableOutlined,AreaChartOutlined,UserOutlined, ReadOutlined, StopOutlined} from '@ant-design/icons';
+import {CloudDownloadOutlined, TableOutlined,LogoutOutlined,AreaChartOutlined,UserOutlined, ReadOutlined, StopOutlined} from '@ant-design/icons';
 import  ImportComponent  from './Import';
 
 const Navbar = ({darkTheme}) => {
@@ -26,10 +26,10 @@ const Navbar = ({darkTheme}) => {
       <Menu.Item key="Profile" icon={<UserOutlined />}>
         <Link to="/Profile">Profile</Link>
       </Menu.Item>
-      <Menu.Item key="Profile" icon={<UserOutlined />}>
+      <Menu.Item key="Profile" icon={<LogoutOutlined />}>
         <Link to="/logout">Logout</Link>
       </Menu.Item>
-      <Menu.Item key="Delete"  icon={<StopOutlined /> }>
+      <Menu.Item key="Delete" color='red' icon={<StopOutlined /> }>
         <Link to="/delete">Delete</Link>
       </Menu.Item>
       {/* Add more menu items here if needed */}
@@ -51,11 +51,11 @@ const Navbar = ({darkTheme}) => {
               <Link to="/Journal">Journal</Link>
             </Menu.Item>
             <Dropdown
-          overlay={profileMenu}
-          placement="bottomRight"
-          visible={isProfileDropdownVisible}
-          onVisibleChange={handleProfileDropdownVisibleChange}
-        >
+              overlay={profileMenu}
+              placement="bottomRight"
+              open={isProfileDropdownVisible}
+              onOpenChange={handleProfileDropdownVisibleChange}
+            >
           <Menu.Item key='Profile' icon={<UserOutlined />}>
             Profile
           </Menu.Item>

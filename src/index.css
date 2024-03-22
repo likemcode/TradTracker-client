@@ -88,3 +88,18 @@
   border: none;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5);
 }
+
+.journal-item {
+  border: 1px solid #e8e8e8;
+  margin-bottom: 16px;
+  /* Add other styles like padding, rounded corners, etc. */
+}
+
+.journal-details {
+  color: #d33024;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 16px 0;
+  /* Add other styles for layout and spacing */
+}
