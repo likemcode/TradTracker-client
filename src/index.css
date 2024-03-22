@@ -24,6 +24,10 @@
  position:relative;
 }
 
+.menu-item-wrapper {
+  padding: 0 24px; /* Adjust padding as needed */
+}
+
 .toggle-theme-btn{
   position: relative;
   bottom: 20px;
