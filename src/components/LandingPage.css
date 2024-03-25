@@ -1,0 +1,122 @@
+/* LandingPage.css */
+
+/* General Styles */
+.header {
+   background-color: #fff;
+   padding: 0 24px;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+   float: left;
+   font-size: 24px;
+   font-weight: bold;
+   color: #333;
+}
+
+.header a {
+   float: right;
+   color: #333;
+   text-decoration: none;
+   margin-right: 16px;
+}
+
+.content {
+   padding: 50px;
+   background-color: #fff;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hero-image {
+   margin-bottom: 24px;
+}
+
+.hero-text {
+   text-align: center;
+}
+
+.features {
+   margin-top: 50px;
+}
+
+.feature-card {
+   text-align: center;
+   padding: 24px;
+   border: 1px solid #e8e8e8;
+   border-radius: 8px;
+   transition: transform 0.3s ease-in-out;
+}
+
+.feature-card:hover {
+   transform: scale(1.05);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+   .header {
+       padding: 0 16px;
+   }
+
+   .logo {
+       font-size: 20px;
+   }
+
+   .header a {
+       margin-right: 8px;
+   }
+
+   .hero-image {
+       margin-bottom: 16px;
+   }
+
+   .features {
+       margin-top: 32px;
+   }
+
+   .nav-links {
+       float: none;
+       text-align: center;
+       margin-top: 16px;
+   }
+
+   .nav-button {
+       margin-left: 8px;
+   }
+
+   .nav-links {
+       display: none;
+   }
+}
+
+/* Demo Video */
+.demo-video {
+   margin-top: 50px;
+   text-align: center;
+}
+
+.demo-video iframe {
+   max-width: 100%;
+}
+
+/* Footer */
+.footer {
+   background-color: #333;
+   color: #fff;
+   text-align: center;
+   padding: 20px 0;
+}
+
+/* Navigation Links */
+.nav-links {
+   float: right;
+}
+
+.nav-button {
+   margin-left: 16px;
+}
+
+/* Menu Icon */
+.menu-icon {
+   font-size: 24px;
+   cursor: pointer;
+}

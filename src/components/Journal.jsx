@@ -7,6 +7,8 @@ import NewJournalModal from './NewJournalModal';
 import { SmileTwoTone, FrownTwoTone, MehTwoTone } from '@ant-design/icons'; // Import emoji icons
 import moment from 'moment';
 
+// add Row and Column (Row, Col from ant-design)
+
 const Journal = () => {
   const { data: journals, error, isLoading } = useGetJournalListQuery();
   const [modalVisible, setModalVisible] = useState(false);

@@ -1,64 +1,82 @@
 import React from 'react';
-import { Layout, Row, Col, Button, Typography, Image } from 'antd';
+import { Layout, Row, Col, Button, Typography, Image, Card } from 'antd';
 import { Link } from 'react-router-dom'; // For navigation links
+import { RocketOutlined, DollarCircleOutlined, SafetyOutlined, MenuOutlined } from '@ant-design/icons';
+import { useMediaQuery } from 'react-responsive'; // For responsive design
+import './LandingPage.css';
 
-const { Header, Content } = Layout;
+const { Header, Content, Footer } = Layout;
 const { Title, Paragraph } = Typography;
 
 const LandingPage = () => {
-  return (
+  
+ return (
     <Layout>
       <Header className="header">
         <div className="logo">TradeTracker</div>
-        <Link to="/about">About</Link> </Header>
-      <Content className="content">
-        <Row>
+        <div className="nav-links">
+          <Link to="/about">About</Link>
+          <Button type="link" className="nav-button">Login</Button>
+          <Button type="primary" className="nav-button">Sign Up</Button>
+        </div>
+      </Header>
+      <Content className="content" style={{ padding: '50px', backgroundColor: '#fff' }}>
+        <Row gutter={[24, 24]}>
           <Col xs={24} md={12}>
             <div className="hero-image">
-              <Image src="path/to/your/image.png" alt="TradeTracker Logo" preview={false} />  {/* Replace with your image path */}
+              <Image src="path/to/your/image.png" alt="TradeTracker Logo" preview={false} style={{ width: '100%', height: 'auto' }} /> {/* Replace with your image path */}
             </div>
           </Col>
           <Col xs={24} md={12}>
             <div className="hero-text">
-              <Title>Track Your Trading Performance with Ease.</Title>
-              <Paragraph>
+              <Title level={2} style={{ color: '#333', fontWeight: 'bold' }}>Track Your Trading Performance with Ease.</Title>
+              <Paragraph style={{ color: '#666' }}>
                 TradeTracker is a powerful tool that helps you monitor and analyze your trading activity. Gain insights into your strengths and weaknesses, optimize your strategies, and achieve your trading goals.
               </Paragraph>
-              <Button type="primary" size="large">
+              <Button type="primary" size="large" style={{ marginTop: '24px' }}>
                 <Link to="/signup">Get Started</Link>
               </Button>
             </div>
           </Col>
         </Row>
-        <Row className="features">
+        <Row gutter={[24, 24]} className="features" style={{ marginTop: '50px' }}>
           <Col xs={24} md={8}>
             {/* Feature 1 */}
-            <div className="feature-card">
-              <Icon type="rocketflightOutlined" style={{ fontSize: '48px', marginBottom: '16px' }} />
-              <h3>Boost Your Performance</h3>
-              <Paragraph>Identify patterns, optimize strategies, and improve your trading results.</Paragraph>
-            </div>
+            <Card hoverable style={{ width: '100%', textAlign: 'center' }}>
+              <RocketOutlined style={{ fontSize: '48px', marginBottom: '16px' }} />
+              <h3 style={{ fontSize: '20px', fontWeight: 'bold' }}>Boost Your Performance</h3>
+              <Paragraph style={{ color: '#666' }}>Identify patterns, optimize strategies, and improve your trading results.</Paragraph>
+            </Card>
           </Col>
           <Col xs={24} md={8}>
             {/* Feature 2 */}
-            <div className="feature-card">
-              <Icon type="dollarcircleOutlined" style={{ fontSize: '48px', marginBottom: '16px' }} />
-              <h3>Gain Valuable Insights</h3>
-              <Paragraph>Track key metrics, visualize your progress, and make data-driven decisions.</Paragraph>
-            </div>
+            <Card hoverable style={{ width: '100%', textAlign: 'center' }}>
+              <DollarCircleOutlined style={{ fontSize: '48px', marginBottom: '16px' }} />
+              <h3 style={{ fontSize: '20px', fontWeight: 'bold' }}>Gain Valuable Insights</h3>
+              <Paragraph style={{ color: '#666' }}>Track key metrics, visualize your progress, and make data-driven decisions.</Paragraph>
+            </Card>
           </Col>
           <Col xs={24} md={8}>
             {/* Feature 3 */}
-            <div className="feature-card">
-              <Icon type="safetyOutlined" style={{ fontSize: '48px', marginBottom: '16px' }} />
-              <h3>Manage Risk Effectively</h3>
-              <Paragraph>Monitor risk metrics, set stop-loss limits, and trade with confidence.</Paragraph>
-            </div>
+            <Card hoverable style={{ width: '100%', textAlign: 'center' }}>
+              <SafetyOutlined style={{ fontSize: '48px', marginBottom: '16px' }} />
+              <h3 style={{ fontSize: '20px', fontWeight: 'bold' }}>Manage Risk Effectively</h3>
+              <Paragraph style={{ color: '#666' }}>Monitor risk metrics, set stop-loss limits, and trade with confidence.</Paragraph>
+            </Card>
           </Col>
+
         </Row>
       </Content>
+      <div className="demo-video">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/your-video-id" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <Footer className="footer">
+        <div className="footer-content">
+          <p>© 2023 TradeTracker. All rights reserved.</p>
+        </div>
+      </Footer>
     </Layout>
-  );
+ );
 };
 
 export default LandingPage;
