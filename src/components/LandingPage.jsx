@@ -1,8 +1,11 @@
 import React from 'react';
 import { Layout, Row, Col, Button, Typography, Image, Card } from 'antd';
-import { Link } from 'react-router-dom'; // For navigation links
+import { Link } from 'react-router-dom'; 
 import { RocketOutlined, DollarCircleOutlined, SafetyOutlined, MenuOutlined } from '@ant-design/icons';
-import { useMediaQuery } from 'react-responsive'; // For responsive design
+
+
+import logo from '../logoLarge.png';
+import another from '../logoSmall.png'
 import './LandingPage.css';
 
 const { Header, Content, Footer } = Layout;
@@ -13,10 +16,13 @@ const LandingPage = () => {
  return (
     <Layout>
       <Header className="header">
-        <div className="logo">TradeTracker</div>
+        <div className="logo">
+        <Image src={another} alt="TradeTracker Logo" preview={false} style={{ width: '20%', height: 'auto' }} /> {/* Replace with your image path */}
+            
+        </div>
         <div className="nav-links">
           <Link to="/about">About</Link>
-          <Button type="link" className="nav-button">Login</Button>
+          <Button type="link" className="nav-button" >Login</Button>
           <Button type="primary" className="nav-button">Sign Up</Button>
         </div>
       </Header>
@@ -24,7 +30,7 @@ const LandingPage = () => {
         <Row gutter={[24, 24]}>
           <Col xs={24} md={12}>
             <div className="hero-image">
-              <Image src="path/to/your/image.png" alt="TradeTracker Logo" preview={false} style={{ width: '100%', height: 'auto' }} /> {/* Replace with your image path */}
+              <Image src={logo} alt="TradeTracker Logo" preview={false} style={{ width: '100%', height: 'auto' }} /> 
             </div>
           </Col>
           <Col xs={24} md={12}>
