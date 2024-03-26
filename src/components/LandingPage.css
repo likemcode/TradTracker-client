@@ -35,6 +35,18 @@
    text-align: center;
 }
 
+.gradient-title {
+   background: linear-gradient(to right, #4695fc, #174e8a,  #18589c);
+   -webkit-background-clip: text;
+   background-clip: text; /* Standard property */
+   -webkit-text-fill-color: transparent;
+   color: transparent; /* Fallback for browsers that don't support background-clip */
+   font-size: 36px;
+   font-weight: bold;
+  }
+  
+
+
 .features {
    margin-top: 50px;
 }

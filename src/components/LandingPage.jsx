@@ -27,15 +27,10 @@ const LandingPage = () => {
         </div>
       </Header>
       <Content className="content" style={{ padding: '50px', backgroundColor: '#fff' }}>
-        <Row gutter={[24, 24]}>
+      <Row gutter={[24, 24]} justify="center">
           <Col xs={24} md={12}>
-            <div className="hero-image">
-              <Image src={logo} alt="TradeTracker Logo" preview={false} style={{ width: '100%', height: 'auto' }} /> 
-            </div>
-          </Col>
-          <Col xs={24} md={12}>
-            <div className="hero-text">
-              <Title level={2} style={{ color: '#333', fontWeight: 'bold' }}>Track Your Trading Performance with Ease.</Title>
+            <div className="hero-text" style={{ textAlign: 'center' }}>
+              <Title level={2} className='gradient-title' style={{ color: '#333', fontWeight: 'bold', fontSize: '36px' }}>Track Your Trading Performance with Ease.</Title>
               <Paragraph style={{ color: '#666' }}>
                 TradeTracker is a powerful tool that helps you monitor and analyze your trading activity. Gain insights into your strengths and weaknesses, optimize your strategies, and achieve your trading goals.
               </Paragraph>
@@ -43,7 +38,7 @@ const LandingPage = () => {
                 <Link to="/signup">Get Started</Link>
               </Button>
             </div>
-          </Col>
+          </Col> 
         </Row>
         <Row gutter={[24, 24]} className="features" style={{ marginTop: '50px' }}>
           <Col xs={24} md={8}>

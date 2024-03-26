@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Collapse, Layout, Button } from 'antd';
-import { Navbar, Dashboard, History, Profile, Journal, JournalDetails, LandingPage } from './components';
+import { Navbar, Dashboard, History, Profile, Journal, JournalDetails, LandingPage , LoginPage, SignUp} from './components';
 import ToggleThemeButton from './components/ToggleThemeButton';
 
 const { Header, Sider, Content } = Layout;
@@ -17,17 +17,14 @@ const MainContent = () => {
 
  // Use useLocation hook to get the current location
  const location = useLocation();
-
- // Determine if the current route is the landing page
- const isLandingPage = location.pathname === '/Landing';
-
  return (
-    <>
-      {/* Conditionally render the LandingPage component */}
-      {isLandingPage && <LandingPage />}
+  <>
+    {location.pathname === '/Landing' && <LandingPage />}
+    {location.pathname === '/Login' && <LoginPage />}
+    {location.pathname === '/signup' && <SignUp />}
 
-      {/* Render the rest of the app only if not on the landing page */}
-      {!isLandingPage && (
+    {/* Render the rest of the app only for other routes */}
+    {!['/Landing', '/Login', '/signup'].includes(location.pathname) &&  (
         <Layout>
           <Sider collapsed={collapsed} collapsible trigger={null} theme={darkTheme ? 'dark' : 'light'} className='sidebar'>
             <div className='toggle'>

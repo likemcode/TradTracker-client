@@ -39,9 +39,7 @@ const Navbar = ({darkTheme}) => {
             <Menu.SubMenu 
               key="Profile" icon={<UserOutlined />} 
               title="Profile" 
-              
-              >
-              
+            >
               <Menu.Item key="User" icon={<UserOutlined />}>
                 <Link to="/user">User</Link>
               </Menu.Item>
