@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Checkbox, Typography } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom'; // For navigation link
+import { useDispatch } from 'react-redux';
+import { loginStart, loginSuccess, loginFailure } from '../services/loginSlice';
+import { Link , useNavigate} from 'react-router-dom'; // For navigation link
 import './LoginPage.css'; // Ensure you import your CSS file
 
 const { Title } = Typography;
@@ -9,11 +11,28 @@ const { Title } = Typography;
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const onFinish = (values) => {
-    console.log('Received values of form:', values);
-    // Handle login logic here (e.g., API call)
-  };
+  const onFinish = async (values) => {
+    dispatch(loginStart());
+    try {
+      const response = await fetch('http://127.0.0.1:8000/auth/login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+      const data = await response.json();
+      dispatch(loginSuccess(data));
+      localStorage.setItem('token', data.token);
+      navigate('/')
+    } catch (error) {
+      dispatch(loginFailure(error.message));
+    }
+  }
+  
 
   return (
     <div className="login-container">
@@ -63,6 +82,7 @@ const LoginPage = () => {
       </Form>
     </div>
   );
+
 };
 
 export default LoginPage;

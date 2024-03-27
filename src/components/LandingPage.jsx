@@ -22,8 +22,13 @@ const LandingPage = () => {
         </div>
         <div className="nav-links">
           <Link to="/about">About</Link>
-          <Button type="link" className="nav-button" >Login</Button>
-          <Button type="primary" className="nav-button">Sign Up</Button>
+            <Button type="link" className="nav-button" >
+              <Link to="/Login">Login</Link>
+              
+            </Button>
+          <Button type="primary"  className="nav-button">
+            <Link to="/signup">SignUp</Link>
+          </Button>
         </div>
       </Header>
       <Content className="content" style={{ padding: '50px', backgroundColor: '#fff' }}>
@@ -32,7 +37,7 @@ const LandingPage = () => {
             <div className="hero-text" style={{ textAlign: 'center' }}>
               <Title level={2} className='gradient-title' style={{ color: '#333', fontWeight: 'bold', fontSize: '36px' }}>Track Your Trading Performance with Ease.</Title>
               <Paragraph style={{ color: '#666' }}>
-                TradeTracker is a powerful tool that helps you monitor and analyze your trading activity. Gain insights into your strengths and weaknesses, optimize your strategies, and achieve your trading goals.
+                TradeTracker is a powerful tool that helps you monitor and analyze your trading activity. Gain insights into your strengths and weaknesses, Journal your Trades, optimize your strategies, and achieve your trading goals.
               </Paragraph>
               <Button type="primary" size="large" style={{ marginTop: '24px' }}>
                 <Link to="/signup">Get Started</Link>

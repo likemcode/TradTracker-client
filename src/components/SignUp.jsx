@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Form, Input, Button, Checkbox, Typography, Select } from 'antd';
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
@@ -14,14 +15,14 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  
 
   const onFinish =  async (values) => {
     dispatch(signupStart());
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/register', {
+      const response = await fetch('http://127.0.0.1:8000/auth/register/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -30,9 +31,13 @@ const SignUp = () => {
       });
       const data = await response.json();
       dispatch(signupSuccess(data));
+      localStorage.setItem('token', data.token);
+        // Redirect user to login page after successful signup
+        navigate('/Login');
     } catch (error) {
       dispatch(signupFailure(error.message));
     }
+
   };
 
   const validateConfirmPassword = (_, value) => {

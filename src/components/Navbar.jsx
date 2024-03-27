@@ -44,7 +44,7 @@ const Navbar = ({darkTheme}) => {
                 <Link to="/user">User</Link>
               </Menu.Item>
               <Menu.Item key="Logout" icon={<LogoutOutlined />}>
-                <Link to="/logout">Logout</Link>
+                <Link to="/Landing">Logout</Link>
               </Menu.Item>
               <Menu.Item key="Delete" icon={<StopOutlined /> } danger='true'>
                 <Link to="/delete">Delete</Link>

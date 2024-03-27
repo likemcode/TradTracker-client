@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Collapse, Layout, Button } from 'antd';
 import { Navbar, Dashboard, History, Profile, Journal, JournalDetails, LandingPage , LoginPage, SignUp} from './components';
+import  ProtectedRoutes  from './utils/ProtectedRoutes';
 import ToggleThemeButton from './components/ToggleThemeButton';
 
 const { Header, Sider, Content } = Layout;
@@ -40,11 +41,13 @@ const MainContent = () => {
           <Content>
             <div className='routes'>
               <Routes>
-                <Route path='/' element={<Dashboard />} />
-                <Route path='/History' element={<History />} />
-                <Route path='/Journal' element={<Journal />} />
-                <Route path='/JournalDetails/:journalId' element={<JournalDetails />} />
-                <Route path='/Profile' element={<Profile />} />
+                <Route element={<ProtectedRoutes/>}>
+                  <Route path='/' element={<Dashboard />} />
+                  <Route path='/History' element={<History />} />
+                  <Route path='/Journal' element={<Journal />} />
+                  <Route path='/JournalDetails/:journalId' element={<JournalDetails />} />
+                  <Route path='/Profile' element={<Profile />} />
+                </Route>
               </Routes>
             </div>
           </Content>
