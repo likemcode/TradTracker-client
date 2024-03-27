@@ -46,7 +46,7 @@ const MainContent = () => {
                   <Route path='/History' element={<History />} />
                   <Route path='/Journal' element={<Journal />} />
                   <Route path='/JournalDetails/:journalId' element={<JournalDetails />} />
-                  <Route path='/Profile' element={<Profile />} />
+                  
                 </Route>
               </Routes>
             </div>
