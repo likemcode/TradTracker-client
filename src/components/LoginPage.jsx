@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Checkbox, Typography } from 'antd';
+import { Form, Input, Button, Checkbox, Typography, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { loginStart, loginSuccess, loginFailure } from '../services/loginSlice';
@@ -30,9 +30,9 @@ const LoginPage = () => {
       dispatch(loginSuccess(data));
       
       localStorage.setItem('token', data.token);
-      navigate('/')
+      navigate('/Dashboard');
       } else {
-        console.log(data.error);
+        message.error(data.error);
       }
       
     } catch (error) {

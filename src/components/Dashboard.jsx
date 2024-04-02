@@ -29,7 +29,7 @@ const Dashboard = () => {
   );
  
   return (
-     <>
+     <div >
        <Row>
          <Col span={24}>
            <Select
@@ -80,13 +80,15 @@ const Dashboard = () => {
           </Card>
         </Col>
       </Row>
-      <Row>
-        <Card>
-        <BarChart timeRange={selectedPeriod}/>
-        </Card>
+      <Row gutter={2} style={{ marginLeft: '50px', height: 'fit-content' }}>
+        <Col >
+          <Card >
+            <BarChart timeRange={selectedPeriod}/>
+          </Card>
+        </Col>
         
       </Row>
-    </>
+    </div>
   );
 };
 

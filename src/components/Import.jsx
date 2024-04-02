@@ -1,7 +1,9 @@
 // ImportComponent.js
 import React, { useState } from 'react';
 import ImportModal from './ImportModal';
-import { Modal, Button, Card, message} from 'antd';
+import { Modal, Button, Card, message, Flex, Typography} from 'antd';
+
+const { Title, Paragraph } = Typography;
 
 const ImportComponent = ({ visible, onClose  }) => {
   const [formModalVisible, setformModalVisible] = useState(false);
@@ -51,8 +53,9 @@ const ImportComponent = ({ visible, onClose  }) => {
         onCancel={onClose}
         footer={null}
       >
-        <div className='import-cards' style={{marginTop:'15px'}}>
+        <Flex gap={20}>
           <Card title="Import Custom Trades" hoverable>
+            <Paragraph style={{color: '#666' , fontSize:'13px'}}>You can import trades directly from your MetaTrader5 account, make sure you have metatrader5 installed on your Machine</Paragraph>
             <Button type="primary" onClick={handleOpenformModal}>
               Import Custom Trades
             </Button>
@@ -62,11 +65,12 @@ const ImportComponent = ({ visible, onClose  }) => {
             />
           </Card>
           <Card title="Sample Trades" hoverable>
+          <Paragraph style={{color: '#666', fontSize:'13px'}}>You can import trades directly from your MetaTrader5 account, make sure you have metatrader5 installed on your Machine</Paragraph>
             <Button type="primary" onClick={handleImportSampleTrades}>
               Import Sample Trades
             </Button>
           </Card>
-        </div>
+        </Flex>
         
       </Modal>
     </>
