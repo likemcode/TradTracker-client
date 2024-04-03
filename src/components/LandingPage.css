@@ -2,10 +2,13 @@
 
 /* General Styles */
 .header {
+   display: flex;
+   justify-content: space-between;
    background-color: #fff;
    padding: 0 24px;
    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
 
 .logo {
    float: left;
@@ -20,6 +23,21 @@
    text-decoration: none;
    margin-right: 16px;
 }
+
+.nav-btn {
+   width: fit-content;
+   height: fit-content;
+   display: none;
+}
+
+.nav-links {
+   display: flex;
+   float: none;
+   text-align: center;
+   margin-top: 16px;
+   margin-left: 400px;
+}
+
 
 .content {
    padding: 50px;
@@ -71,35 +89,35 @@
        padding: 0 16px;
    }
 
+   .nav-links {
+      display: none;
+      float: none;
+      text-align: center;
+      margin-top: 16px;
+   }
+
+   .nav-button {
+      margin-left: 8px;
+   }
+
+   
+
+   .nav-btn {
+      display: block;
+      margin-left: 8px;
+   }
+
    .logo {
        font-size: 20px;
    }
 
-   .header a {
-       margin-right: 8px;
-   }
 
-   .hero-image {
-       margin-bottom: 16px;
-   }
 
    .features {
        margin-top: 32px;
    }
 
-   .nav-links {
-       float: none;
-       text-align: center;
-       margin-top: 16px;
-   }
-
-   .nav-button {
-       margin-left: 8px;
-   }
-
-   .nav-links {
-       display: none;
-   }
+   
 }
 
 /* Demo Video */
@@ -120,17 +138,8 @@
    padding: 20px 0;
 }
 
-/* Navigation Links */
-.nav-links {
-   float: right;
-}
 
 .nav-button {
    margin-left: 16px;
 }
 
-/* Menu Icon */
-.menu-icon {
-   font-size: 24px;
-   cursor: pointer;
-}

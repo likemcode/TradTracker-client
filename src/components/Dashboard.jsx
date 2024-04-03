@@ -21,9 +21,9 @@ const Dashboard = () => {
   };
  
   const renderMetricCard = (title, value, prefix = '', suffix = '') => (
-     <Col flex={1}>
-       <Card style={{ height: '100%', width:'100%' }}>
-         <Statistic title={title} value={value.toFixed(2)} prefix={prefix} suffix={suffix} />
+     <Col >
+       <Card style={{ height: '85%', width:'100%',  }}>
+         <Statistic  title={title} value={value.toFixed(2)} prefix={prefix} suffix={suffix} />
        </Card>
      </Col>
   );
@@ -53,15 +53,16 @@ const Dashboard = () => {
           {renderMetricCard("Balance", metrics.account_balance, '$')}
           {renderMetricCard("Profit/Loss", metrics.pnl, '$')}
           <Col flex={1}>
-            <Card style={{ height: '100%', width: '100%' }}>
+            <Card style={{ height: '80%', width: '100%'}}>
               <Flex justify="space-between">
-              <Col ><Statistic title='Win Rate' value={metrics.win_rate.toFixed(2)} prefix='' suffix='%' /></Col>
+              <Col style={{height:'80%'}} >
+                <Statistic title='Win Rate' value={metrics.win_rate.toFixed(2)} prefix='' suffix='%'  />
+              </Col>
               <Col flex={1} style={{ maxWidth: '300px' }}>
                 <SemiDoughnutChart timeRange={selectedPeriod} />
               </Col>
               </Flex>
-            </Card>
-            
+            </Card>            
           </Col>
 
           {renderMetricCard("Avg Ratio",  8, '', 'R')}
@@ -82,7 +83,7 @@ const Dashboard = () => {
       </Row>
       <Row gutter={2} style={{ marginLeft: '50px', height: 'fit-content' }}>
         <Col >
-          <Card >
+          <Card  style={{ marginLeft: '50px', height: 'fit-content' }}>
             <BarChart timeRange={selectedPeriod}/>
           </Card>
         </Col>

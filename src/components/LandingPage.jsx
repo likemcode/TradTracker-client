@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Layout, Row, Col, Button, Typography, Image, Card } from 'antd';
 import { Link } from 'react-router-dom'; 
 import { RocketOutlined, DollarCircleOutlined, SafetyOutlined, MenuOutlined } from '@ant-design/icons';
@@ -12,6 +12,11 @@ const { Header, Content, Footer } = Layout;
 const { Title, Paragraph } = Typography;
 
 const LandingPage = () => {
+  const [showNavbar, setShowNavbar]=useState(false)
+
+  const handleShowNavbar= () => {
+    setShowNavbar(true);
+  }
   
  return (
     <Layout>
@@ -20,16 +25,19 @@ const LandingPage = () => {
         <Image src={another} alt="TradeTracker Logo" preview={false} style={{ width: '20%', height: 'auto' }} /> {/* Replace with your image path */}
             
         </div>
-        <div className="nav-links">
-          <Link to="/about">About</Link>
+         
+        <div className="nav-links" >
             <Button type="link" className="nav-button" >
-              <Link to="/Login">Login</Link>
-              
+              <Link to="/Login">Login</Link>  
             </Button>
           <Button type="primary"  className="nav-button">
             <Link to="/signup">SignUp</Link>
           </Button>
         </div>
+        <div className='nav-btn'>
+              <Button icon={<MenuOutlined/>} onClick={handleShowNavbar}></Button>
+        </div>
+        
       </Header>
       <Content className="content" style={{ padding: '50px', backgroundColor: '#fff' }}>
       <Row gutter={[24, 24]} justify="center">
@@ -72,10 +80,13 @@ const LandingPage = () => {
           </Col>
 
         </Row>
+        <Row>
+          <div className="demo-video">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/your-video-id" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </Row>
       </Content>
-      <div className="demo-video">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/your-video-id" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
+      
         <Footer className="footer">
         <div className="footer-content">
           <p>© 2023 TradeTracker. All rights reserved.</p>

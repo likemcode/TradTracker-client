@@ -51,9 +51,12 @@ const Journal = () => {
         onCancel={() => setModalVisible(false)}
       />
       <List
-        header={<Flex justify="space-between"  style={{ margin: '16px' }}> <h3>My Trading Journal 📝</h3> <Button type="primary" style={{ marginBottom: '16px' }} onClick={() => setModalVisible(true)}>
-          Add Journal
-        </Button> </Flex>}
+        header={<Flex justify="space-between"  style={{ margin: '16px' }}> 
+                  <h3>My Trading Journal 📝</h3> 
+                  <Button type="primary" style={{ marginBottom: '16px' }} onClick={() => setModalVisible(true)}>
+                    Add Journal
+                  </Button> 
+                </Flex>}
         itemLayout="horizontal"
         dataSource={journals}
         renderItem={(item, index) => (

@@ -35,6 +35,8 @@ const BarChart = ({ timeRange }) => {
         beginAtZero: true,
       },
     },
+    responsive: false,
+    aspectRatio: 5,
  };
 
  return (

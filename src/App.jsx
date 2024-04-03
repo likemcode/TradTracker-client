@@ -10,10 +10,12 @@ const { Header, Sider, Content } = Layout;
 
 // Create a new component that uses useLocation
 const MainContent = () => {
- const [darkTheme, setDarkTheme] = useState(true);
+ const [darkTheme, setDarkTheme] = useState(false);
  const [collapsed, setCollapsed] = useState(false);
+ 
  const toggleTheme = () => {
     setDarkTheme(!darkTheme);
+
  };
 
  // Use useLocation hook to get the current location
@@ -24,18 +26,17 @@ const MainContent = () => {
     {location.pathname === '/Login' && <LoginPage />}
     {location.pathname === '/signup' && <SignUp />}
     {/* {location.pathname === '*' && <Notf />} */}
-    {/* Render the rest of the app only for other routes */}
+    {/* Renders the rest of the app only for other routes */}
     {!['/', '/Login', '/signup'].includes(location.pathname) &&  (
         <Layout>
           <Sider collapsed={collapsed} collapsible trigger={null} theme={darkTheme ? 'dark' : 'light'} className='sidebar'>
             <div className='toggle'>
-              <Button type='text' onClick={() => setCollapsed(!collapsed)} icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />} />
+              <Button type='text' onClick={() => setCollapsed(!collapsed)} icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined  />}  />
             </div>
             <Navbar darkTheme={darkTheme} />
             <ToggleThemeButton darkTheme={darkTheme} toggleTheme={toggleTheme} />
           </Sider>
           <Header style={{ padding: 0 }}>
-            {/* <Button type='text' className='toggle' onClick={()=>setCollapsed(!collapsed)} icon={collapsed ? <MenuUnfoldOutlined/>: <MenuFoldOutlined/> }/> */}
           </Header>
 
           <Content>
