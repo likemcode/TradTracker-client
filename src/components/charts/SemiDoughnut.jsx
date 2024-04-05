@@ -23,8 +23,8 @@ const SemiDoughnutChart = ({timeRange}) => {
 
   const options = {
     responsive: true,
-    aspectRatio: 8,
-    maintainAspectRatio: true,
+    aspectRatio: 10,
+    maintainAspectRatio: false,
     plugins: {
         legend: false,
         textInside: true // Enable the custom plugin
@@ -39,7 +39,7 @@ const SemiDoughnutChart = ({timeRange}) => {
         <Doughnut
           data={chartData}
           options={options}
-          width={400}
+          width={300}
           height={400}
         />
       )}

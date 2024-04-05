@@ -39,7 +39,7 @@ const MainContent = () => {
           <Header style={{ padding: 0 }}>
           </Header>
 
-          <Content>
+          <Content className='page-content'>
             <div className='routes'>
               <Routes>
                 <Route element={<ProtectedRoutes/>}>

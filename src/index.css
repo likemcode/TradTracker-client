@@ -49,6 +49,10 @@
   
 }
 
+.page-content {
+  background-color: #bbd6f722;
+}
+
 .metrics-row {
   display: flex;
   flex-wrap: wrap;
@@ -60,7 +64,7 @@
 
 /* Metric card */
 .metrics-card {
-  height: 100px;
+  height: 85px;
   width: 200px;
   flex: 1;
   margin-bottom: 16px;
@@ -69,7 +73,7 @@
 .metric-info {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
 }
 
 .metric-title {
@@ -78,7 +82,7 @@
 }
 
 .metric-value {
-  font-weight: bold;
+  font-weight:600;
   font-size: 20px; /* Adjust font size as needed */
 }
 
@@ -86,6 +90,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-left: 10px;
 }
 
 .journal-details-container {

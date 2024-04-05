@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Row, Col, Card, Statistic, Select, Flex, Spin, Space,Typography } from 'antd';
+import { Row, Col, Card, Select, Flex, Spin, Space,Typography } from 'antd';
+import {WalletOutlined} from '@ant-design/icons';
 
 import { useGetKeyMetricsQuery } from '../services/BackendApi';
 
@@ -19,18 +20,18 @@ const Dashboard = () => {
  
   const handlePeriodChange = (value) => {
      setSelectedPeriod(value);
-     // Here you can add logic to filter or display data based on the selected period
   };
  
   const renderMetricCard = (title, value, prefix = '', suffix = '') => (
     <Col className="metrics-card">
-    <Card>
-      <div className="metric-info">
-        <div className="metric-title">{title}</div>
-        <div className="metric-value">{`${prefix}${value.toFixed(2)}${suffix}`}</div>
-      </div>
-    </Card>
-  </Col>
+      <Card>
+        <div className="metric-info">
+          <div className="metric-title">{title}</div>
+          <div className="metric-value">{`${prefix}${value.toFixed(2)}${suffix}`}</div>
+          
+        </div>
+      </Card>
+    </Col>
   );
  
   return (
@@ -65,9 +66,10 @@ const Dashboard = () => {
               <div className="metric-info">
                 <div className="metric-title">win_rate</div>
                 <div className="metric-value">{`${metrics.win_rate.toFixed(2)}${'%'}`}</div>
+                
               </div>
               
-                <SemiDoughnutChart timeRange={selectedPeriod} />
+                {/* <SemiDoughnutChart timeRange={selectedPeriod} /> */}
               
               </Flex>
             </Card>            
