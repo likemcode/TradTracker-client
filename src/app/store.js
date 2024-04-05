@@ -18,3 +18,9 @@ export const store = configureStore({
 });
 
 export default store;
+
+let word='word'
+
+word.toUpperCase()
+
+console.log(word)

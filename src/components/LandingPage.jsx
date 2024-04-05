@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import { Layout, Row, Col, Button, Typography, Image, Card } from 'antd';
+import { Layout, Row, Col, Button, Typography, Card } from 'antd';
 import { Link } from 'react-router-dom'; 
-import { RocketOutlined, DollarCircleOutlined, SafetyOutlined, MenuOutlined } from '@ant-design/icons';
+import { RocketOutlined, DollarCircleOutlined, SafetyOutlined, MenuOutlined, LineChartOutlined} from '@ant-design/icons';
 
 
 import logo from '../logoLarge.png';
@@ -12,30 +12,33 @@ const { Header, Content, Footer } = Layout;
 const { Title, Paragraph } = Typography;
 
 const LandingPage = () => {
-  const [showNavbar, setShowNavbar]=useState(false)
+  const [showNavbar, setShowNavbar]=useState(false);
 
   const handleShowNavbar= () => {
-    setShowNavbar(true);
+    setShowNavbar(!showNavbar);
   }
   
  return (
     <Layout>
       <Header className="header">
         <div className="logo">
-        <Image src={another} alt="TradeTracker Logo" preview={false} style={{ width: '20%', height: 'auto' }} /> {/* Replace with your image path */}
-            
+          <h2>TradeTracker</h2>
+            <LineChartOutlined style={{ fontSize: '15px', color: '#195ea7' }} />
         </div>
-         
-        <div className="nav-links" >
-            <Button type="link" className="nav-button" >
-              <Link to="/Login">Login</Link>  
+       
+        <div className={`nav-links ${showNavbar ? 'active' : ''}`}>
+            <Button type="link"  >
+                <Link to="/Login">Login</Link>  
+              </Button>
+            <Button type="primary"   >
+              <Link to="/signup" style={{color:'white'}}>SignUp</Link>
             </Button>
-          <Button type="primary"  className="nav-button">
-            <Link to="/signup">SignUp</Link>
-          </Button>
         </div>
-        <div className='nav-btn'>
-              <Button icon={<MenuOutlined/>} onClick={handleShowNavbar}></Button>
+        
+        <div className='nav-button'>
+              <Button onClick={handleShowNavbar}>
+                <MenuOutlined/>
+              </Button>
         </div>
         
       </Header>
@@ -43,7 +46,7 @@ const LandingPage = () => {
       <Row gutter={[24, 24]} justify="center">
           <Col xs={24} md={12}>
             <div className="hero-text" style={{ textAlign: 'center' }}>
-              <Title level={2} className='gradient-title' style={{ color: '#333', fontWeight: 'bold', fontSize: '36px' }}>Track Your Trading Performance with Ease.</Title>
+              <Title level={2} className='gradient-title' style={{ color: '#333', fontWeight: 'bold', fontSize: '41px' }}>Track Your Trading Performance with Ease.</Title>
               <Paragraph style={{ color: '#666' }}>
                 TradeTracker is a powerful tool that helps you monitor and analyze your trading activity. Gain insights into your strengths and weaknesses, Journal your Trades, optimize your strategies, and achieve your trading goals.
               </Paragraph>
