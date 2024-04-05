@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Row, Col, Card, Statistic, Select, Flex, Spin } from 'antd';
+import { Row, Col, Card, Statistic, Select, Flex, Spin, Space,Typography } from 'antd';
 
 import { useGetKeyMetricsQuery } from '../services/BackendApi';
 
@@ -7,6 +7,8 @@ import LineChart from './charts/LineChart';
 import BarChart from './charts/BarChart';
 import SemiDoughnutChart from './charts/SemiDoughnut';
 import DoughnutChart from './charts/DoughnutChart';
+
+const { Text } = Typography;
 
 const Dashboard = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('All');
@@ -21,11 +23,14 @@ const Dashboard = () => {
   };
  
   const renderMetricCard = (title, value, prefix = '', suffix = '') => (
-     <Col >
-       <Card style={{ height: '85%', width:'100%',  }}>
-         <Statistic  title={title} value={value.toFixed(2)} prefix={prefix} suffix={suffix} />
-       </Card>
-     </Col>
+    <Col className="metrics-card">
+    <Card>
+      <div className="metric-info">
+        <div className="metric-title">{title}</div>
+        <div className="metric-value">{`${prefix}${value.toFixed(2)}${suffix}`}</div>
+      </div>
+    </Card>
+  </Col>
   );
  
   return (
@@ -50,23 +55,27 @@ const Dashboard = () => {
 
       <Row gutter={16} style={{ marginBottom: '16px' }}>
         <div className="metrics-row">
+          <Space direction='horizontal'>
           {renderMetricCard("Balance", metrics.account_balance, '$')}
           {renderMetricCard("Profit/Loss", metrics.pnl, '$')}
-          <Col flex={1}>
-            <Card style={{ height: '80%', width: '100%'}}>
+          <Col className="metrics-card">
+            <Card style={{ width: '100%'}}>
               <Flex justify="space-between">
-              <Col style={{height:'80%'}} >
-                <Statistic title='Win Rate' value={metrics.win_rate.toFixed(2)} prefix='' suffix='%'  />
-              </Col>
-              <Col flex={1} style={{ maxWidth: '300px' }}>
+              
+              <div className="metric-info">
+                <div className="metric-title">win_rate</div>
+                <div className="metric-value">{`${metrics.win_rate.toFixed(2)}${'%'}`}</div>
+              </div>
+              
                 <SemiDoughnutChart timeRange={selectedPeriod} />
-              </Col>
+              
               </Flex>
             </Card>            
           </Col>
 
           {renderMetricCard("Avg Ratio",  8, '', 'R')}
           {renderMetricCard("Progress",  80, '', '%')}
+          </Space>
         </div>
       </Row>
       <Row gutter={16} style={{ marginLeft: '50px' }}>
@@ -81,9 +90,9 @@ const Dashboard = () => {
           </Card>
         </Col>
       </Row>
-      <Row gutter={2} style={{ marginLeft: '50px', height: 'fit-content' }}>
-        <Col >
-          <Card  style={{ marginLeft: '50px', height: 'fit-content' }}>
+      <Row gutter={16}>
+        <Col span={24}>
+          <Card>
             <BarChart timeRange={selectedPeriod}/>
           </Card>
         </Col>

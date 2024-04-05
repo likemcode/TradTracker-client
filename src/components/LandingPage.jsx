@@ -60,7 +60,7 @@ const LandingPage = () => {
           <Col xs={24} md={8}>
             {/* Feature 1 */}
             <Card hoverable style={{ width: '100%', textAlign: 'center' }}>
-              <RocketOutlined style={{ fontSize: '48px', marginBottom: '16px' }} />
+              <RocketOutlined style={{ fontSize: '48px', marginBottom: '16px', color:'blue'}} />
               <h3 style={{ fontSize: '20px', fontWeight: 'bold' }}>Boost Your Performance</h3>
               <Paragraph style={{ color: '#666' }}>Identify patterns, optimize strategies, and improve your trading results.</Paragraph>
             </Card>

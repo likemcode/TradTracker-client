@@ -49,13 +49,37 @@
   
 }
 
-.metrics-row{
+.metrics-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   margin-top:20px;
   margin-left: 50px;
   margin-right: 50px;
+}
+
+/* Metric card */
+.metrics-card {
+  height: 100px;
+  width: 200px;
+  flex: 1;
+  margin-bottom: 16px;
+}
+
+.metric-info {
   display: flex;
-  justify-content: space-between;
-  font-size: 4px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.metric-title {
+  color: #939393f7;
+  font-size: 14px; /* Adjust font size as needed */
+}
+
+.metric-value {
+  font-weight: bold;
+  font-size: 20px; /* Adjust font size as needed */
 }
 
 .import-cards{
