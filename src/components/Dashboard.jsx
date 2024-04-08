@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Row, Col, Card, Select, Flex, Spin,Typography , Tag} from 'antd';
-import {WalletOutlined} from '@ant-design/icons';
+import {WalletOutlined, DollarOutlined, CheckCircleOutlined} from '@ant-design/icons';
 
 import { useGetKeyMetricsQuery } from '../services/BackendApi';
 
@@ -59,7 +59,16 @@ const Dashboard = () => {
         <div className="metrics-row">
           
           {renderMetricCard("Balance", metrics.account_balance, '$')}
-          {renderMetricCard("Profit/Loss", metrics.pnl, '$')}
+          <Col className="metrics-card">
+          <Card>
+            <div className="metric-info">
+              <div className="metric-title">Profit/Loss</div>
+              <div className={`metric-value ${metrics.pnl >= 0 ? 'positive-value' : 'negative-value'}`}>
+                {`${'$'}${metrics.pnl.toFixed(2)}`}
+              </div>
+            </div>
+          </Card>
+        </Col>
           <Col className="metrics-card">
             <Card style={{ width: '100%'}}>
               <Flex justify="space-between">
@@ -82,8 +91,24 @@ const Dashboard = () => {
               </Flex>
             </Card>            
           </Col>
-
-          {renderMetricCard("Avg Ratio",  8, '', 'R')}
+          <Col className="metrics-card" >
+            <Card>
+              <div className="metric-info">
+                <div className="metric-title" >Avg win/loss trade</div>
+                <div className="metric-value" style={{ display: 'flex', justifyContent: 'space-between', marginTop:'10px' }}>
+                  <Tag style={{ fontSize: '12px', color: 'green' }}>
+                    <DollarOutlined style={{ marginRight: 5 }}/>
+                    {metrics.avg_win_trade.toFixed(2)}
+                  </Tag>
+                  <Tag style={{ fontSize: '12px', color: 'red' }}>
+                    <DollarOutlined style={{ marginRight: 5 }}/>
+                    {metrics.avg_loss_trade.toFixed(2)}
+                  </Tag>
+                </div>
+              </div>
+            </Card>
+          </Col>
+          
           {renderMetricCard("Progress",  80, '', '%')}
          
         </div>
