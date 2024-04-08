@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Row, Col, Card, Select, Flex, Spin, Space,Typography } from 'antd';
+import { Row, Col, Card, Select, Flex, Spin,Typography , Tag} from 'antd';
 import {WalletOutlined} from '@ant-design/icons';
 
 import { useGetKeyMetricsQuery } from '../services/BackendApi';
@@ -17,6 +17,7 @@ const Dashboard = () => {
  
   if (isLoading) return <Spin />;
   if (error) return <div>Error: {error.message}</div>;
+  console.log(metrics);
  
   const handlePeriodChange = (value) => {
      setSelectedPeriod(value);
@@ -56,7 +57,7 @@ const Dashboard = () => {
 
       <Row gutter={16} style={{ marginBottom: '16px' }}>
         <div className="metrics-row">
-          <Space direction='horizontal'>
+          
           {renderMetricCard("Balance", metrics.account_balance, '$')}
           {renderMetricCard("Profit/Loss", metrics.pnl, '$')}
           <Col className="metrics-card">
@@ -64,7 +65,14 @@ const Dashboard = () => {
               <Flex justify="space-between">
               
               <div className="metric-info">
-                <div className="metric-title">win_rate</div>
+                <div className='head'>
+                  <div className="metric-title">Win%</div>
+                    <div className="tag-container">
+                      <Tag style={{fontSize:'9px'}} color="green">{metrics.winning_trades}</Tag>
+                      <Tag  style={{fontSize:'9px'}} color="red">{metrics.losing_trades}</Tag>
+                    </div> 
+                </div>
+                
                 <div className="metric-value">{`${metrics.win_rate.toFixed(2)}${'%'}`}</div>
                 
               </div>
@@ -77,7 +85,7 @@ const Dashboard = () => {
 
           {renderMetricCard("Avg Ratio",  8, '', 'R')}
           {renderMetricCard("Progress",  80, '', '%')}
-          </Space>
+         
         </div>
       </Row>
       <Row gutter={16} style={{ marginLeft: '50px' }}>
