@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Row, Col, Card, Select, Flex, Spin,Typography , Tag} from 'antd';
-import {WalletOutlined, DollarOutlined, CheckCircleOutlined} from '@ant-design/icons';
+import {WalletOutlined, DollarOutlined, RiseOutlined, FallOutlined, ArrowUpOutlined } from '@ant-design/icons';
 
 import { useGetKeyMetricsQuery } from '../services/BackendApi';
 
@@ -77,8 +77,8 @@ const Dashboard = () => {
                 <div className='head'>
                   <div className="metric-title">Win%</div>
                     <div className="tag-container">
-                      <Tag style={{fontSize:'9px'}} color="green">{metrics.winning_trades}</Tag>
-                      <Tag  style={{fontSize:'9px'}} color="red">{metrics.losing_trades}</Tag>
+                      <Tag style={{fontSize:'10px', fontWeight:'bold', paddingLeft:'6px', paddingRight:'5px' }} color="green" bordered = {false} >{metrics.winning_trades}</Tag>
+                      <Tag  style={{fontSize:'10px' , fontWeight:'bold', paddingLeft:'6px', paddingRight:'5px'}} color="red" bordered = {false} >{metrics.losing_trades}</Tag>
                     </div> 
                 </div>
                 
@@ -91,12 +91,32 @@ const Dashboard = () => {
               </Flex>
             </Card>            
           </Col>
+          
+          <Col className="metrics-card">
+            <Card>
+              <div className="metric-info">
+                <div className="metric-title">Progress</div>
+                
+                  <div className="metric-value">
+                    <Flex >
+                      <div className='progress-icon'> 
+                          {metrics.progress > 0? <ArrowUpOutlined  style={{color: '#22e88c',fontSize: '20px' }}/>: <FallOutlined style={{color: 'red',fontSize: '25px' }}/>}
+                      </div>
+                        {`${0}${metrics.progress.toFixed(2)}${'%'}`} 
+                    </Flex>
+                    
+                </div>
+         
+              </div>
+            </Card>
+          </Col>
+
           <Col className="metrics-card" >
             <Card>
               <div className="metric-info">
                 <div className="metric-title" >Avg win/loss trade</div>
                 <div className="metric-value" style={{ display: 'flex', justifyContent: 'space-between', marginTop:'10px' }}>
-                  <Tag style={{ fontSize: '12px', color: 'green' }}>
+                  <Tag style={{ fontSize: '12px', color: '#41c641' }}>
                     <DollarOutlined style={{ marginRight: 5 }}/>
                     {metrics.avg_win_trade.toFixed(2)}
                   </Tag>
@@ -109,7 +129,7 @@ const Dashboard = () => {
             </Card>
           </Col>
           
-          {renderMetricCard("Progress",  80, '', '%')}
+          
          
         </div>
       </Row>
