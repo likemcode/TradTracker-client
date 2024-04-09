@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Avatar, List, Button, Spin, Tag, Flex } from 'antd';
+import { Avatar, List, Button, Spin, Tag, Flex, Card } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useGetJournalListQuery } from '../services/BackendApi';
@@ -60,38 +60,38 @@ const Journal = () => {
         itemLayout="horizontal"
         dataSource={journals}
         renderItem={(item, index) => (
-          <List.Item key={item.id} className="journal-item" style={{ padding: '16px' }} onClick={() => navigate(`/journalDetails/${item.id}`)}>
-            <List.Item.Meta
-            
-              avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`} />}
-              title={<Link to={`/journalDetails/${item.id}`}>{item.title}</Link>}
-              description={ <div dangerouslySetInnerHTML={{ __html: item.content }}/>}
-            />
-            <List.Item.Meta
-              style={{ marginLeft: '16px' }}
-              description={
-                <Flex justify="space-between" align="middle" wrap="wrap">
-                  <div style={{ marginLeft: '16px' }}>
-                    <p><strong>Symbol:</strong> {item.symbol}</p>
-                    </div>
-                    <Tag color={item.buy_or_sell === 'buy' ? '#108ee9' : '#f50'}>{item.buy_or_sell}</Tag>
-                  
-                  <div>
-                    
-                    <div>
-                      {item.experience === 'happy' && <SmileTwoTone twoToneColor='#6dd142' style={{ fontSize: '20px' }} />}
-                      {item.experience === 'neutral' && <MehTwoTone twoToneColor='b0bfaa' style={{  fontSize: '20px' }} />}
-                      {item.experience === 'sad' && <FrownTwoTone twoToneColor='#d33024' style={{ fontSize: '20px' }} />}
-                    </div>
-                  </div>
-                  <div>
-                  <p><strong>Date:</strong> {moment(item.date).format('MMMM Do, YYYY')}</p>
-                    
-                  </div>
-                </Flex>
-              }
-            />
-          </List.Item>
+          <List.Item key={item.id} className="journal-item" onClick={() => navigate(`/journalDetails/${item.id}`)}>
+  <Card
+    style={{ width: '100%', marginBottom: '16px', cursor: 'pointer' }} // Removed padding
+  >
+    <List.Item.Meta
+      avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`} />} // Consider adding a fallback for the avatar
+      title={<Link to={`/journalDetails/${item.id}`}>{item.title}</Link>}
+      description={<div dangerouslySetInnerHTML={{ __html: item.content }} />}
+    />
+    <List.Item.Meta
+      description={
+        <Flex justify="space-between" align="middle" wrap="wrap">
+          <div>
+            <p><strong>Symbol:</strong> {item.symbol}</p>
+            <Tag color={item.buy_or_sell === 'buy' ? '#108ee9' : '#f50'}>{item.buy_or_sell}</Tag>
+          </div>
+          <div>
+            <div>
+              {item.experience === 'happy' && <SmileTwoTone twoToneColor='#6dd142' style={{ fontSize: '20px' }} />}
+              {item.experience === 'neutral' && <MehTwoTone twoToneColor='b0bfaa' style={{ fontSize: '20px' }} />}
+              {item.experience === 'sad' && <FrownTwoTone twoToneColor='#d33024' style={{ fontSize: '20px' }} />}
+            </div>
+          </div>
+          <div>
+            <p><strong>Date:</strong> {moment(item.date).format('MMMM Do, YYYY')}</p>
+          </div>
+        </Flex>
+      }
+    />
+  </Card>
+</List.Item>
+
         )}
       />
     </div>

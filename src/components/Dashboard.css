@@ -1,0 +1,51 @@
+.metrics-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top:20px;
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+  
+  /* Metric card */
+  .metrics-card {
+    height: 85px;
+    width: 200px;
+    flex: 1;
+    margin-bottom: 16px;
+  }
+  
+  .metric-info {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+  }
+  
+  .metric-value.positive-value  {
+    color:#34bc5bf7,
+  }
+  
+  .negative-value {
+    color: #bf4747f7,
+  }
+  
+  .metric-title {
+    color: #939393f7;
+    font-size: 14px; /* Adjust font size as needed */
+  }
+  
+  .tag-container {
+    display: flex;
+    align-items: center;
+    width: 10px; /* Set a fixed width */
+  }
+  .head{
+    display: flex;
+    justify-content: space-between;
+    
+  }
+  
+  .metric-value {
+    font-weight:600;
+    font-size: 20px; /* Adjust font size as needed */
+  }

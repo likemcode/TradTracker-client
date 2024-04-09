@@ -8,8 +8,7 @@ import LineChart from './charts/LineChart';
 import BarChart from './charts/BarChart';
 import SemiDoughnutChart from './charts/SemiDoughnut';
 import DoughnutChart from './charts/DoughnutChart';
-
-const { Text } = Typography;
+import './Dashboard.css';
 
 const Dashboard = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('All');
@@ -98,13 +97,14 @@ const Dashboard = () => {
                 <div className="metric-title">Progress</div>
                 
                   <div className="metric-value">
-                    <Flex >
-                      <div className='progress-icon'> 
-                          {metrics.progress > 0? <ArrowUpOutlined  style={{color: '#22e88c',fontSize: '20px' }}/>: <FallOutlined style={{color: 'red',fontSize: '25px' }}/>}
-                      </div>
-                        {`${0}${metrics.progress.toFixed(2)}${'%'}`} 
-                    </Flex>
-                    
+                  <Flex>
+                    <div className='progress-icon'> 
+                      {metrics.progress > 0 ? <ArrowUpOutlined style={{ color: 'green', fontSize: '20px' }} /> : <FallOutlined style={{ color: 'red', fontSize: '20px' }} />}
+                    </div>
+                    <div style={{ color: metrics.progress > 0 ? 'green' : 'red' }}>
+                      {`${metrics.progress.toFixed(2)}${'%'}`}
+                    </div>
+                  </Flex>                      
                 </div>
          
               </div>
