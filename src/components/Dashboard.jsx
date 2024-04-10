@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Row, Col, Card, Select, Flex, Spin,Typography , Tag} from 'antd';
+import { Row, Col, Card, Select, Flex, Spin,Dropdown , Tag, Table} from 'antd';
 import {WalletOutlined, DollarOutlined, ArrowDownOutlined, ArrowUpOutlined, BankOutlined } from '@ant-design/icons';
-
+import { useGetTradesQuery } from '../services/BackendApi';
 import { useGetKeyMetricsQuery } from '../services/BackendApi';
-
+import moment from 'moment';
 import LineChart from './charts/LineChart';
 import BarChart from './charts/BarChart';
 import SemiDoughnutChart from './charts/SemiDoughnut';
@@ -13,18 +13,68 @@ import './Dashboard.css';
 const Dashboard = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('All');
   const { data: metrics, isLoading, error } = useGetKeyMetricsQuery();
+  const { data: trades, Loading, errorr } = useGetTradesQuery();
  
   if (isLoading) return <Spin />;
   if (error) return <div>Error: {error.message}</div>;
   
+
+  const columns = [
+    {
+      title: 'Date',
+      dataIndex: 'dates',
+      key: 'dates',
+      render: (text) => moment(text).format('MMMM Do YYYY, h:mm:ss a'),
+    },
+    {
+      title: 'Transaction',
+      dataIndex: 'buy_sell',
+      key: 'buy_sell',
+      render: (text, record) => {
+        if (text === '0' || text === '1') {
+          return null; // Exclude rendering if text is '0' or '1'
+        }
+      
+        if (record.profit >= 0) {
+          return <Tag color="green">Deposit</Tag>;
+        } else {
+          return <Tag color="red">Withdrawal</Tag>;
+  
+        }
+      },
+    },
+    {
+      title: 'Amount',
+      dataIndex: 'profit',
+      key: 'profit',
+      render: (text) => (
+        <Tag color={text >=  0 ? 'green' : 'red'}>
+          {text >=  0 ? `+${text}` : text} $
+        </Tag>
+      )
+
+    },
+  ];
+
+  const filteredTrades= trades.filter(record => record.buy_sell !== '0' && record.buy_sell !== '1');
+
+  const menu = (
+    <Table
+      dataSource={filteredTrades || []}
+      columns={columns}
+      pagination={false}
+      loading={isLoading}
+      locale={{
+        emptyText: isLoading ? 'Loading...' : error ? `Error: ${error.message}` : 'No data',
+      }}
+    />
+  );
  
   const handlePeriodChange = (value) => {
      setSelectedPeriod(value);
   };
 
-  const showop= () => {
-    console.log(metrics);
-  };
+  
  
   const renderMetricCard = (title, value, prefix = '', suffix = '') => (
     <Col className="metrics-card">
@@ -59,6 +109,8 @@ const Dashboard = () => {
        </Row>
 
       <Row gutter={16} style={{ marginBottom: '16px' }}>
+
+  
         <div className="metrics-row">
             <Col className="metrics-card">
             <Card>
@@ -66,9 +118,17 @@ const Dashboard = () => {
                 <div className="metric-title">Balance</div>
                 <Flex align="middle">
                   <div className="metric-value" style={{ marginRight: '25px' }}>{`$${metrics.account_balance.toFixed(2)}`}</div>
-                  <Tag color='blue' bordered={false} onClick={showop}>
-                    <BankOutlined />
-                  </Tag>
+                  <Dropdown
+                      overlay={
+                        menu
+                      }
+                      placement="bottomLeft"
+                      trigger={['click']}
+                    >
+                    <Tag color='blue' bordered={false} >
+                      <BankOutlined />
+                    </Tag>
+                  </Dropdown>
                 </Flex>
               </div>
             </Card>
