@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Row, Col, Card, Select, Flex, Spin,Typography , Tag} from 'antd';
-import {WalletOutlined, DollarOutlined, RiseOutlined, FallOutlined, ArrowUpOutlined } from '@ant-design/icons';
+import {WalletOutlined, DollarOutlined, ArrowDownOutlined, ArrowUpOutlined, BankOutlined } from '@ant-design/icons';
 
 import { useGetKeyMetricsQuery } from '../services/BackendApi';
 
@@ -16,10 +16,14 @@ const Dashboard = () => {
  
   if (isLoading) return <Spin />;
   if (error) return <div>Error: {error.message}</div>;
-  console.log(metrics);
+  
  
   const handlePeriodChange = (value) => {
      setSelectedPeriod(value);
+  };
+
+  const showop= () => {
+    console.log(metrics);
   };
  
   const renderMetricCard = (title, value, prefix = '', suffix = '') => (
@@ -56,8 +60,19 @@ const Dashboard = () => {
 
       <Row gutter={16} style={{ marginBottom: '16px' }}>
         <div className="metrics-row">
-          
-          {renderMetricCard("Balance", metrics.account_balance, '$')}
+            <Col className="metrics-card">
+            <Card>
+              <div className="metric-info">
+                <div className="metric-title">Balance</div>
+                <Flex align="middle">
+                  <div className="metric-value" style={{ marginRight: '25px' }}>{`$${metrics.account_balance.toFixed(2)}`}</div>
+                  <Tag color='blue' bordered={false} onClick={showop}>
+                    <BankOutlined />
+                  </Tag>
+                </Flex>
+              </div>
+            </Card>
+          </Col>
           <Col className="metrics-card">
           <Card>
             <div className="metric-info">
@@ -99,7 +114,7 @@ const Dashboard = () => {
                   <div className="metric-value">
                   <Flex>
                     <div className='progress-icon'> 
-                      {metrics.progress > 0 ? <ArrowUpOutlined style={{ color: 'green', fontSize: '20px' }} /> : <FallOutlined style={{ color: 'red', fontSize: '20px' }} />}
+                      {metrics.progress > 0 ? <ArrowUpOutlined style={{ color: 'green', fontSize: '20px' }} /> : <ArrowDownOutlined style={{ color: 'red', fontSize: '20px' }} />}
                     </div>
                     <div style={{ color: metrics.progress > 0 ? 'green' : 'red' }}>
                       {`${metrics.progress.toFixed(2)}${'%'}`}
