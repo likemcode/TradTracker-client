@@ -8,12 +8,17 @@ const LineChart = ({ timeRange }) => { // Correctly receiving timeRange as a pro
   const [chartData, setChartData] = useState([]);
   const { data: progressData, isLoading, error } = useGetAccountProgressQuery(timeRange);
   
- 
   useEffect(() => {
-     if (progressData) {
-       setChartData(progressData);
-     }
+    if (progressData) {
+      setChartData(progressData);
+    }
   }, [progressData]);
+
+  // Create gradient
+  const ctx = document.createElement('canvas').getContext('2d');
+  const gradient = ctx.createLinearGradient(0, 0, 0, 275); // Adjust the height as per your chart's height
+  gradient.addColorStop(0, 'rgba(70, 149, 252, 1)'); // Start color
+  gradient.addColorStop(1, 'rgba(23, 78, 140, 1)'); // End color
 
   const chartOptions = {
     scales: {
@@ -21,11 +26,9 @@ const LineChart = ({ timeRange }) => { // Correctly receiving timeRange as a pro
         beginAtZero: false
       }
     },
-    responsive:false,
-    
-    maintainAspectRatio:true
+    responsive: false,
+    maintainAspectRatio: true
   };
-
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -40,13 +43,14 @@ const LineChart = ({ timeRange }) => { // Correctly receiving timeRange as a pro
               label: 'Accumulated Profit',
               data: chartData.map(data => data.profit),
               fill: true,
+              backgroundColor: gradient, // Gradient from green to red
               borderColor: 'rgb(75, 192, 192)',
               tension: 0.4
             }]
           }}
           options={chartOptions}
           width={500}
-        height={275}
+          height={275}
         />
       </Card>
     </div>
