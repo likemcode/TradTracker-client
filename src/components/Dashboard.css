@@ -13,6 +13,7 @@
     width: 200px;
     flex: 1;
     margin-bottom: 16px;
+    background-color:rgba(70, 149, 252, 0.815),
   }
   
   .metric-info {
@@ -23,6 +24,7 @@
   
   .metric-value.positive-value  {
     color:#34bc5bf7,
+   
   }
   
   .negative-value {
@@ -46,6 +48,6 @@
   }
   
   .metric-value {
-    font-weight:600;
-    font-size: 17px; /* Adjust font size as needed */
+    font-weight:550;
+    font-size: 19px; /* Adjust font size as needed */
   }

@@ -209,8 +209,9 @@ const Dashboard = () => {
         </div>
       </Row>
       <Row gutter={16} style={{ marginLeft: '50px' }}>
-        <Col flex={1} style={{ height: '100%',  width:'fit-content'}}>
-        <Card style={{ height: '100%', width:'fit-content'}} >
+        
+        <Col flex={1} style={{   width:'fit-content'}}>
+        <Card style={{ height: '100%', }} >
           <LineChart  timeRange={selectedPeriod}/>
         </Card>
         </Col>
