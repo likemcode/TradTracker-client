@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Tag, Spin, DatePicker, Typography } from 'antd'; // Import DatePicker component
+import { Table, Tag, DatePicker, Typography } from 'antd'; // Import DatePicker component
 import { useGetTradesQuery } from '../services/BackendApi';
-
+import Loader from './Loader';
 
 const { RangePicker } = DatePicker;
 const {Text}=Typography;
@@ -14,7 +14,7 @@ const History = () => {
     setFilteredData(trades); // Initialize filtered data with trades
   }, [trades]); // Update filtered data when trades change
 
-  if (isLoading) return <Spin />;
+  if (isLoading) return <Loader />;
   if (error) return <div>Error: {error.message}</div>;
 
   const handleDateFilter = (dates) => {

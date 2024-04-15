@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Row, Col, Card, Select, Flex, Spin,Dropdown , Tag, Table} from 'antd';
+import { Row, Col, Card, Select, Flex, Spin,Dropdown , Tag, Table, Empty } from 'antd';
+import Loader from './Loader';
 import {WalletOutlined, DollarOutlined, ArrowDownOutlined, ArrowUpOutlined, BankOutlined } from '@ant-design/icons';
 import { useGetTradesQuery } from '../services/BackendApi';
 import { useGetKeyMetricsQuery } from '../services/BackendApi';
@@ -15,7 +16,9 @@ const Dashboard = () => {
   const { data: metrics, isLoading, error } = useGetKeyMetricsQuery();
   const { data: trades, Loading, errorr } = useGetTradesQuery();
  
-  if (isLoading) return <Spin />;
+  if (isLoading || Loading) return <Loader />;
+  
+  
   if (error) return <div>Error: {error.message}</div>;
   
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Avatar, List, Button, Spin, Tag, Flex, Card } from 'antd';
+import { Avatar, List, Button, Tag, Flex, Card } from 'antd';
+import Loader from './Loader';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useGetJournalListQuery } from '../services/BackendApi';
@@ -25,7 +26,7 @@ const Journal = () => {
   };
 
   if (isLoading) {
-    return <div><Spin /></div>;
+    return <Loader />;
   }
 
   if (error) {
