@@ -42,16 +42,17 @@ const MyDoughnutChartComponent = ({timeRange}) => {
     }
   }
   const options = {
-    responsive:false,
-    aspectRatio:1,
-    maintainAspectRatio:true,
+    responsive:true,
+    
+    maintainAspectRatio:false,
     plugins: {
       legend: {
         position: 'bottom',
         labels: {
           usePointStyle: true, // Use circles instead of squares
           // Adjust point radius for a small circle
-          pointRadius: 4,
+          pointRadius: 3,
+          
         },
 
         
@@ -62,7 +63,8 @@ const MyDoughnutChartComponent = ({timeRange}) => {
 
   // Render chart when data is available
   return (
-    <div className="my-chart">
+    <div style={{ width: '100%', height: 'auto' }}>
+      <div style={{ width: '100%', height: '300px' }}>
       <Doughnut
         ref={chartRef}
         data={{
@@ -90,9 +92,8 @@ const MyDoughnutChartComponent = ({timeRange}) => {
           }],
         }}
         options={options}
-        width={300}
-        height={300}
       />
+      </div>
     </div>
   );
 };

@@ -23,7 +23,7 @@ const BarChart = ({ timeRange }) => {
       {
         label: 'Profit',
         data: profits,
-        backgroundColor: profits.map(profit => profit >= 0 ? 'green' : 'red'), // Color bars based on profit
+        backgroundColor: profits.map(profit => profit >= 0 ? 'rgba(70, 149, 252, 0.900)' : 'rgba(228, 49, 49, 0.900)'), // Color bars based on profit
         borderWidth: 1,
       },
     ],
@@ -35,13 +35,15 @@ const BarChart = ({ timeRange }) => {
         beginAtZero: true,
       },
     },
-    responsive: false,
-    aspectRatio: 5,
+    responsive: true,
+    maintainAspectRatio: false
  };
 
  return (
-    <div>
-      <Bar data={chartData} options={options} width={400} height={300}/>
+  <div style={{ width: '100%', height: 'auto' }}>
+  <div style={{ width: '100%', height: '300px' }}>
+      <Bar data={chartData} options={options} />
+    </div>
     </div>
  );
 };

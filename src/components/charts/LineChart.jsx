@@ -22,8 +22,17 @@ const LineChart = ({ timeRange }) => { // Correctly receiving timeRange as a pro
 
   const chartOptions = {
     scales: {
-      y: {
+      x: {
+        grid: {
+          display: false, // This hides the y-axis grid lines
+        }, 
         beginAtZero: false
+      },
+
+      y: {
+        grid: {
+          display: true, // This hides the y-axis grid lines
+        },
       }
     },
     responsive: true,
@@ -43,7 +52,8 @@ const LineChart = ({ timeRange }) => { // Correctly receiving timeRange as a pro
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div style={{ width:'100%' , height: '50vh' }}>
+    <div style={{ width: '100%', height: 'auto' }}>
+      <div style={{ width: '100%', height: '300px' }}> {/* Adjust the height as needed */}
         <Line
           data={{
             labels: chartData.map(data => new Date(data.dates).toLocaleDateString()),
@@ -51,7 +61,7 @@ const LineChart = ({ timeRange }) => { // Correctly receiving timeRange as a pro
               label: 'Accumulated Profit',
               data: chartData.map(data => data.profit),
               fill: true,
-              backgroundColor: gradient, // Gradient from green to red
+              backgroundColor: gradient,
               borderWidth: 2,
               pointRadius: 1,
               borderColor: 'rgba(70, 149, 252, 0.815)',
@@ -59,10 +69,8 @@ const LineChart = ({ timeRange }) => { // Correctly receiving timeRange as a pro
             }]
           }}
           options={chartOptions}
-           
-          
         />
-      
+      </div>
     </div>
   );
 };

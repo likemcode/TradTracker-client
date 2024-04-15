@@ -208,24 +208,27 @@ const Dashboard = () => {
          
         </div>
       </Row>
-      <Row gutter={16} style={{ marginLeft: '50px' }}>
+      <Row gutter={16} style={{ marginLeft: '50px', marginRight:'50px' }}>
         
-        <Col flex={1} style={{   width:'fit-content'}}>
-        <Card style={{ height: '100%', }} >
-          <LineChart  timeRange={selectedPeriod}/>
-        </Card>
+        <Col flex={1}>
+          <Card style={{ height: '100%'   }}>
+              <BarChart timeRange={selectedPeriod}/>
+            </Card>
+        
         </Col>
         <Col flex={1}>
-          <Card style={{ height: '100%',  width:'fit-content'}}>
+          <Card style={{ height: '100%'}}>
             <DoughnutChart timeRange={selectedPeriod}/>
           </Card>
         </Col>
+        
+        
       </Row>
-      <Row gutter={16}>
+      <Row gutter={16} style={{ marginLeft: '50px', marginRight:'50px'  }}>
         <Col span={24}>
-          <Card>
-            <BarChart timeRange={selectedPeriod}/>
-          </Card>
+          <Card style={{ height: '100%' }} >
+          <LineChart  timeRange={selectedPeriod}/>
+        </Card>
         </Col>
         
       </Row>
