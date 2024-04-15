@@ -50,8 +50,8 @@ const MyDoughnutChartComponent = ({timeRange}) => {
         position: 'bottom',
         labels: {
           usePointStyle: true, // Use circles instead of squares
-          // Adjust point radius for a small circle
-          pointRadius: 3,
+          
+          pointRadius: 2,
           
         },
 

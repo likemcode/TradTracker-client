@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useGetBarChartDataQuery } from '../../services/BackendApi';
-
-
+import Loader from '../Loader';
 
 const BarChart = ({ timeRange }) => {
   
@@ -10,7 +9,7 @@ const BarChart = ({ timeRange }) => {
  
   
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <Loader/>;
     if (error) return <div>Error: {error.message}</div>;
     
  // Preprocess data
@@ -25,6 +24,7 @@ const BarChart = ({ timeRange }) => {
         data: profits,
         backgroundColor: profits.map(profit => profit >= 0 ? 'rgba(70, 149, 252, 0.900)' : 'rgba(228, 49, 49, 0.900)'), // Color bars based on profit
         borderWidth: 1,
+        borderRadius:4,
       },
     ],
  };
