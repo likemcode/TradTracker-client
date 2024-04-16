@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useGetSemiDoughnutDataQuery } from '../../services/BackendApi'; // Adjust the import path as necessary
-
+import Loader from '../Loader';
 const SemiDoughnutChart = ({timeRange}) => {
   const { data: tradeData, isLoading, error } = useGetSemiDoughnutDataQuery(timeRange);
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <Loader/>;
     if (error) return <div>Error: {error.message}</div>;
 
   const chartData = {

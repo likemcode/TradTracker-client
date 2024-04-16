@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import { useGetAccountProgressQuery } from '../../services/BackendApi';
-import { Card } from 'antd';
+import Loader from '../Loader';
+
 
 const LineChart = ({ timeRange }) => { // Correctly receiving timeRange as a prop
   const [chartData, setChartData] = useState([]);
@@ -48,7 +49,7 @@ const LineChart = ({ timeRange }) => { // Correctly receiving timeRange as a pro
     maintainAspectRatio: false
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loader/>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (

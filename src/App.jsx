@@ -38,14 +38,7 @@ const MainContent = () => {
           bottom: 0,
         }}
         
-        breakpoint="lg"
-        collapsedWidth="80"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}>
+        >
             <div className='toggle'>
               <Button type='text' onClick={() => setCollapsed(!collapsed)} icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined  />}  />
             </div>

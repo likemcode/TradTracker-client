@@ -81,6 +81,7 @@
   border: none;
   display: flex;
   justify-content: center;
+  background-color: #bbd6f722;
 }
 
 .journal-details-container .ql-toolbar.ql-snow {
@@ -89,7 +90,7 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: #F3F3F3;
+  background-color: #fcfcfc;
   border: none;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5);
 }

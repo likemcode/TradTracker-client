@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useGetDoughnutDataQuery } from '../../services/BackendApi';
+import Loader from '../Loader';
 import 'chart.js/auto';
 
 
@@ -21,7 +22,7 @@ const MyDoughnutChartComponent = ({timeRange}) => {
   }, []);
 
   // Handle loading state
-  if (isLoading) return 'Loading...';
+  if (isLoading) return <Loader />;
 
   // Handle error state
   if (error) return <div>Error: {error.message}</div>;
