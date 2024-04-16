@@ -92,7 +92,7 @@ const History = () => {
   ];
 
   return (
-    <div>
+    <div style={{marginLeft:'20px', marginRight:'20px'}}>
       {/* Add the RangePicker component for date filtering */}
       <RangePicker onChange={handleDateFilter} style={{ marginBottom: '16px' }} />
       <Table

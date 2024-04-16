@@ -28,8 +28,24 @@ const MainContent = () => {
     {/* {location.pathname === '*' && <Notf />} */}
     {/* Renders the rest of the app only for other routes */}
     {!['/', '/Login', '/signup'].includes(location.pathname) &&  (
-        <Layout>
-          <Sider collapsed={collapsed} collapsible trigger={null} theme={darkTheme ? 'dark' : 'light'} className='sidebar'>
+        <Layout hasSider>
+          <Sider collapsed={collapsed} collapsible trigger={null} theme={darkTheme ? 'dark' : 'light'} className='sidebar'  style={{
+          
+          height: '100vh',
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          bottom: 0,
+        }}
+        
+        breakpoint="lg"
+        collapsedWidth="80"
+        onBreakpoint={(broken) => {
+          console.log(broken);
+        }}
+        onCollapse={(collapsed, type) => {
+          console.log(collapsed, type);
+        }}>
             <div className='toggle'>
               <Button type='text' onClick={() => setCollapsed(!collapsed)} icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined  />}  />
             </div>
@@ -38,8 +54,16 @@ const MainContent = () => {
           </Sider>
           <Header style={{ padding: 0 }}>
           </Header>
-
-          <Content className='page-content'>
+          <Layout
+          style={{
+          // marginLeft: 200,
+          
+        }}
+      >
+          <Content className='page-content' style={{
+            paddingLeft: collapsed ? '80px' : '200px',
+            overflow: 'hidden',
+          }}>
             <div className='routes'>
               <Routes>
                 <Route element={<ProtectedRoutes/>}>
@@ -52,6 +76,7 @@ const MainContent = () => {
               </Routes>
             </div>
           </Content>
+          </Layout>
         </Layout>
       )}
     </>

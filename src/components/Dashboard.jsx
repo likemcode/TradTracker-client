@@ -93,7 +93,7 @@ const Dashboard = () => {
  
   return (
      <div >
-       <Row>
+       <Row style={{marginLeft:'15px', marginTop:'10px'}}>
          <Col span={24}>
            <Select
              defaultValue="All"
