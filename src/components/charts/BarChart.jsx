@@ -6,9 +6,6 @@ import Loader from '../Loader';
 const BarChart = ({ timeRange }) => {
   
   const { data, isLoading, error } = useGetBarChartDataQuery(timeRange);
- 
-  
-
     if (isLoading) return <Loader/>;
     if (error) return <div>Error: {error.message}</div>;
     

@@ -9,7 +9,7 @@ export const tradesApi = createApi({
        query: () => `backend/trades/list`,
      }),
      getKeyMetrics: builder.query({
-       query: () => `backend/trades/key-metrics`,
+       query: (timeRange) => `backend/trades/key-metrics/${timeRange}`,
      }),
      getAccountProgress: builder.query({
        query: (timeRange) => `backend/trades/progress/${timeRange}`,

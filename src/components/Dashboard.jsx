@@ -13,12 +13,12 @@ import './Dashboard.css';
 
 const Dashboard = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('All');
-  const { data: metrics, isLoading, error } = useGetKeyMetricsQuery();
+  const { data: metrics, isLoading, error } = useGetKeyMetricsQuery( selectedPeriod );
   const { data: trades, Loading, errorr } = useGetTradesQuery();
  
   if (isLoading || Loading) return <Loader />;
   
-  if (trades.length==0) return <Empty/>
+  if (!metrics || metrics.length === 0) return <Empty />;
   if (error) return <div>Error: {error.message}</div>;
   
 
@@ -79,17 +79,17 @@ const Dashboard = () => {
 
   
  
-  const renderMetricCard = (title, value, prefix = '', suffix = '') => (
-    <Col className="metrics-card">
-      <Card>
-        <div className="metric-info">
-          <div className="metric-title">{title}</div>
-          <div className="metric-value">{`${prefix}${value.toFixed(2)}${suffix}`}</div>
+  // const renderMetricCard = (title, value, prefix = '', suffix = '') => (
+  //   <Col className="metrics-card">
+  //     <Card>
+  //       <div className="metric-info">
+  //         <div className="metric-title">{title}</div>
+  //         <div className="metric-value">{`${prefix}${value.toFixed(2)}${suffix}`}</div>
           
-        </div>
-      </Card>
-    </Col>
-  );
+  //       </div>
+  //     </Card>
+  //   </Col>
+  // );
  
   return (
      <div >
@@ -192,7 +192,7 @@ const Dashboard = () => {
           <Col className="metrics-card" >
             <Card>
               <div className="metric-info">
-                <div className="metric-title" >Avg win/loss trade</div>
+                <div className="metric-title" >Avg win/loss</div>
                 <div className="metric-value" style={{ display: 'flex', justifyContent: 'space-between', marginTop:'10px' }}>
                   <Tag style={{ fontSize: '12px', color: '#41c641' }}>
                     <DollarOutlined style={{ marginRight: 5 }}/>

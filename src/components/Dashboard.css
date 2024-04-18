@@ -19,12 +19,13 @@
   .metric-info {
     display: flex;
     flex-direction: column;
-    align-items: left;
+    max-width:134.65px ;
+    max-height: 53.33px ;
   }
   
   .metric-value.positive-value  {
-    color:#34bc5bf7,
-   
+    color:#34bc5bf7;
+    
   }
   
   .negative-value {
