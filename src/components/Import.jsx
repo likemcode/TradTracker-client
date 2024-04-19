@@ -17,12 +17,13 @@ const ImportComponent = ({ visible, onClose  }) => {
 
   const handleImportSampleTrades = async () => {
     // Handle import sample trades logic here
-      
+    const token = localStorage.getItem('token');
       try {
           const response = await fetch('http://127.0.0.1:8000/backend/trades/import-sample-trades/', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
+                  'Authorization': `Token ${token}`
               }
 
           });
@@ -41,7 +42,7 @@ const ImportComponent = ({ visible, onClose  }) => {
               message.error(data.sorry)
           }
       } catch (error) {
-        message.error('An error occurred while importing sample trades. Please try again.');
+        message.error('An error occurred while importing sample trades. Please try again.', error);
       }
 
   };

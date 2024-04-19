@@ -50,6 +50,7 @@ const JournalDetails = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Token ${token}`
         },
         body: JSON.stringify({
           title:title,

@@ -3,7 +3,21 @@ import { createApi, fetchBaseQuery  } from '@reduxjs/toolkit/query/react';
 
 export const tradesApi = createApi({
   reducerPath: 'tradesApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://127.0.0.1:8000' }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'http://127.0.0.1:8000',
+    prepareHeaders: (headers, { getState }) => {
+      // Get the token from your state or wherever you store it
+      const token = localStorage.getItem('token');
+
+      // If a token exists, include it in the headers
+      if (token) {
+        
+        headers.set('Authorization', `Token ${token}`);
+      }
+
+      return headers;
+    },
+  }),
   endpoints: (builder) => ({
      getTrades: builder.query({
        query: () => `backend/trades/list`,
