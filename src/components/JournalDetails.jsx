@@ -28,8 +28,14 @@ const JournalDetails = () => {
 
   useEffect(() => {
     const fetchJournalEntry = async () => {
+      const token = localStorage.getItem('token');
       try {
-        const response = await fetch(`http://127.0.0.1:8000/backend/trades/journal_entry/${journalId}/`);
+        const response = await fetch(`http://127.0.0.1:8000/backend/trades/journal_entry/${journalId}/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${token}`,
+        }});
         if (!response.ok) {
           throw new Error('Failed to fetch journal entry');
         }
@@ -45,12 +51,13 @@ const JournalDetails = () => {
 
   // Function to handle saving the journal entry
   const saveJournalEntry = async () => {
+    const token = localStorage.getItem('token');
     try {
       const response = await fetch(`http://127.0.0.1:8000/backend/trades/journal_entry/${journalId}/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Token ${token}`
+          'Authorization': `Token ${token}`,
         },
         body: JSON.stringify({
           title:title,
@@ -66,7 +73,7 @@ const JournalDetails = () => {
       }
       message.success('Journal entry saved successfully');
     } catch (error) {
-      message.error('Error saving journal entry:', error);
+      message.error('Error saving journal entry:', error.error);
     }
   };
   return (

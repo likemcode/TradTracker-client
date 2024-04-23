@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Avatar, List, Button, Tag, Flex, Card } from 'antd';
+import { Avatar, List, Button, Tag, Flex, Card, Row , Col} from 'antd';
 import Loader from './Loader';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -9,6 +9,52 @@ import { SmileTwoTone, FrownTwoTone, MehTwoTone } from '@ant-design/icons'; // I
 import moment from 'moment';
 
 // add Row and Column (Row, Col from ant-design)
+const truncateText = (text, maxLength) => {
+  if (text.length <= maxLength) {
+    return text;
+  }
+  return `${text.slice(0, maxLength)}...`;
+};
+
+const extractText = (htmlContent) => {
+  // Remove HTML tags
+  const withoutTags = htmlContent.replace(/<[^>]*>/g, '');
+
+  // Remove whitespace and multiple spaces
+  const normalizedText = withoutTags.replace(/\s+/g, ' ');
+
+  return normalizedText;
+};
+
+const extractImageUrls = (htmlContent) => {
+  const imageUrls = [];
+
+  // Regex to match <img> tags and extract src attribute
+  const imageRegex = /<img[^>]*src="([^"]+)"\s*\/?>/g;
+
+  let match;
+  while ((match = imageRegex.exec(htmlContent)) !== null) {
+    imageUrls.push(match[1]); // Capture the image URL
+  }
+
+  return imageUrls;
+};
+
+const processContent = (htmlContent) => {
+  const plainText = extractText(htmlContent);
+  const imageUrls = extractImageUrls(htmlContent);
+  const truncatedText = truncateText(plainText, 30);
+
+  // Combine text and image URLs into a structured format
+  const processedContent = {
+    text: truncatedText,
+    images: imageUrls,
+  };
+
+  return processedContent;
+};
+
+
 
 const Journal = () => {
   const { data: journals, error, isLoading } = useGetJournalListQuery();
@@ -33,15 +79,6 @@ const Journal = () => {
     return <div>Error: {error.message}</div>;
   }
 
-  const itemContentTruncated = (content) => {
-    
-    
-  
-    // Truncate to the first 30 characters
-    const truncatedContent = sanitizedContent.slice(0, 30);
-  
-    return truncatedContent;
-  };
 
   return (
     <div>
@@ -62,34 +99,38 @@ const Journal = () => {
         dataSource={journals}
         renderItem={(item, index) => (
           <List.Item key={item.id} className="journal-item" onClick={() => navigate(`/journalDetails/${item.id}`)}>
-  <Card
-    style={{ width: '100%', marginBottom: '16px', cursor: 'pointer' }} // Removed padding
-  >
-    <List.Item.Meta
-      avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`} />} // Consider adding a fallback for the avatar
-      title={<Link to={`/journalDetails/${item.id}`}>{item.title}</Link>}
-      description={<div dangerouslySetInnerHTML={{ __html: item.content }} />}
-    />
-    <List.Item.Meta
-      description={
-        <Flex justify="space-between" align="middle" wrap="wrap">
-          <div>
+  <Card style={{ width: '100%', marginBottom: '4px', cursor: 'pointer' }}>
+    <Row>
+      <Col span={1}>
+        <Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`} /> {/* Consider adding a fallback for the avatar */}
+      
+      </Col>
+      <Col span={6}>
+        <Row>
+          <Link to={`/journalDetails/${item.id}`}>{item.title}</Link> 
+        </Row>
+        <Row>
+          {processContent(item.content).text}  
+        </Row>
+      </Col>
+
+        <Col span={4}>
             <p><strong>Symbol:</strong> {item.symbol}</p>
-            <Tag color={item.buy_or_sell === 'buy' ? '#108ee9' : '#f50'}>{item.buy_or_sell}</Tag>
-          </div>
-          <div>
-            <div>
-              {item.experience === 'happy' && <SmileTwoTone twoToneColor='#6dd142' style={{ fontSize: '20px' }} />}
-              {item.experience === 'neutral' && <MehTwoTone twoToneColor='b0bfaa' style={{ fontSize: '20px' }} />}
-              {item.experience === 'sad' && <FrownTwoTone twoToneColor='#d33024' style={{ fontSize: '20px' }} />}
-            </div>
-          </div>
-          <div>
-            <p><strong>Date:</strong> {moment(item.date).format('MMMM Do, YYYY')}</p>
-          </div>
-        </Flex>
-      }
-    />
+         
+        </Col>
+      <Col span={3}>
+        <Tag color={item.buy_or_sell === 'buy' ? '#108ee9' : '#f50'}>{item.buy_or_sell}</Tag></Col>
+      <Col span={5}>
+        <div>
+          {item.experience === 'happy' && <SmileTwoTone twoToneColor='#6dd142' style={{ fontSize: '20px' }} />}
+          {item.experience === 'neutral' && <MehTwoTone twoToneColor='b0bfaa' style={{ fontSize: '20px' }} />}
+          {item.experience === 'sad' && <FrownTwoTone twoToneColor='#d33024' style={{ fontSize: '20px' }} />}
+        </div>
+      </Col>
+      <Col span={5}>
+        <p><strong>Date:</strong> {moment(item.date).format('MMMM Do, YYYY')}</p>
+      </Col>
+    </Row>
   </Card>
 </List.Item>
 

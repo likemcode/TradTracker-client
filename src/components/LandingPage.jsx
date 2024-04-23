@@ -2,10 +2,6 @@ import React, {useState} from 'react';
 import { Layout, Row, Col, Button, Typography, Card } from 'antd';
 import { Link } from 'react-router-dom'; 
 import { RocketOutlined, DollarCircleOutlined, SafetyOutlined, MenuOutlined, LineChartOutlined} from '@ant-design/icons';
-
-
-import logo from '../logoLarge.png';
-import another from '../logoSmall.png'
 import './LandingPage.css';
 
 const { Header, Content, Footer } = Layout;

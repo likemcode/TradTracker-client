@@ -53,10 +53,11 @@ const ImportComponent = ({ visible, onClose  }) => {
         open={visible}
         onCancel={onClose}
         footer={null}
+        
       >
-        <Flex gap={20}>
+        <Flex  gap={10} >
           <Card title="Import Custom Trades" hoverable>
-            <Paragraph style={{color: '#666' , fontSize:'13px'}}>You can import trades directly from your MetaTrader5 account, make sure you have metatrader5 installed on your Machine</Paragraph>
+            <p style={{color: '#666' , fontSize:'11px', marginBottom:'10px'}}>You can import trades directly from your MetaTrader5 account, make sure you have metatrader5 installed on your Machine</p>
             <Button type="primary" onClick={handleOpenformModal}>
               Import Custom Trades
             </Button>
@@ -66,7 +67,7 @@ const ImportComponent = ({ visible, onClose  }) => {
             />
           </Card>
           <Card title="Sample Trades" hoverable>
-          <Paragraph style={{color: '#666', fontSize:'13px'}}>You can import trades directly from your MetaTrader5 account, make sure you have metatrader5 installed on your Machine</Paragraph>
+          <p style={{color: '#666' , fontSize:'11px', marginBottom:'10px'}}>You can import trades directly from your MetaTrader5 account, make sure you have metatrader5 installed on your Machine</p>
             <Button type="primary" onClick={handleImportSampleTrades}>
               Import Sample Trades
             </Button>
