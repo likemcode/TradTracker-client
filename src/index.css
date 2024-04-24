@@ -116,3 +116,7 @@
   align-items: center;
   height: 100vh; /* This makes the container take up the full height of the viewport */
  }
+
+ :where(.css-dev-only-do-not-override-1xg9z9n).ant-card .ant-card-body {
+    padding: 20px;
+ }
