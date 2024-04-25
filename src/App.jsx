@@ -9,7 +9,7 @@ import ToggleThemeButton from './components/ToggleThemeButton';
 const { Header, Sider, Content } = Layout;
 
 // Create a new component that uses useLocation
-const MainContent = () => {
+const App = () => {
  const [darkTheme, setDarkTheme] = useState(false);
  const [collapsed, setCollapsed] = useState(false);
  
@@ -76,12 +76,5 @@ const MainContent = () => {
  );
 };
 
-const App = () => {
- return (
-    <Router>
-      <MainContent />
-    </Router>
- );
-};
 
 export default App;
