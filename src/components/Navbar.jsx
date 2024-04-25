@@ -1,13 +1,34 @@
-import React,  { useState } from 'react';
-import {Menu,Avatar} from 'antd';
+import React,  { useState, useEffect } from 'react';
+import {Menu,Avatar, Button} from 'antd';
 import{Link, useNavigate} from 'react-router-dom';
-import {CloudDownloadOutlined, TableOutlined,LogoutOutlined,AreaChartOutlined,UserOutlined, ReadOutlined, StopOutlined} from '@ant-design/icons';
+import {CloudDownloadOutlined, TableOutlined,LogoutOutlined,AreaChartOutlined,UserOutlined, ReadOutlined, StopOutlined, MenuOutlined} from '@ant-design/icons';
 import  ImportComponent  from './Import';
 
 
 const Navbar = ({darkTheme}) => {
+  const [activeMenu, setActiveMenu]= useState(true)
+  const [screenSize, setScreenSize] = useState(null)
   const [isImportModalVisible, setIsImportModalVisible] = useState(false);
   const navigate= useNavigate()
+
+  useEffect(() => {
+    const handleResize = () => setScreenSize(window.innerWidth);
+
+    window.addEventListener('resize', handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (screenSize <= 800) {
+      setActiveMenu(false);
+    } else {
+      setActiveMenu(true);
+    }
+  }, [screenSize]);
+
   const handleOpenImportModal = () => {
     setIsImportModalVisible(true);    
   };
@@ -32,6 +53,8 @@ const Navbar = ({darkTheme}) => {
 
   return (
         <>
+         <Button className="menu-control-container" onClick={() => setActiveMenu(!activeMenu)}><MenuOutlined /></Button>
+        {activeMenu && (
         <Menu theme={darkTheme ? 'dark' : 'light'} mode="vertical" className='menu-bar' >
             <Menu.Item key='Dashboard' icon={<AreaChartOutlined />}>
               <Link to="/Dashboard">Dashboard</Link>
@@ -61,7 +84,7 @@ const Navbar = ({darkTheme}) => {
         </Menu.SubMenu>
           
         </Menu>
-        
+        )}
         <ImportComponent visible={isImportModalVisible} onClose={handleCloseImportModal} />
         
         </>
