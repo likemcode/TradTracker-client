@@ -18,7 +18,7 @@ const Dashboard = () => {
  
   if (isLoading || Loading) return <Loader />;
   
-  if (!metrics || metrics.length === 0) return <Empty />;
+  if (!metrics || metrics.length === 0) return <Empty  />;
   if (error) return <div>Error: {error.message}</div>;
   
 
