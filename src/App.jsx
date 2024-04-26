@@ -21,7 +21,7 @@ const App = () => {
  // Use useLocation hook to get the current location
  const location = useLocation();
  return (
-  <>
+  <div className='app'>
     {location.pathname === '/' && <LandingPage />}
     {location.pathname === '/Login' && <LoginPage />}
     {location.pathname === '/signup' && <SignUp />}
@@ -42,17 +42,17 @@ const App = () => {
             <div className='toggle'>
               <Button type='text' onClick={() => setCollapsed(!collapsed)} icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined  />}  />
             </div>
-            <Navbar darkTheme={darkTheme} />
+            <Navbar darkTheme={darkTheme} className='navbar' />
             <ToggleThemeButton darkTheme={darkTheme} toggleTheme={toggleTheme} />
           </Sider>
-          <Header style={{ padding: 0 }}>
-          </Header>
           <Layout
           style={{
           // marginLeft: 200,
           
         }}
-      >
+      >   <Header className='header'>
+      <Navbar darkTheme={darkTheme} className='navbar' />
+  </Header>
           <Content className='page-content' style={{
             paddingLeft: collapsed ? '80px' : '200px',
             overflow: 'hidden',
@@ -72,7 +72,7 @@ const App = () => {
           </Layout>
         </Layout>
       )}
-    </>
+    </div>
  );
 };
 

@@ -13,6 +13,10 @@
   color: #ffffff;
 }
 
+.header {
+  display: none;
+}
+
 .menu-bar {
  height: 88vh;
  margin-top:2rem;
@@ -73,6 +77,15 @@
       flex: 1;
   }
 
+  .header {
+      display:block !important;;
+  }
+
+  .sidebar{
+    display: none;
+  }
+
+  
   .main{
       flex: 1;
       margin-top: 90px;
@@ -80,13 +93,7 @@
       margin-right: 10px;
   }
 
-  .nav-container{
-      height: 8vh;
-      position:fixed;
-      width: 100%;
-      z-index: 100;
-      background-color: var(--bgSecondary);
-  }
+  
 
   .menu-control-container{
       display: block !important;
