@@ -64,6 +64,8 @@
 
 .page-content {
   background-color: #bbd6f722;
+  min-height: calc(100vh - 8vh)!important;
+  overflow-y: auto;
 }
 
 
@@ -79,8 +81,11 @@
   }
 
   .page-content {
-    padding-left: 15px !important;
-  }
+    margin-top: 8vh !important; /* Ensure it starts below the nav-container */
+    padding-left: 0px !important;
+    min-height: calc(100vh - 8vh)!important;
+   
+   }
 
   .navbar{
       flex: 1;
@@ -93,7 +98,7 @@
     margin: 10px;
     height: 8vh;
     margin: 0px;
-    background-color:#f9f9f9 ;
+    background-color:#ffffff ;
     z-index: 100;
     width: 100%;
   }
@@ -117,9 +122,11 @@
 
   .menu-control-container{
       display: block !important;
-      right: 10px !important;
-      top: 15px !important;
+      right: 20px !important;
+      top: 10px !important;
       font-size: 0.8rem !important;
+      padding-left: 9px !important;
+      padding-right: 9px !important;
   }
 
   .ant-menu{
@@ -129,6 +136,34 @@
 }
 
 
+
+ 
+ /* Adjustments for smaller screens */
+ @media (max-width: 768px) {
+  .responsive-table .ant-table-cell {
+     font-size: 0.8rem!important; /* Smaller font size */
+     padding: 8px !important;/* Reduced padding */
+  }
+ 
+}
+ /* Further adjustments for even smaller screens */
+ @media (max-width: 480px) {
+  .responsive-table .ant-table-cell {
+     font-size: 0.7rem  !important; /* Even smaller font size */
+     padding: 4px  !important; /* Further reduced padding */
+  }
+
+
+  /* .ant-table-thead {
+    width: 356px !important;
+
+  }
+
+  .ant-table-tbody {
+    width: 356px !important;
+
+  } */
+ }
 
 
 .import-cards{

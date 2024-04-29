@@ -103,7 +103,7 @@ const Journal = () => {
         }}
       />
       <List
-        header={<Flex justify="space-between" style={{ margin: '16px' }}>
+        header={<Flex justify="space-between" style={{ margin: '16px'}}>
           <h3>My Trading Journal 📝</h3>
           <Button type="primary" style={{ marginBottom: '16px' }} onClick={() => setModalVisible(true)}>
             Add Journal
@@ -111,6 +111,7 @@ const Journal = () => {
         </Flex>}
         itemLayout="horizontal"
         dataSource={journals}
+        style={{ height: '100 %' }}
         renderItem={(item, index) => (
           <List.Item key={item.id} className="journal-item" 
             style={{ marginBottom: '4px' }}

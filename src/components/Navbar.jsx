@@ -53,7 +53,7 @@ const Navbar = ({darkTheme}) => {
 
   return (
         <div className='nav-container'>
-         <Button className="menu-control-container" onClick={() => setActiveMenu(!activeMenu)} style={{paddingLeft:'10px', paddingRight:'10px', height: '100%'}}><MenuOutlined /></Button>
+         <Button className="menu-control-container" onClick={() => setActiveMenu(!activeMenu)} style={{paddingLeft:'10px', paddingRight:'10px'}}><MenuOutlined /></Button>
         {activeMenu && (
         <Menu theme={darkTheme ? 'dark' : 'light'} mode="vertical" className='menu-bar' >
             <Menu.Item key='Dashboard' icon={<AreaChartOutlined />}>

@@ -94,11 +94,12 @@ const History = () => {
   return (
     <div style={{marginLeft:'20px', marginRight:'20px'}}>
       {/* Add the RangePicker component for date filtering */}
-      <RangePicker onChange={handleDateFilter} style={{ marginBottom: '16px' }} />
+      <RangePicker onChange={handleDateFilter} style={{ marginBottom: '16px', marginTop: '16px' }} />
       <Table
         columns={columns}
         dataSource={filteredData} // Use filteredData instead of trades
         rowKey="id"
+        size="middle" // or "small"
         pagination={{ pageSize: 30 }}
         format="YYYY-MM-DD"
       />
