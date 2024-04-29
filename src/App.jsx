@@ -45,14 +45,10 @@ const App = () => {
             <Navbar darkTheme={darkTheme} className='navbar' />
             <ToggleThemeButton darkTheme={darkTheme} toggleTheme={toggleTheme} />
           </Sider>
-          <Layout
-          style={{
-          // marginLeft: 200,
-          
-        }}
-      >   <Header className='header'>
-      <Navbar darkTheme={darkTheme} className='navbar' />
-  </Header>
+          <Layout>   
+            <Header className='app-header'>
+              <Navbar darkTheme={darkTheme} className='navbar' />
+            </Header>
           <Content className='page-content' style={{
             paddingLeft: collapsed ? '80px' : '200px',
             overflow: 'hidden',

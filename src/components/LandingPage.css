@@ -120,6 +120,8 @@
   
     .nav-links.active {
       right: 0; /* Move nav-links into view when active */
+      margin-right: 0px;
+      margin-top: -15px;
     }
   
     .nav-links.active a {

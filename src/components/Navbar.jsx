@@ -52,8 +52,8 @@ const Navbar = ({darkTheme}) => {
   };
 
   return (
-        <>
-         <Button className="menu-control-container" onClick={() => setActiveMenu(!activeMenu)}><MenuOutlined /></Button>
+        <div className='nav-container'>
+         <Button className="menu-control-container" onClick={() => setActiveMenu(!activeMenu)} style={{paddingLeft:'10px', paddingRight:'10px', height: '100%'}}><MenuOutlined /></Button>
         {activeMenu && (
         <Menu theme={darkTheme ? 'dark' : 'light'} mode="vertical" className='menu-bar' >
             <Menu.Item key='Dashboard' icon={<AreaChartOutlined />}>
@@ -87,7 +87,7 @@ const Navbar = ({darkTheme}) => {
         )}
         <ImportComponent visible={isImportModalVisible} onClose={handleCloseImportModal} />
         
-        </>
+        </div>
       
   )
 }

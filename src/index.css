@@ -13,7 +13,7 @@
   color: #ffffff;
 }
 
-.header {
+.app-header {
   display: none;
 }
 
@@ -30,6 +30,7 @@
 .menu-item-wrapper {
   padding: 0 24px; /* Adjust padding as needed */
 }
+
 
 .menu-control-container{
   display: none !important;
@@ -73,41 +74,57 @@
       overflow: hidden;
   }
 
-  .navbar{
-      flex: 1;
-  }
-
-  .header {
-      display:block !important;;
-  }
-
   .sidebar{
     display: none;
   }
 
-  
-  .main{
-      flex: 1;
-      margin-top: 90px;
-      margin-left: 0px;
-      margin-right: 10px;
+  .page-content {
+    padding-left: 15px !important;
   }
 
-  
+  .navbar{
+      flex: 1;
+  }
+
+
+  .nav-container{
+    position: fixed;
+    left: 0;
+    margin: 10px;
+    height: 8vh;
+    margin: 0px;
+    background-color:#f9f9f9 ;
+    z-index: 100;
+    width: 100%;
+  }
+
+  .menu-bar {
+    height: 50vh;
+    margin-top:4rem;
+    display: flex;
+    flex-direction:column;
+    gap:7px;
+    font-size:1rem;
+    position:relative;
+   }
+
+
+  .app-header {
+      display:block !important;
+      
+      
+  }
 
   .menu-control-container{
       display: block !important;
+      right: 10px !important;
+      top: 15px !important;
+      font-size: 0.8rem !important;
   }
 
   .ant-menu{
-      position: absolute;
-      right: 0px;
-  }
-  .home-title{
-      font-size: 1.4rem !important;
-  }
-  .show-more{
-      font-size: 1.3rem !important;
+      position: absolute !important;
+      right: 0px  !important;
   }
 }
 
