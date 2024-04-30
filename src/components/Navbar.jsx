@@ -1,6 +1,7 @@
 import React,  { useState, useEffect } from 'react';
-import {Menu,Avatar, Button} from 'antd';
+import {Menu,Avatar, Button, Flex} from 'antd';
 import{Link, useNavigate} from 'react-router-dom';
+import Logo from './Logo'
 import {CloudDownloadOutlined, TableOutlined,LogoutOutlined,AreaChartOutlined,UserOutlined, ReadOutlined, StopOutlined, MenuOutlined} from '@ant-design/icons';
 import  ImportComponent  from './Import';
 
@@ -53,6 +54,7 @@ const Navbar = ({darkTheme}) => {
 
   return (
         <div className='nav-container'>
+          <Logo/>
          <Button className="menu-control-container" onClick={() => setActiveMenu(!activeMenu)} style={{paddingLeft:'10px', paddingRight:'10px'}}><MenuOutlined /></Button>
         {activeMenu && (
         <Menu theme={darkTheme ? 'dark' : 'light'} mode="vertical" className='menu-bar' >

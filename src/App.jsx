@@ -4,7 +4,7 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Collapse, Layout, Button } from 'antd';
 import { Navbar, Dashboard, History, NotFound, Journal, JournalDetails, LandingPage , LoginPage, SignUp} from './components';
 import  ProtectedRoutes  from './utils/ProtectedRoutes';
-import ToggleThemeButton from './components/ToggleThemeButton';
+// import ToggleThemeButton from './components/ToggleThemeButton';
 
 const { Header, Sider, Content } = Layout;
 
@@ -13,10 +13,10 @@ const App = () => {
  const [darkTheme, setDarkTheme] = useState(false);
  const [collapsed, setCollapsed] = useState(false);
  
- const toggleTheme = () => {
-    setDarkTheme(!darkTheme);
+//  const toggleTheme = () => {
+//     setDarkTheme(!darkTheme);
 
- };
+//  };
 
  // Use useLocation hook to get the current location
  const location = useLocation();
@@ -29,21 +29,25 @@ const App = () => {
     {/* Renders the rest of the app only for other routes */}
     {!['/', '/Login', '/signup'].includes(location.pathname) &&  (
         <Layout hasSider>
-          <Sider collapsed={collapsed} collapsible trigger={null} theme={darkTheme ? 'dark' : 'light'} className='sidebar'  style={{
-          
-          height: '100vh',
-          position: 'fixed',
-          left: 0,
-          top: 0,
-          bottom: 0,
-        }}
-        
+        <Sider
+          collapsed={collapsed}
+          collapsible
+          theme={darkTheme ? 'dark' : 'light'}
+          className='sidebar'
+          style={{
+            height: '100vh',
+            position: 'fixed',
+            left: 0,
+            top: 0,
+            bottom: 0,
+          }}
+          onCollapse={(collapsed) => setCollapsed(collapsed)}
         >
             <div className='toggle'>
-              <Button type='text' onClick={() => setCollapsed(!collapsed)} icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined  />}  />
+              {/* <Button type='text' onClick={() => setCollapsed(!collapsed)} icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined  />}  /> */}
             </div>
+            
             <Navbar darkTheme={darkTheme} className='navbar' />
-            <ToggleThemeButton darkTheme={darkTheme} toggleTheme={toggleTheme} />
           </Sider>
           <Layout>   
             <div className='app-header'>

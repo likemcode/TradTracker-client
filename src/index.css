@@ -51,15 +51,22 @@
 }
 
 .toggle{
-  position: absolute;
-  top: 0;
-  left:0;
+  position: absolute !important;
+  top: 0!important;
+  left: 150px !important;
   /* padding: 12px 0 0 14px;  */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size:1rem;
+  font-size:1rem!important;
   
+}
+
+.logo-title {
+  background: linear-gradient(to right, #4695fc, #174e8a,  #18589c);
+  -webkit-background-clip: text;
+  background-clip: text; /* Standard property */
+  -webkit-text-fill-color: transparent;
+  color: transparent; /* Fallback for browsers that don't support background-clip */
+  font-size: 36px;
+  font-weight: bold;
 }
 
 .page-content {
@@ -131,6 +138,7 @@
 
   .ant-menu{
       position: absolute !important;
+      margin-top: 10px !important;
       right: 0px  !important;
   }
 }
