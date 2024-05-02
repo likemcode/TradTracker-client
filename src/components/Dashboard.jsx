@@ -229,7 +229,7 @@ const Dashboard = () => {
         
         
       </Row>
-      <Row gutter={16} style={{ marginLeft: '50px', marginRight:'50px'  }}>
+      <Row gutter={16} style={{ marginLeft: '50px', marginRight:'50px',marginTop:'20px',marginBottom: '20px '}}>
         <Col span={24}>
           <Card style={{ height: '100%' }} >
             <BarChart timeRange={selectedPeriod}/>

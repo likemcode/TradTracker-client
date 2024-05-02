@@ -1,7 +1,9 @@
 // ImportComponent.js
 import React, { useState } from 'react';
 import ImportModal from './ImportModal';
+import { FileTextOutlined } from '@ant-design/icons';
 import { Modal, Button, Card, message, Flex, Typography} from 'antd';
+import MetaTrader5Icon from '../assets/mt5 svg.svg' ;
 
 const { Title, Paragraph } = Typography;
 
@@ -56,22 +58,32 @@ const ImportComponent = ({ visible, onClose  }) => {
         
       >
         <Flex  gap={10} >
-          <Card title="Import Custom Trades" hoverable>
-            <p style={{color: '#666' , fontSize:'11px', marginBottom:'10px'}}>You can import trades directly from your MetaTrader5 account, make sure you have metatrader5 installed on your Machine</p>
-            <Button type="primary" onClick={handleOpenformModal}>
-              Import Custom Trades
-            </Button>
-            <ImportModal
-              visible={formModalVisible}
-              onClose={handleCloseformModal}
-            />
-          </Card>
-          <Card title="Sample Trades" hoverable>
-          <p style={{color: '#666' , fontSize:'11px', marginBottom:'10px'}}>You can import trades directly from your MetaTrader5 account, make sure you have metatrader5 installed on your Machine</p>
-            <Button type="primary" onClick={handleImportSampleTrades}>
-              Import Sample Trades
-            </Button>
-          </Card>
+        <Card title="Import Custom Trades" hoverable>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
+            <img src={MetaTrader5Icon} alt="MetaTrader5" style={{ width: '60px',height:'50px', marginRight: '8px', marginBottom:'8px' }} />
+            <p style={{ color: '#666', fontSize: '11px', marginBottom: '10px' }}>
+              Import your custom trades directly from your MetaTrader5 account. Make sure you have MetaTrader5 installed on your machine.
+            </p>
+          </div>
+          <Button type="primary" onClick={handleOpenformModal}>
+            Import Custom Trades
+          </Button>
+          <ImportModal
+            visible={formModalVisible}
+            onClose={handleCloseformModal}
+          />
+        </Card>
+        <Card title="Sample Trades" hoverable>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
+            <FileTextOutlined style={{ fontSize: '40px', marginBottom: '19px' }} />
+            <p style={{ color: '#666', fontSize: '11px', marginBottom: '10px' }}>
+              Import sample trades to see how the system works. These trades are provided for demonstration purposes only.
+            </p>
+          </div>
+          <Button type="primary" onClick={handleImportSampleTrades}>
+            Import Sample Trades
+          </Button>
+        </Card>
         </Flex>
         
       </Modal>

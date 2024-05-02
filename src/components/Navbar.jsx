@@ -6,7 +6,7 @@ import {CloudDownloadOutlined, TableOutlined,LogoutOutlined,AreaChartOutlined,Us
 import  ImportComponent  from './Import';
 
 
-const Navbar = ({darkTheme}) => {
+const Navbar = ({darkTheme, collapsed }) => {
   const [activeMenu, setActiveMenu]= useState(true)
   const [screenSize, setScreenSize] = useState(null)
   const [isImportModalVisible, setIsImportModalVisible] = useState(false);
@@ -54,7 +54,7 @@ const Navbar = ({darkTheme}) => {
 
   return (
         <div className='nav-container'>
-          <Logo/>
+          <Logo collapsed={collapsed} />
          <Button className="menu-control-container" onClick={() => setActiveMenu(!activeMenu)} style={{paddingLeft:'10px', paddingRight:'10px'}}><MenuOutlined /></Button>
         {activeMenu && (
         <Menu theme={darkTheme ? 'dark' : 'light'} mode="vertical" className='menu-bar' >

@@ -47,7 +47,7 @@ const App = () => {
               {/* <Button type='text' onClick={() => setCollapsed(!collapsed)} icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined  />}  /> */}
             </div>
             
-            <Navbar darkTheme={darkTheme} className='navbar' />
+            <Navbar darkTheme={darkTheme} collapsed={collapsed} className='navbar' />
           </Sider>
           <Layout>   
             <div className='app-header'>

@@ -59,14 +59,42 @@
   
 }
 
+.avatar-collapsed {
+  background-color: rgba(70, 149, 252, 0.150);
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.avatar-expanded {
+  background-color: rgba(70, 149, 252, 0.150);
+  margin-left: 0px;
+}
+
+.avatar-collapsed:hover {
+  /* Define hover effect */
+  background-color: rgba(54, 140, 252, 0.2); /* Adjust background color on hover */
+  cursor: pointer; /* Change cursor on hover */
+}
+
 .logo-title {
-  background: linear-gradient(to right, #4695fc, #174e8a,  #18589c);
+  background: linear-gradient(to right, #4695fc, #174e8a,  #4695fc);
   -webkit-background-clip: text;
   background-clip: text; /* Standard property */
   -webkit-text-fill-color: transparent;
   color: transparent; /* Fallback for browsers that don't support background-clip */
   font-size: 36px;
   font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+.logo-title:hover {
+  background: linear-gradient(to right, #174e8a, #4695fc, #174e8a); /* Change the gradient on hover */
+  -webkit-background-clip: text;
+  background-clip: text; /* Standard property */
+  -webkit-text-fill-color: transparent;
+  color: transparent; /* Fallback for browsers that don't support background-clip */
+  font-size: 36px;
+  font-weight: bold;
+  
 }
 
 .page-content {
