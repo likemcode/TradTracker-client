@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import { Layout, Row, Col, Button, Typography, Card } from 'antd';
+import { Layout, Row, Col, Button, Typography, Card ,Avatar} from 'antd';
 import { Link } from 'react-router-dom'; 
-import { RocketOutlined, DollarCircleOutlined, SafetyOutlined, MenuOutlined, LineChartOutlined} from '@ant-design/icons';
+import { RocketOutlined, DollarCircleOutlined, SafetyOutlined, MenuOutlined, SlidersTwoTone} from '@ant-design/icons';
 import './LandingPage.css';
+import Logo from './Logo';
 
 const { Header, Content, Footer } = Layout;
 const { Title, Paragraph } = Typography;
@@ -17,11 +18,10 @@ const LandingPage = () => {
  return (
     <Layout>
       <Header className="header">
-        <div className="logo">
-          <h2>TradeTracker</h2>
-            <LineChartOutlined style={{ fontSize: '15px', color: '#195ea7' }} />
-        </div>
-       
+      <div className='logo-container' style={{ display: 'flex', alignItems: 'center' }}>
+      <Avatar className='avatar-expanded' icon={<SlidersTwoTone />} />
+      <h3 style={{ marginLeft: '10px', fontSize: '17px', fontWeight: 'bold' }} className='logo-title'>TradeTracker</h3>
+    </div>
         <div className={`nav-links ${showNavbar ? 'active' : ''}`}>
             <Button type="link"  >
                 <Link to="/Login">Login</Link>  
