@@ -53,4 +53,12 @@
     font-size: 19px; /* Adjust font size as needed */
   }
 
-  
+   /* Adjustments for smaller screens */
+ @media (max-width: 768px) {
+  .charts-flex {
+      display: grid !important;
+      justify-content: center;
+      align-items: center;
+  }
+ 
+}

@@ -213,19 +213,19 @@ const Dashboard = () => {
       </Row>
       <Row gutter={16} style={{ marginLeft: '50px', marginRight:'50px' }}>
         
-        <Col flex={3}  style={{ height: '100%', width:'60%'  }}>
-          <Card style={{ height: '100%', width:'100%'  }}>
-              
-              <LineChart  timeRange={selectedPeriod}/>
-          </Card>
+          <Col flex={3}  style={{ height: '100%', width:'60%'  }}>
+            <Card style={{ height: '100%', width:'100%'  }}> 
+                <LineChart  timeRange={selectedPeriod}/>
+            </Card>
+            
           
+          </Col>
+          <Col flex={2} style={{ height: '100%', width:'40%' }}>
+            <Card style={{ height: '100%',  width:'100%' }}>
+              <DoughnutChart timeRange={selectedPeriod}/>
+            </Card>
+          </Col>
         
-        </Col>
-        <Col flex={2} style={{ height: '100%', width:'40%' }}>
-          <Card style={{ height: '100%',  width:'100%' }}>
-            <DoughnutChart timeRange={selectedPeriod}/>
-          </Card>
-        </Col>
         
         
       </Row>

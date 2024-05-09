@@ -48,12 +48,13 @@ export const { useGetTradesQuery, useGetKeyMetricsQuery, useGetDoughnutDataQuery
 export const importData = createAsyncThunk(
   'import/importData',
   async (payload) => {
+    const token = localStorage.getItem('token');
     try {
       const response = await fetch('http://127.0.0.1:8000/backend/connect_to_mt5/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-CSRFToken': 'your_csrf_token_here',
+          'Authorization': `Token ${token}`
         },
         body: JSON.stringify(payload),
       });
