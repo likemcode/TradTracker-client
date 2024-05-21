@@ -3,7 +3,7 @@ import { Spin } from 'antd';
 
 const Loader = () => (
   <div className="loader">
-    <Spin tip="Loading" size="large" />
+    <Spin size="large" />
   </div>
 );
 
