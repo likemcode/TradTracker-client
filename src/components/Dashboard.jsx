@@ -1,25 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import { Row, Col, Card, Select, Flex, Spin,Dropdown , Tag, Table, Empty } from 'antd';
 import Loader from './Loader';
 import {WalletOutlined, DollarOutlined, ArrowDownOutlined, ArrowUpOutlined, BankOutlined } from '@ant-design/icons';
-import { useGetTradesQuery } from '../services/BackendApi';
-import { useGetKeyMetricsQuery } from '../services/BackendApi';
+import { useGetTradesQuery , useGetKeyMetricsQuery, useGetAccountListQuery} from '../services/BackendApi';
+
 import moment from 'moment';
 import LineChart from './charts/LineChart';
 import BarChart from './charts/BarChart';
 import SemiDoughnutChart from './charts/SemiDoughnut';
 import DoughnutChart from './charts/DoughnutChart';
 import './Dashboard.css';
+const skipToken = typeof Symbol === 'function' ? Symbol.for('skip') : '__skip';
 
 const Dashboard = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('All');
-  const { data: metrics, isLoading, error } = useGetKeyMetricsQuery( selectedPeriod );
-  const { data: trades, Loading, errorr } = useGetTradesQuery();
- 
-  if (isLoading || Loading) return <Loader />;
-  
-  if (!metrics || metrics.length === 0) return <Empty  />;
-  if (error) return <div>Error: {error.message}</div>;
+  const [selectedAccount, setSelectedAccount] = useState(null);
+  const { data: accounts, isLoading: accountsLoading, error: accountsError } = useGetAccountListQuery(); // Fetch the accounts
+  console.log(selectedAccount)
+  useEffect(() => {
+    if (accounts && accounts.length > 0 && !selectedAccount) {
+      setSelectedAccount(accounts[0].id); // Set the first account as the default selected account
+    }
+  }, [accounts, selectedAccount]);
+  console.log(selectedAccount)
+  const { data: metrics, isLoading: metricsLoading, error: metricsError } = useGetKeyMetricsQuery(
+    selectedAccount && selectedPeriod ? { timeRange: selectedPeriod, accountId: selectedAccount } :{ timeRange: selectedPeriod, accountId: selectedAccount }
+  );
+  const { data: trades, isLoading: tradesLoading, error: tradesError } = useGetTradesQuery(selectedAccount); // Use selectedAccount
+
+  if (accountsLoading || (selectedAccount && (metricsLoading || tradesLoading))) return <Loader />;
+  if (!metrics || !trades || accounts.length === 0) return <Empty />;
+  if (accountsError) return <div>Error: {accountsError.message}</div>;
+  if (metricsError) return <div>Error: {metricsError.message}</div>;
+  if (tradesError) return <div>Error: {tradesError.message}</div>;
   
 
   const columns = [
@@ -66,15 +79,21 @@ const Dashboard = () => {
       dataSource={filteredTrades || []}
       columns={columns}
       pagination={false}
-      loading={isLoading}
+      loading={tradesLoading}
       locale={{
-        emptyText: isLoading ? 'Loading...' : error ? `Error: ${error.message}` : 'No data',
+        emptyText: tradesLoading ? 'Loading...' : tradesError ? `Error: ${tradesError.message}` : 'No data',
       }}
     />
   );
  
   const handlePeriodChange = (value) => {
      setSelectedPeriod(value);
+
+  };
+
+  const handleAccountChange = (value) => {
+    setSelectedAccount(value);
+    console.log(selectedAccount)
   };
 
   
@@ -95,6 +114,12 @@ const Dashboard = () => {
      <div >
        <Row style={{marginLeft:'15px', marginTop:'10px'}}>
          <Col span={24}>
+         <Select
+            value={selectedAccount}
+            style={{ width: 200 }}
+            onChange={handleAccountChange}
+            options={accounts.map(account => ({ value: account.id, label: `${account.broker_name} (${account.login})` }))}
+          />
            <Select
              defaultValue="All"
              style={{ width: 120 }}
@@ -215,14 +240,14 @@ const Dashboard = () => {
         
           <Col flex={3}  style={{ height: '100%', width:'60%'  }}>
             <Card style={{ height: '100%', width:'100%'  }}> 
-                <LineChart  timeRange={selectedPeriod}/>
+                <LineChart  timeRange={selectedPeriod} account_id={selectedAccount}/>
             </Card>
             
           
           </Col>
           <Col flex={2} style={{ height: '100%', width:'40%' }}>
             <Card style={{ height: '100%',  width:'100%' }}>
-              <DoughnutChart timeRange={selectedPeriod}/>
+              <DoughnutChart timeRange={selectedPeriod} account_id={selectedAccount}/>
             </Card>
           </Col>
         
@@ -232,7 +257,7 @@ const Dashboard = () => {
       <Row gutter={16} style={{ marginLeft: '50px', marginRight:'50px',marginTop:'20px',marginBottom: '20px '}}>
         <Col span={24}>
           <Card style={{ height: '100%' }} >
-            <BarChart timeRange={selectedPeriod}/>
+            <BarChart timeRange={selectedPeriod} account_id={selectedAccount}/>
           </Card>
         </Col>
         

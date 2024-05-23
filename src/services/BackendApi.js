@@ -19,30 +19,30 @@ export const tradesApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-     getTrades: builder.query({
-       query: () => `backend/trades/list`,
-     }),
-     getKeyMetrics: builder.query({
-       query: (timeRange) => `backend/trades/key-metrics/${timeRange}`,
-     }),
-     getAccountProgress: builder.query({
-       query: (timeRange) => `backend/trades/progress/${timeRange}`,
-     }),
-     getDoughnutData: builder.query({
-       query: (timeRange) => `backend/trades/pie-chart-data/${timeRange}`,
-     }),
-     getBarChartData: builder.query({
-       query: (timeRange) => `backend/trades/bar-chart/${timeRange}`,
-     }),
-     getSemiDoughnutData: builder.query({
-       query: (timeRange) => `backend/trades/win-rate/${timeRange}`,
-     }),
-     getJournalList: builder.query({
-      query: () => `backend/trades/journals`,
+    getTrades: builder.query({
+      query: (accountId) => `backend/trades/list?account=${accountId}`,
+    }),
+    getKeyMetrics: builder.query({
+      query: ({ timeRange, accountId }) => `backend/trades/key-metrics/${timeRange}/${accountId}/`,
+    }),
+    getAccountProgress: builder.query({
+      query: ({ timeRange, accountId }) => `backend/trades/progress/${timeRange}/${accountId}/`,
+    }),
+    getDoughnutData: builder.query({
+      query: ({ timeRange, accountId }) => `backend/trades/pie-chart-data/${timeRange}/${accountId}/`,
+    }),
+    getBarChartData: builder.query({
+      query: ({ timeRange, accountId }) => `backend/trades/bar-chart/${timeRange}/${accountId}/`,
+    }),
+    getSemiDoughnutData: builder.query({
+      query: ({ timeRange, accountId }) => `backend/trades/win-rate/${timeRange}/${accountId}/`,
+    }),
+    getAccountList: builder.query({
+      query: () => `backend/trades/accounts`,
     }),
   }),
  });
-export const { useGetTradesQuery, useGetKeyMetricsQuery, useGetDoughnutDataQuery, useGetAccountProgressQuery, useGetSemiDoughnutDataQuery , useGetBarChartDataQuery,useGetJournalListQuery} = tradesApi;
+export const { useGetTradesQuery, useGetKeyMetricsQuery, useGetDoughnutDataQuery, useGetAccountProgressQuery, useGetSemiDoughnutDataQuery , useGetBarChartDataQuery,useGetJournalListQuery, useGetAccountListQuery} = tradesApi;
 
 
 export const importData = createAsyncThunk(

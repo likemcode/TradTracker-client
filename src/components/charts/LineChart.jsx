@@ -5,9 +5,9 @@ import { useGetAccountProgressQuery } from '../../services/BackendApi';
 import Loader from '../Loader';
 
 
-const LineChart = ({ timeRange }) => { // Correctly receiving timeRange as a prop
+const LineChart = ({ timeRange, account_id }) => { // Correctly receiving timeRange as a prop
   const [chartData, setChartData] = useState([]);
-  const { data: progressData, isLoading, error } = useGetAccountProgressQuery(timeRange);
+  const { data: progressData, isLoading, error } = useGetAccountProgressQuery({ timeRange, account_id });
   
   useEffect(() => {
     if (progressData) {
