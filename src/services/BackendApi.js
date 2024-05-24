@@ -23,19 +23,19 @@ export const tradesApi = createApi({
       query: (accountId) => `backend/trades/list?account=${accountId}`,
     }),
     getKeyMetrics: builder.query({
-      query: ({ timeRange, accountId }) => `backend/trades/key-metrics/${timeRange}/${accountId}/`,
+      query: ({ timeRange, accountId }) => `backend/trades/key-metrics/${timeRange}/${accountId}`,
     }),
     getAccountProgress: builder.query({
-      query: ({ timeRange, accountId }) => `backend/trades/progress/${timeRange}/${accountId}/`,
+      query: ({ timeRange, accountId }) => `backend/trades/progress/${timeRange}/${accountId}`,
     }),
     getDoughnutData: builder.query({
-      query: ({ timeRange, accountId }) => `backend/trades/pie-chart-data/${timeRange}/${accountId}/`,
+      query: ({ timeRange, accountId }) => `backend/trades/pie-chart-data/${timeRange}/${accountId}`,
     }),
     getBarChartData: builder.query({
-      query: ({ timeRange, accountId }) => `backend/trades/bar-chart/${timeRange}/${accountId}/`,
+      query: ({ timeRange, accountId }) => `backend/trades/bar-chart/${timeRange}/${accountId}`,
     }),
     getSemiDoughnutData: builder.query({
-      query: ({ timeRange, accountId }) => `backend/trades/win-rate/${timeRange}/${accountId}/`,
+      query: ({ timeRange, accountId }) => `backend/trades/win-rate/${timeRange}/${accountId}`,
     }),
     getAccountList: builder.query({
       query: () => `backend/trades/accounts`,

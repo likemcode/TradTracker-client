@@ -240,14 +240,14 @@ const Dashboard = () => {
         
           <Col flex={3}  style={{ height: '100%', width:'60%'  }}>
             <Card style={{ height: '100%', width:'100%'  }}> 
-                <LineChart  timeRange={selectedPeriod} account_id={selectedAccount}/>
+                <LineChart  timeRange={selectedPeriod} accountId={selectedAccount}/>
             </Card>
             
           
           </Col>
           <Col flex={2} style={{ height: '100%', width:'40%' }}>
             <Card style={{ height: '100%',  width:'100%' }}>
-              <DoughnutChart timeRange={selectedPeriod} account_id={selectedAccount}/>
+              <DoughnutChart timeRange={selectedPeriod} accountId={selectedAccount}/>
             </Card>
           </Col>
         
@@ -257,7 +257,7 @@ const Dashboard = () => {
       <Row gutter={16} style={{ marginLeft: '50px', marginRight:'50px',marginTop:'20px',marginBottom: '20px '}}>
         <Col span={24}>
           <Card style={{ height: '100%' }} >
-            <BarChart timeRange={selectedPeriod} account_id={selectedAccount}/>
+            <BarChart timeRange={selectedPeriod} accountId={selectedAccount}/>
           </Card>
         </Col>
         
