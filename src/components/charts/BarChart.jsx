@@ -3,9 +3,9 @@ import { Bar } from 'react-chartjs-2';
 import { useGetBarChartDataQuery } from '../../services/BackendApi';
 import Loader from '../Loader';
 
-const BarChart = ({ timeRange, account_id }) => {
+const BarChart = ({ timeRange, accountId }) => {
   
-  const { data, isLoading, error } = useGetBarChartDataQuery({ timeRange, account_id });
+  const { data, isLoading, error } = useGetBarChartDataQuery({ timeRange, accountId });
     if (isLoading) return <Loader/>;
     if (error) return <div>Error: {error.message}</div>;
     

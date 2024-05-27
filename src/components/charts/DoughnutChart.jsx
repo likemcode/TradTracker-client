@@ -6,9 +6,9 @@ import 'chart.js/auto';
 
 
 
-const MyDoughnutChartComponent = ({timeRange,account_id}) => {
+const MyDoughnutChartComponent = ({timeRange,accountId}) => {
   const chartRef = useRef(null);
-  const { data, isLoading, error } = useGetDoughnutDataQuery({ timeRange, account_id });
+  const { data, isLoading, error } = useGetDoughnutDataQuery({ timeRange, accountId });
 
   
 
