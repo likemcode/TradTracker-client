@@ -6,8 +6,8 @@ import Loader from './Loader';
 const { RangePicker } = DatePicker;
 const {Text}=Typography;
 
-const History = () => {
-  const { data: trades, isLoading, error } = useGetTradesQuery();
+const History = ({ selectedAccount }) => {
+  const { data: trades, isLoading, error } = useGetTradesQuery(selectedAccount);
   const [filteredData, setFilteredData] = useState(trades); // State to hold filtered data
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const History = () => {
   }, [trades]); // Update filtered data when trades change
 
   if (isLoading) return <Loader />;
-  if (error) return <div>Error: {error.message}</div>;
+  if (error) return <div>Error: {error.error}</div>;
 
   const handleDateFilter = (dates) => {
     // Filter trades based on selected date range

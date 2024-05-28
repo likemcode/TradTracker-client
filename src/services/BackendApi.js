@@ -20,7 +20,7 @@ export const tradesApi = createApi({
   }),
   endpoints: (builder) => ({
     getTrades: builder.query({
-      query: (accountId) => `backend/trades/list?account=${accountId}`,
+      query: (accountId) => `backend/trades/list/${accountId}`,
     }),
     getKeyMetrics: builder.query({
       query: ({ timeRange, accountId }) => `backend/trades/key-metrics/${timeRange}/${accountId}`,

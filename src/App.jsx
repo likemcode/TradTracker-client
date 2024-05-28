@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import { Collapse, Layout, Button } from 'antd';
+import { Collapse, Layout, Button, Select } from 'antd';
 import { Navbar, Dashboard, History, NotFound, Journal, JournalDetails, LandingPage , LoginPage, SignUp} from './components';
 import  ProtectedRoutes  from './utils/ProtectedRoutes';
+import { useGetAccountListQuery } from './services/BackendApi';
 // import ToggleThemeButton from './components/ToggleThemeButton';
 
 const { Header, Sider, Content } = Layout;
@@ -12,6 +13,17 @@ const { Header, Sider, Content } = Layout;
 const App = () => {
  const [darkTheme, setDarkTheme] = useState(false);
  const [collapsed, setCollapsed] = useState(false);
+ const [selectedAccount, setSelectedAccount] = useState(null);
+ const location = useLocation();
+
+ // Fetch accounts and set the initial selected account
+ const { data: accounts, isLoading: accountsLoading, error: accountsError } = useGetAccountListQuery();
+
+ useEffect(() => {
+   if (accounts && accounts.length > 0 && !selectedAccount) {
+     setSelectedAccount(accounts[0].id); // Set the first account as the default selected account
+   }
+ }, [accounts, selectedAccount]);
  
 //  const toggleTheme = () => {
 //     setDarkTheme(!darkTheme);
@@ -19,7 +31,7 @@ const App = () => {
 //  };
 
  // Use useLocation hook to get the current location
- const location = useLocation();
+
  return (
   <div className='app'>
     {location.pathname === '/' && <LandingPage />}
@@ -53,6 +65,16 @@ const App = () => {
             <div className='app-header'>
               <Navbar darkTheme={darkTheme} className='navbar' />
             </div>
+            <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 20px' }}>
+              <div>Your App Name</div>
+              <Select
+                value={selectedAccount}
+                style={{ width: 200 }}
+                onChange={(value) => setSelectedAccount(value)}
+                options={accounts?.map((account) => ({ value: account.id, label: `${account.broker_name} (${account.login})` }))}
+                loading={accountsLoading}
+              />
+            </Header>
           <Content className='page-content' style={{
             paddingLeft: collapsed ? '80px' : '200px',
             overflow: 'hidden',
@@ -60,8 +82,8 @@ const App = () => {
             <div className='routes'>
               <Routes>
                 <Route element={<ProtectedRoutes/>}>
-                  <Route path='/Dashboard' element={<Dashboard />} />
-                  <Route path='/History' element={<History />} />
+                  <Route path='/Dashboard' element={<Dashboard selectedAccount={selectedAccount} />} />
+                  <Route path='/History' element={<History selectedAccount={selectedAccount} />} />
                   <Route path='/Journal' element={<Journal />} />
                   <Route path='/JournalDetails/:journalId' element={<JournalDetails />} /> 
                   <Route path='*' element={<NotFound />} />

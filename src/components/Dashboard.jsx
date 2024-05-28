@@ -12,26 +12,16 @@ import DoughnutChart from './charts/DoughnutChart';
 import './Dashboard.css';
 const skipToken = typeof Symbol === 'function' ? Symbol.for('skip') : '__skip';
 
-const Dashboard = () => {
+const Dashboard = ({ selectedAccount }) => {
   const [selectedPeriod, setSelectedPeriod] = useState('All');
-  
-  const [selectedAccount, setSelectedAccount] = useState(null);
-  const { data: accounts, isLoading: accountsLoading, error: accountsError } = useGetAccountListQuery(); // Fetch the accounts
-  console.log(selectedAccount)
-  useEffect(() => {
-    if (accounts && accounts.length > 0 && !selectedAccount) {
-      setSelectedAccount(accounts[0].id); // Set the first account as the default selected account
-    }
-  }, [accounts, selectedAccount]);
-  console.log(selectedAccount)
-  const { data: metrics, isLoading: metricsLoading, error: metricsError } = useGetKeyMetricsQuery(
-    selectedAccount && selectedPeriod ? { timeRange: selectedPeriod, accountId: selectedAccount } :{ timeRange: selectedPeriod, accountId: selectedAccount }
-  );
-  const { data: trades, isLoading: tradesLoading, error: tradesError } = useGetTradesQuery(selectedAccount); // Use selectedAccount
 
-  if (accountsLoading || (selectedAccount && (metricsLoading || tradesLoading))) return <Loader />;
-  if (!metrics || !trades || accounts.length === 0) return <Empty />;
-  if (accountsError) return <div>Error: {accountsError.message}</div>;
+  const { data: metrics, isLoading: metricsLoading, error: metricsError } = useGetKeyMetricsQuery(
+    selectedAccount && selectedPeriod ? { timeRange: selectedPeriod, accountId: selectedAccount } : { timeRange: selectedPeriod, accountId: selectedAccount }
+  );
+  const { data: trades, isLoading: tradesLoading, error: tradesError } = useGetTradesQuery(selectedAccount);
+
+  if (metricsLoading || tradesLoading) return <Loader />;
+  if (!metrics || !trades) return <Empty />;
   if (metricsError) return <div>Error: {metricsError.message}</div>;
   if (tradesError) return <div>Error: {tradesError.message}</div>;
   
@@ -115,12 +105,7 @@ const Dashboard = () => {
      <div >
        <Row style={{marginLeft:'15px', marginTop:'10px'}}>
          <Col span={24}>
-         <Select
-            value={selectedAccount}
-            style={{ width: 200 }}
-            onChange={handleAccountChange}
-            options={accounts.map(account => ({ value: account.id, label: `${account.broker_name} (${account.login})` }))}
-          />
+
            <Select
              defaultValue="All"
              style={{ width: 120 }}
