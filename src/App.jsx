@@ -61,12 +61,11 @@ const App = () => {
             
             <Navbar darkTheme={darkTheme} collapsed={collapsed} className='navbar' />
           </Sider>
-          <Layout>   
-            <div className='app-header'>
+          <Layout >   
+            <div className='app-header' >
               <Navbar darkTheme={darkTheme} className='navbar' />
             </div>
-            <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 20px' }}>
-              <div>Your App Name</div>
+            <Header className='custom-header' style={{ marginLeft: collapsed? '80px' : '200px' }}>
               <Select
                 value={selectedAccount}
                 style={{ width: 200 }}

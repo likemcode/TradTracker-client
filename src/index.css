@@ -17,6 +17,23 @@
   display: none;
 }
 
+.custom-header {
+  position: fixed; /* Make the header stick to the top */
+  display: flex;
+  justify-content: flex-end; /* Align items to the right */
+  align-items: center;
+  padding: 0 20px;
+  height: 60px; /* Smaller height */
+  background-color: transparent !important; /* Semi-transparent white background for fallback */
+  backdrop-filter: blur(10px) !important; /* Apply blur effect */
+  -webkit-backdrop-filter: blur(10px)!important; /* Safari support */
+  z-index: 1!important; /* Ensure the header stays above other elements */
+  left: calc(100vw -  450px); /* Calculate position based on viewport width */
+}
+  
+  
+ /* Position the header at the left of the viewport (stretches to the right) */
+
 .menu-bar {
  height: 88vh;
  margin-top:2rem;
@@ -152,8 +169,15 @@
   .app-header {
       display:block !important;
       
-      
+  
   }
+
+  .custom-header {
+    margin-top: 8vh; /* Add a 10px margin top on smaller screens */
+  
+  }
+
+  
 
   .menu-control-container{
       display: block !important;
@@ -190,15 +214,11 @@
   }
 
 
-  /* .ant-table-thead {
-    width: 356px !important;
-
+  .custom-header {
+    margin-top: 8vh; /* Add a 10px margin top on smaller screens */
+  
   }
 
-  .ant-table-tbody {
-    width: 356px !important;
-
-  } */
  }
 
 
