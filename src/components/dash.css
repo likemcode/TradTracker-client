@@ -1,0 +1,85 @@
+/* General styles */
+.metrics-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+  
+  /* Metric card */
+  .metrics-card {
+    flex: 1 1 200px; /* Allow cards to grow and shrink, with a minimum width of 200px */
+    margin-bottom: 16px;
+    background-color: rgba(70, 149, 252, 0.815);
+  }
+  
+  .metric-info {
+    display: flex;
+    flex-direction: column;
+    max-width: 134.65px;
+    max-height: 53.33px;
+  }
+  
+  .metric-value.positive-value {
+    color: #34bc5bf7;
+  }
+  
+  .negative-value {
+    color: #bf4747f7;
+  }
+  
+  .metric-title {
+    color: #939393f7;
+    font-size: 14px; /* Adjust font size as needed */
+  }
+  
+  .tag-container {
+    display: flex;
+    align-items: center;
+    width: 10px; /* Set a fixed width */
+  }
+  
+  .head {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .metric-value {
+    font-weight: 550;
+    font-size: 19px; /* Adjust font size as needed */
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 1200px) {
+    .metrics-row {
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .metrics-card {
+      flex: 1 1 150px; /* Reduce the minimum width for smaller screens */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .metrics-row {
+      justify-content: center; /* Center the cards on smaller screens */
+    }
+  
+    .metrics-card {
+      flex: 0 0 calc(50% - 16px); /* Display two cards per row on smaller screens */
+      max-width: calc(50% - 16px); /* Limit the maximum width */
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .metrics-card {
+      flex: 0 0 100%; /* Display one card per row on very small screens */
+      max-width: 100%;
+    }
+  }
+  
