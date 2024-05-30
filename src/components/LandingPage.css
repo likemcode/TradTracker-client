@@ -7,8 +7,11 @@
    left: 0; /* Align the navigation bar to the left of the viewport */
    height: fit-content ;
    width: 100%; /* Make the navigation bar span the entire width of the viewport */
-   background-color: #fff; /* Set the background color of the navigation bar */
+   background-color: transparent !important; /* Semi-transparent white background for fallback */
+   backdrop-filter: blur(7px) !important; /* Apply blur effect */
+   -webkit-backdrop-filter: blur(7px)!important; /* Safari support */
    z-index: 1000; /* Ensure the navigation bar appears above other content */
+   border-radius: 20px;
    display: flex;
    justify-content: space-between;
    padding: 0 15px;
@@ -70,10 +73,12 @@
 }
 
 .gradient-title {
-   background: linear-gradient(to right, #4695fc, #174e8a,  #18589c);
+   background: linear-gradient(90deg, #3f87f5, #2d5c9b, #b6cee8, #3f87f5);
    -webkit-background-clip: text;
+   background-size: 400% 400%;
    background-clip: text; /* Standard property */
    -webkit-text-fill-color: transparent;
+   animation: gradient-animation 10s ease infinite;
    color: transparent; /* Fallback for browsers that don't support background-clip */
    font-weight: bold;
   }
@@ -92,6 +97,13 @@
    transition: transform 0.3s ease-in-out;
    
 }
+.ant-card {
+transition: transform 0.3s ease;
+}
+
+.ant-card:hover {
+   transform: translateY(-10px);
+ }
 
 .feature-card:hover {
    transform: scale(1.05);
@@ -181,3 +193,16 @@
    text-align: center;
    padding: 20px 0;
 }
+
+
+@keyframes gradient-animation {
+   0% {
+     background-position: 0% 50%;
+   }
+   50% {
+     background-position: 100% 50%;
+   }
+   100% {
+     background-position: 0% 50%;
+   }
+ }
