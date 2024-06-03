@@ -222,16 +222,16 @@ const Dashboard = ({ selectedAccount }) => {
          
         </div>
       </Row>
-      <Row gutter={16} style={{ marginLeft: '50px', marginRight:'50px' }}>
+      <Row gutter={16} className='chart-row' style={{ marginLeft: '50px', marginRight:'50px' }}>
         
-          <Col flex={3}  style={{ height: '100%', width:'60%'  }}>
+          <Col flex={3} className="chart-col"  style={{ height: '100%', width:'60%'  }}>
             <Card style={{ height: '100%', width:'100%'  }}> 
                 <LineChart  timeRange={selectedPeriod} accountId={selectedAccount}/>
             </Card>
             
           </Col>
           
-          <Col flex={2} style={{ height: '100%', width:'40%' }}>
+          <Col flex={2} className="chart-col" style={{ height: '100%', width:'40%' }}>
             <Card style={{ height: '100%',  width:'100%' }}>
               <DoughnutChart timeRange={selectedPeriod} accountId={selectedAccount}/>
             </Card>
