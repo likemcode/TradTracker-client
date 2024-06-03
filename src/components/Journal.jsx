@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Avatar, List, Button, Tag, Flex, Card, Row, Col, message } from 'antd';
+import { Avatar, List, Button, Tag, Flex, Card, Row, Col, message, Typography, Popconfirm } from 'antd';
 import Loader from './Loader';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useGetJournalListQuery } from '../services/BackendApi';
 import NewJournalModal from './NewJournalModal';
-import { SmileTwoTone, FrownTwoTone, MehTwoTone, DeleteOutlined } from '@ant-design/icons'; // Import emoji icons
+import { SmileTwoTone, FrownTwoTone, MehTwoTone, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import moment from 'moment';
-import DeleteConfirmationModal from './DeleteConfirmationModal';
+
+const { Paragraph } = Typography;
 
 const truncateText = (text, maxLength) => {
   if (text.length <= maxLength) {
@@ -43,8 +44,7 @@ const processContent = (htmlContent) => {
 };
 
 const Journal = () => {
-  const { data: journals, error, isLoading , refetch } = useGetJournalListQuery();
-  const [deleteModalVisible, setDeleteModalVisible] = useState(false); // State for delete confirmation modal
+  const { data: journals, error, isLoading, refetch } = useGetJournalListQuery();
   const [selectedEntryId, setSelectedEntryId] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const navigate = useNavigate();
@@ -73,7 +73,6 @@ const Journal = () => {
       }
       message.success('Journal entry deleted successfully');
       refetch();
-      // Optionally, you can update the state or perform any other actions after successful deletion
     } catch (error) {
       message.error('Error deleting journal entry:', error);
     }
@@ -94,64 +93,55 @@ const Journal = () => {
         onCreate={handleCreateJournal}
         onCancel={() => setModalVisible(false)}
       />
-       <DeleteConfirmationModal
-        visible={deleteModalVisible}
-        onCancel={() => setDeleteModalVisible(false)}
-        onConfirm={() => {
-          deleteInstance(selectedEntryId);
-          setDeleteModalVisible(false);
-        }}
-      />
       <List
-        header={<Flex justify="space-between" style={{ margin: '16px'}}>
-          <h3>My Trading Journal 📝</h3>
-          <Button type="primary" style={{ marginBottom: '16px' }} onClick={() => setModalVisible(true)}>
-            Add Journal
-          </Button>
-        </Flex>}
-        itemLayout="horizontal"
+        header={
+          <Flex justify="space-between" align="middle" style={{ margin: '16px' }}>
+            <Typography.Title level={4} style={{ margin: 0 }}>My Trading Journal 📝</Typography.Title>
+            <Button type="primary" onClick={() => setModalVisible(true)}>
+              Add Journal
+            </Button>
+          </Flex>
+        }
+        itemLayout="vertical"
         dataSource={journals}
-        style={{ height: '100 %' }}
         renderItem={(item, index) => (
-          <List.Item key={item.id} className="journal-item" 
-            style={{ marginBottom: '4px' }}
-          >
-            <Card style={{ width: '100%', marginBottom: '4px', cursor: 'pointer', padding: '5px' }}>
-              <Row>
-                <Col span={1}>
-                  <Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`} />
-                </Col>
-                <Col span={8}>
-                  <Row>
-                    <Link to={`/journalDetails/${item.id}`}>{item.title}</Link>
-                  </Row>
-                  <Row>
-                    {processContent(item.content).text}
-                  </Row>
-                </Col>
-                <Col span={4}>
-                  <p><strong>Symbol:</strong> {item.symbol}</p>
-                </Col>
-                <Col span={3}>
-                  <Tag color={item.buy_or_sell === 'buy' ? '#108ee9' : '#f50'}>{item.buy_or_sell}</Tag>
-                </Col>
-                <Col span={2}>
-                  <div>
-                    {item.experience === 'happy' && <SmileTwoTone twoToneColor='#6dd142' style={{ fontSize: '20px' }} />}
-                    {item.experience === 'neutral' && <MehTwoTone twoToneColor='b0bfaa' style={{ fontSize: '20px' }} />}
-                    {item.experience === 'sad' && <FrownTwoTone twoToneColor='#d33024' style={{ fontSize: '20px' }} />}
-                  </div>
-                </Col>
-                <Col span={5}>
-                  <p><strong>Date:</strong> {moment(item.date).format('MMMM Do, YYYY')}</p>
-                </Col>
-                <Col span={1}>
-                <DeleteOutlined onClick={() => {
-                    setSelectedEntryId(item.id); // Set the selected entry id
-                    setDeleteModalVisible(true); // Show the delete confirmation modal
-                  }} />
-                </Col>
-              </Row>
+          <List.Item key={item.id}>
+            <Card
+              style={{ width: '100%', marginBottom: '16px', cursor: 'pointer' }}
+              actions={[
+                <EditOutlined key="edit" onClick={() => navigate(`/journalDetails/${item.id}`)} />,
+                <Popconfirm
+                  title="Are you sure you want to delete this journal entry?"
+                  onConfirm={() => deleteInstance(item.id)}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <DeleteOutlined key="delete" />
+                </Popconfirm>,
+              ]}
+            >
+              <Card.Meta
+                avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`} />}
+                title={<Link to={`/journalDetails/${item.id}`}>{item.title}</Link>}
+                description={
+                  <>
+                    <Paragraph ellipsis={{ rows: 2 }}>{processContent(item.content).text}</Paragraph>
+                    <Row gutter={16}>
+                      <Col>
+                        <Tag color={item.buy_or_sell === 'buy' ? 'success' : 'error'}>{item.buy_or_sell.toUpperCase()}</Tag>
+                      </Col>
+                      <Col>
+                        {item.experience === 'happy' && <SmileTwoTone twoToneColor="#52c41a" />}
+                        {item.experience === 'neutral' && <MehTwoTone twoToneColor="#d9d9d9" />}
+                        {item.experience === 'sad' && <FrownTwoTone twoToneColor="#f5222d" />}
+                      </Col>
+                      <Col>
+                        <Typography.Text type="secondary">{moment(item.date).format('MMMM Do, YYYY')}</Typography.Text>
+                      </Col>
+                    </Row>
+                  </>
+                }
+              />
             </Card>
           </List.Item>
         )}

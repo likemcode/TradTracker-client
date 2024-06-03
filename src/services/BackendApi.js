@@ -40,6 +40,9 @@ export const tradesApi = createApi({
     getAccountList: builder.query({
       query: () => `backend/trades/accounts`,
     }),
+    getJournalList: builder.query({
+      query: () => `backend/trades/journals`,
+    }),
   }),
  });
 export const { useGetTradesQuery, useGetKeyMetricsQuery, useGetDoughnutDataQuery, useGetAccountProgressQuery, useGetSemiDoughnutDataQuery , useGetBarChartDataQuery,useGetJournalListQuery, useGetAccountListQuery} = tradesApi;
