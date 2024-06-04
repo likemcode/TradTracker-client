@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import ImportModal from './ImportModal';
 import { FileTextOutlined } from '@ant-design/icons';
-import { Modal, Button, Card, message, Flex, Typography} from 'antd';
+import { Modal, Button, Card, message, Flex, Typography,Row, Col} from 'antd';
 import MetaTrader5Icon from '../assets/mt5 svg.svg' ;
 
 const { Title, Paragraph } = Typography;
@@ -50,44 +50,41 @@ const ImportComponent = ({ visible, onClose  }) => {
   };
 
   return (
-    <>
-      <Modal
-        open={visible}
-        onCancel={onClose}
-        footer={null}
-        
-      >
-        <Flex  gap={10} >
-        <Card title="Import Custom Trades" hoverable>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
-            <img src={MetaTrader5Icon} alt="MetaTrader5" style={{ width: '60px',height:'50px', marginRight: '8px', marginBottom:'8px' }} />
-            <p style={{ color: '#666', fontSize: '11px', marginBottom: '10px' }}>
-              Import your custom trades directly from your MetaTrader5 account. Make sure you have MetaTrader5 installed on your machine.
-            </p>
-          </div>
-          <Button type="primary" onClick={handleOpenformModal}>
-            Import Custom Trades
-          </Button>
-          <ImportModal
-            visible={formModalVisible}
-            onClose={handleCloseformModal}
-          />
-        </Card>
-        <Card title="Sample Trades" hoverable>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
-            <FileTextOutlined style={{ fontSize: '40px', marginBottom: '19px' }} />
-            <p style={{ color: '#666', fontSize: '11px', marginBottom: '10px' }}>
-              Import sample trades to see how the system works. These trades are provided for demonstration purposes only.
-            </p>
-          </div>
-          <Button type="primary" onClick={handleImportSampleTrades}>
-            Import Sample Trades
-          </Button>
-        </Card>
-        </Flex>
-        
-      </Modal>
-    </>
+    <Modal open={visible} onCancel={onClose} footer={null} centered>
+      <Row gutter={[16, 16]}>
+        <Col xs={24} sm={12}>
+          <Card title="Custom Trades" hoverable>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
+              <img src={MetaTrader5Icon} alt="MetaTrader5" style={{ width: '60px', height: '50px', marginRight: '8px', marginBottom: '8px' }} />
+              <Paragraph style={{ color: '#666', fontSize: '11px', marginBottom: '10px', textAlign: 'center' }}>
+                Import your custom trades directly from your MetaTrader5 account. Make sure you have MetaTrader5 installed on your machine.
+              </Paragraph>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <Button type="primary" onClick={handleOpenformModal}>
+                Import Custom Trades
+              </Button>
+            </div>
+            <ImportModal visible={formModalVisible} onClose={handleCloseformModal} />
+          </Card>
+        </Col>
+        <Col xs={24} sm={12}>
+          <Card title="Sample Trades" hoverable>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
+              <FileTextOutlined style={{ fontSize: '40px', marginBottom: '19px' }} />
+              <Paragraph style={{ color: '#666', fontSize: '11px', marginBottom: '10px', textAlign: 'center' }}>
+                Import sample trades to see how the system works. These trades are provided for demonstration purposes only.
+              </Paragraph>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <Button type="primary" onClick={handleImportSampleTrades}>
+                Import Sample Trades
+              </Button>
+            </div>
+          </Card>
+        </Col>
+      </Row>
+    </Modal>
   );
 };
 

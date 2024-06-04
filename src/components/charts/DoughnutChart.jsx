@@ -10,7 +10,6 @@ const MyDoughnutChartComponent = ({timeRange,accountId}) => {
   const chartRef = useRef(null);
   const { data, isLoading, error } = useGetDoughnutDataQuery({ timeRange, accountId });
 
-  
 
   // Component-level cleanup using useEffect
   useEffect(() => {
