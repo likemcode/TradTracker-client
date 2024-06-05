@@ -65,15 +65,17 @@ const App = () => {
             <div className='app-header' >
               <Navbar darkTheme={darkTheme} className='navbar' />
             </div>
-            <Header className='custom-header' style={{ marginLeft: collapsed? '80px' : '200px' }}>
-              <Select
-                value={selectedAccount}
-                style={{ width: 200 }}
-                onChange={(value) => setSelectedAccount(value)}
-                options={accounts?.map((account) => ({ value: account.id, label: `${account.broker_name} (${account.login})` }))}
-                loading={accountsLoading}
-              />
-            </Header>
+            {!location.pathname.includes('/Journal') && !location.pathname.includes('/journalDetails/') && (
+              <Header className='custom-header' style={{ marginLeft: collapsed ? '80px' : '200px' }}>
+                <Select
+                  value={selectedAccount}
+                  style={{ width: 200 }}
+                  onChange={(value) => setSelectedAccount(value)}
+                  options={accounts?.map((account) => ({ value: account.id, label: `${account.broker_name} (${account.login})` }))}
+                  loading={accountsLoading}
+                />
+              </Header>
+            )}
           <Content className='page-content' style={{
             paddingLeft: collapsed ? '80px' : '200px',
             overflow: 'hidden',
