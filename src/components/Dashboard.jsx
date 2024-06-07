@@ -1,7 +1,7 @@
 import React, { useState , useEffect} from 'react';
 import { Row, Col, Card, Select, Flex, Spin,Dropdown , Tag, Table, Empty } from 'antd';
 import Loader from './Loader';
-import {WalletOutlined, DollarOutlined, ArrowDownOutlined, ArrowUpOutlined, BankOutlined } from '@ant-design/icons';
+import {WalletOutlined, DollarOutlined, ArrowDownOutlined, ArrowUpOutlined, BankOutlined,MoneyCollectOutlined } from '@ant-design/icons';
 import { useGetTradesQuery , useGetKeyMetricsQuery, useGetAccountListQuery} from '../services/BackendApi';
 
 import moment from 'moment';
@@ -125,7 +125,7 @@ const Dashboard = ({ selectedAccount }) => {
       <Row gutter={16} style={{ marginBottom: '16px' }}>
 
   
-        <div className="metrics-row">
+        <div className="metrics-row"  >
             <Col className="metrics-card">
             <Card>
               <div className="metric-info">
@@ -151,9 +151,22 @@ const Dashboard = ({ selectedAccount }) => {
           <Card>
             <div className="metric-info">
               <div className="metric-title">Profit/Loss</div>
-              <div className={`metric-value ${metrics.pnl >= 0 ? 'positive-value' : 'negative-value'}`}>
+              <Flex align="middle">
+              <div className={`metric-value ${metrics.pnl >= 0 ? 'positive-value' : 'negative-value'}`} style={{ marginRight: '25px' }}>
                 {`${'$'}${metrics.pnl.toFixed(2)}`}
               </div>
+              <Dropdown
+                      overlay={
+                        menu
+                      }
+                      placement="bottomLeft"
+                      trigger={['click']}
+                    >
+                    <Tag color='blue' bordered={false} >
+                      <MoneyCollectOutlined />
+                    </Tag>
+                  </Dropdown>
+                  </Flex>
             </div>
           </Card>
         </Col>
@@ -222,7 +235,7 @@ const Dashboard = ({ selectedAccount }) => {
          
         </div>
       </Row>
-      <Row gutter={16} className='chart-row' style={{ marginLeft: '50px', marginRight:'50px' }}>
+      <Row gutter={16} className='chart-row' style={{ marginLeft: '30px', marginRight:'30px' }}>
         
           <Col flex={3} className="chart-col"  style={{ height: '100%', width:'60%'  }}>
             <Card style={{ height: '100%', width:'100%'  }}> 
@@ -238,7 +251,7 @@ const Dashboard = ({ selectedAccount }) => {
           </Col>
 
       </Row>
-      <Row gutter={16} style={{ marginLeft: '50px', marginRight:'50px',marginTop:'20px',marginBottom: '20px '}}>
+      <Row gutter={16} style={{ marginLeft: '30px', marginRight:'30px',marginTop:'20px',marginBottom: '20px '}} >
         <Col span={24}>
           <Card style={{ height: '100%' }} >
             <BarChart timeRange={selectedPeriod} accountId={selectedAccount}/>
