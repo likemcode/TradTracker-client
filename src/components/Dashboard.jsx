@@ -7,6 +7,7 @@ import { useGetTradesQuery , useGetKeyMetricsQuery, useGetAccountListQuery} from
 import moment from 'moment';
 import LineChart from './charts/LineChart';
 import BarChart from './charts/BarChart';
+import CustomEmpty from './CustomEmpty';
 import SemiDoughnutChart from './charts/SemiDoughnut';
 import DoughnutChart from './charts/DoughnutChart';
 import './Dashboard.css';
@@ -21,7 +22,7 @@ const Dashboard = ({ selectedAccount }) => {
   const { data: trades, isLoading: tradesLoading, error: tradesError } = useGetTradesQuery(selectedAccount);
 
   if (metricsLoading || tradesLoading) return <Loader />;
-  if (!metrics || !trades) return <Empty />;
+  if (!metrics || !trades) return <CustomEmpty />;
   if (metricsError) return <div>Error: {metricsError.message}</div>;
   if (tradesError) return <div>Error: {tradesError.message}</div>;
   
