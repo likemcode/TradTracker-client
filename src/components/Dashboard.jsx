@@ -83,10 +83,6 @@ const Dashboard = ({ selectedAccount }) => {
 
   };
 
-  const handleAccountChange = (value) => {
-    setSelectedAccount(value);
-    console.log(selectedAccount)
-  };
 
   
  

@@ -282,4 +282,10 @@
   height: 100vh; /* This makes the container take up the full height of the viewport */
  }
 
+.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
  

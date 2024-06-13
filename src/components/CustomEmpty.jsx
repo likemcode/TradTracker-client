@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Empty, Button, Typography } from 'antd';
 import ImportComponent from './Import';
-
+import nimage from '../assets/no-data.gif'
 const { Text } = Typography;
 
 const CustomEmpty = () => {
@@ -16,17 +16,12 @@ const CustomEmpty = () => {
   };
 
   return (
-    <div style={{ position: 'relative', height: '100vh', width: '100vw' }}>
-      <div style={{ 
-        position: 'absolute', 
-        top: '50%', 
-        left: '50%', 
-        transform: 'translate(-50%, -50%)' 
-      }}>
+    <div className='empty'>
+      
         <Empty
-          image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+          image={nimage}
           imageStyle={{
-            height: 60,
+            height: 100,
           }}
           description={
             <span>
@@ -38,7 +33,7 @@ const CustomEmpty = () => {
           <ImportComponent visible={isImportModalVisible} onClose={handleCloseImportModal} />
         </Empty>
       </div>
-    </div>
+
   );
 };
 
