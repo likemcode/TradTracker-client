@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Empty, Button, Typography } from 'antd';
 import ImportComponent from './Import';
-import nimage from '../assets/no-data.gif'
+import nimage from '../assets/no-data.png'
 const { Text } = Typography;
 
 const CustomEmpty = () => {
@@ -21,12 +21,15 @@ const CustomEmpty = () => {
         <Empty
           image={nimage}
           imageStyle={{
-            height: 100,
+            height: 250,
           }}
           description={
-            <span>
+            <div style={{display:'grid'}}>
+            <Text>No data yet</Text>
+            <Text>
               Import your Trading Data to get started
-            </span>
+            </Text>
+          </div>
           }
         >
           <Button type="primary" onClick={handleOpenImportModal}>Import now</Button>

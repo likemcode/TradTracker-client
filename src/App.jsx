@@ -1,68 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import { Collapse, Layout, Button, Select } from 'antd';
-import { Navbar, Dashboard, History, NotFound, Journal, JournalDetails, LandingPage , LoginPage, SignUp} from './components';
-import  ProtectedRoutes  from './utils/ProtectedRoutes';
+import { Layout, Button, Select } from 'antd';
+import { Navbar, Dashboard, History, NotFound, Journal, JournalDetails, LandingPage, LoginPage, SignUp, CustomEmpty, Loader } from './components';
+import ProtectedRoutes from './utils/ProtectedRoutes';
 import { useGetAccountListQuery } from './services/BackendApi';
-// import ToggleThemeButton from './components/ToggleThemeButton';
 
 const { Header, Sider, Content } = Layout;
 
-// Create a new component that uses useLocation
 const App = () => {
- const [darkTheme, setDarkTheme] = useState(false);
- const [collapsed, setCollapsed] = useState(false);
- const [selectedAccount, setSelectedAccount] = useState(null);
- const location = useLocation();
+  const [darkTheme, setDarkTheme] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
+  const [selectedAccount, setSelectedAccount] = useState(null);
+  const location = useLocation();
 
- // Fetch accounts and set the initial selected account
- const { data: accounts, isLoading: accountsLoading, error: accountsError } = useGetAccountListQuery();
+  const { data: accounts, isLoading: accountsLoading, error: accountsError } = useGetAccountListQuery();
 
- useEffect(() => {
-   if (accounts && accounts.length > 0 && !selectedAccount) {
-     setSelectedAccount(accounts[0].id); // Set the first account as the default selected account
-   }
- }, [accounts, selectedAccount]);
- 
-//  const toggleTheme = () => {
-//     setDarkTheme(!darkTheme);
+  useEffect(() => {
+    if (accounts && accounts.length > 0 && !selectedAccount) {
+      setSelectedAccount(accounts[0].id);
+    }
+  }, [accounts, selectedAccount]);
 
-//  };
+  if (accountsLoading) {
+    return <Loader />;
+  }
 
- // Use useLocation hook to get the current location
-
- return (
-  <div className='app'>
-    {location.pathname === '/' && <LandingPage />}
-    {location.pathname === '/Login' && <LoginPage />}
-    {location.pathname === '/signup' && <SignUp />}
-    {/* {location.pathname === '*' && <Notf />} */}
-    {/* Renders the rest of the app only for other routes */}
-    {!['/', '/Login', '/signup'].includes(location.pathname) &&  (
+  return (
+    <div className='app'>
+      {location.pathname === '/' && <LandingPage />}
+      {location.pathname === '/Login' && <LoginPage />}
+      {location.pathname === '/signup' && <SignUp />}
+      {!['/', '/Login', '/signup'].includes(location.pathname) && (
         <Layout hasSider>
-        <Sider
-          collapsed={collapsed}
-          collapsible
-          theme={darkTheme ? 'dark' : 'light'}
-          className='sidebar'
-          style={{
-            height: '100vh',
-            position: 'fixed',
-            left: 0,
-            top: 0,
-            bottom: 0,
-          }}
-          onCollapse={(collapsed) => setCollapsed(collapsed)}
-        >
+          <Sider
+            collapsed={collapsed}
+            collapsible
+            theme={darkTheme ? 'dark' : 'light'}
+            className='sidebar'
+            style={{
+              height: '100vh',
+              position: 'fixed',
+              left: 0,
+              top: 0,
+              bottom: 0,
+            }}
+            onCollapse={(collapsed) => setCollapsed(collapsed)}
+          >
             <div className='toggle'>
               {/* <Button type='text' onClick={() => setCollapsed(!collapsed)} icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined  />}  /> */}
             </div>
-            
+
             <Navbar darkTheme={darkTheme} collapsed={collapsed} className='navbar' />
           </Sider>
-          <Layout >   
-            <div className='app-header' >
+          <Layout>
+            <div className='app-header'>
               <Navbar darkTheme={darkTheme} className='navbar' />
             </div>
             {!location.pathname.includes('/Journal') && !location.pathname.includes('/journalDetails/') && (
@@ -76,28 +68,40 @@ const App = () => {
                 />
               </Header>
             )}
-          <Content className='page-content' style={{
-            paddingLeft: collapsed ? '80px' : '200px',
-            overflow: 'hidden',
-          }}>
-            <div className='routes'>
+            <Content
+              className='page-content'
+              style={{
+                paddingLeft: collapsed ? '80px' : '200px',
+                overflow: 'hidden',
+              }}
+            >
               <Routes>
-                <Route element={<ProtectedRoutes/>}>
-                  <Route path='/Dashboard' element={<Dashboard selectedAccount={selectedAccount} />} />
-                  <Route path='/History' element={<History selectedAccount={selectedAccount} />} />
-                  <Route path='/Journal' element={<Journal />} />
-                  <Route path='/JournalDetails/:journalId' element={<JournalDetails />} /> 
+                <Route element={<ProtectedRoutes />}>
+                  <Route
+                    path='/Dashboard'
+                    element={accounts && accounts.length > 0 ? <Dashboard selectedAccount={selectedAccount} /> : <CustomEmpty />}
+                  />
+                  <Route
+                    path='/History'
+                    element={accounts && accounts.length > 0 ? <History selectedAccount={selectedAccount} /> : <CustomEmpty />}
+                  />
+                  <Route
+                    path='/Journal'
+                    element={accounts && accounts.length > 0 ? <Journal /> : <CustomEmpty />}
+                  />
+                  <Route
+                    path='/JournalDetails/:journalId'
+                    element={accounts && accounts.length > 0 ? <JournalDetails /> : <CustomEmpty />}
+                  />
                   <Route path='*' element={<NotFound />} />
                 </Route>
               </Routes>
-            </div>
-          </Content>
+            </Content>
           </Layout>
         </Layout>
       )}
     </div>
- );
+  );
 };
-
 
 export default App;

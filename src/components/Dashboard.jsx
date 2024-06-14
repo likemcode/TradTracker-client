@@ -1,9 +1,8 @@
-import React, { useState , useEffect} from 'react';
-import { Row, Col, Card, Select, Flex, Spin,Dropdown , Tag, Table, Empty } from 'antd';
+import React, { useState } from 'react';
+import { Row, Col, Card, Select, Dropdown, Tag, Table, Typography , Result, Button} from 'antd';
 import Loader from './Loader';
-import {WalletOutlined, DollarOutlined, ArrowDownOutlined, ArrowUpOutlined, BankOutlined,MoneyCollectOutlined } from '@ant-design/icons';
-import { useGetTradesQuery , useGetKeyMetricsQuery, useGetAccountListQuery} from '../services/BackendApi';
-
+import { WalletOutlined, DollarOutlined, ArrowDownOutlined, ArrowUpOutlined, BankOutlined, MoneyCollectOutlined } from '@ant-design/icons';
+import { useGetTradesQuery, useGetKeyMetricsQuery } from '../services/BackendApi';
 import moment from 'moment';
 import LineChart from './charts/LineChart';
 import BarChart from './charts/BarChart';
@@ -11,7 +10,8 @@ import CustomEmpty from './CustomEmpty';
 import SemiDoughnutChart from './charts/SemiDoughnut';
 import DoughnutChart from './charts/DoughnutChart';
 import './Dashboard.css';
-const skipToken = typeof Symbol === 'function' ? Symbol.for('skip') : '__skip';
+
+const { Text } = Typography;
 
 const Dashboard = ({ selectedAccount }) => {
   const [selectedPeriod, setSelectedPeriod] = useState('All');
@@ -22,10 +22,32 @@ const Dashboard = ({ selectedAccount }) => {
   const { data: trades, isLoading: tradesLoading, error: tradesError } = useGetTradesQuery(selectedAccount);
 
   if (metricsLoading || tradesLoading) return <Loader />;
-  if (!metrics || !trades) return <CustomEmpty />;
-  if (metricsError) return <div>Error: {metricsError.message}</div>;
-  if (tradesError) return <div>Error: {tradesError.message}</div>;
-  
+
+  if (metricsError || tradesError) {
+    return (
+      <Result
+        status="500"
+        title="500"
+        subTitle={metricsError.error|| tradesError.error}
+        extra={<Button type="primary">Back Home</Button>}
+      />
+    );
+  }
+
+
+  if (!metrics || metrics.length === 0) {
+    return (
+        <CustomEmpty />
+    );
+  }
+
+  if (!trades || trades.length === 0) {
+    return (
+      <div style={{ textAlign: 'center', padding: '50px' }}>
+        <CustomEmpty description={<Text>No trades data available</Text>} />
+      </div>
+    );
+  }
 
   const columns = [
     {

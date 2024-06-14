@@ -1,27 +1,22 @@
-import React, { useState } from 'react';
-import { Card, Collapse } from 'antd';
+import React from 'react';
+import { Result, Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
-const { Panel } = Collapse;
+const NotFound = () => {
+  const navigate = useNavigate();
 
-const CollapsibleCard = ({ title, children }) => {
-  const [collapsed, setCollapsed] = useState(false);
-
-  const toggleCollapse = () => {
-    setCollapsed(!collapsed);
+  const handleBackHome = () => {
+    navigate('/');
   };
 
   return (
-    <Card
-      title={title}
-      extra={<span onClick={toggleCollapse}>{collapsed ? 'Expand' : 'Collapse'}</span>}
-    >
-      <Collapse bordered={false} activeKey={collapsed ? [] : ['1']}>
-        <Panel key="1">
-          {children}
-        </Panel>
-      </Collapse>
-    </Card>
+    <Result
+      status="404"
+      title="404"
+      subTitle="Sorry, the page you visited does not exist."
+      extra={<Button type="primary" onClick={handleBackHome}>Back Home</Button>}
+    />
   );
 };
 
-export default CollapsibleCard;
+export default NotFound;
