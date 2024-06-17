@@ -87,11 +87,11 @@ const App = () => {
                   />
                   <Route
                     path='/Journal'
-                    element={accounts && accounts.length > 0 ? <Journal /> : <CustomEmpty />}
+                    element={<Journal />}
                   />
                   <Route
                     path='/JournalDetails/:journalId'
-                    element={accounts && accounts.length > 0 ? <JournalDetails /> : <CustomEmpty />}
+                    element={ <JournalDetails />}
                   />
                   <Route path='*' element={<NotFound />} />
                 </Route>
