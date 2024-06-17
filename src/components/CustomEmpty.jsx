@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Empty, Button, Typography } from 'antd';
 import ImportComponent from './Import';
 import nimage from '../assets/no-data.png'
-const { Text } = Typography;
+const { Title, Text, Paragraph} = Typography;
 
 const CustomEmpty = () => {
   const [isImportModalVisible, setIsImportModalVisible] = useState(false);
@@ -25,10 +25,10 @@ const CustomEmpty = () => {
           }}
           description={
             <div style={{display:'grid'}}>
-            <Text>No data yet</Text>
-            <Text>
-              Import your Trading Data to get started
-            </Text>
+            <Title level={3}>Welcome aboard</Title>
+            <Paragraph>
+                Import your trading data to see your progress and insights
+            </Paragraph>
           </div>
           }
         >

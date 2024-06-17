@@ -116,8 +116,8 @@
 
 .page-content {
   background-color: #bbd6f722;
-  min-height: calc(100vh - 8vh)!important;
-  overflow-y: auto;
+  height: 100vh;
+  overflow-y: hidden !important;
 }
 
 
