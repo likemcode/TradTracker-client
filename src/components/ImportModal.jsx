@@ -6,7 +6,6 @@ import { importData } from '../services/BackendApi';
 const ImportModal = ({ visible, onClose }) => {
  const [form] = Form.useForm();
  const dispatch = useDispatch();
- const [messageApi, contextHolder] = message.useMessage();
 
  const handleLogin = async () => {
     const values = form.getFieldsValue();
@@ -21,18 +20,14 @@ const ImportModal = ({ visible, onClose }) => {
       await dispatch(importData(payload));
       onClose();
       // Show success message
-      messageApi.open({
-        type: 'success',
-        content: 'Data import successful',
-      });
+      if (!response.ok) {
+        throw new Error('Failed to import Data ');
+      }
+      message.success('Your Trading was imported Data successfully');
     } catch (error) {
-      console.error('Error:', error);
-      // Handle error, e.g., by showing an error message in the UI
-      messageApi.open({
-        type: 'error',
-        content: 'An error occurred. Please try again.',
-      });
+      message.error('Error saving journal entry:', error.error);
     }
+     
  };
 
  return (
@@ -59,7 +54,6 @@ const ImportModal = ({ visible, onClose }) => {
           Import Data
         </Button>
       </Form>
-      {contextHolder}
     </Modal>
  );
 };

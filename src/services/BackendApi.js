@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery  } from '@reduxjs/toolkit/query/react';
 export const tradesApi = createApi({
   reducerPath: 'tradesApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://127.0.0.1:8000',
+    baseUrl: 'https://tradtracker-backend-production.up.railway.app/',
     prepareHeaders: (headers, { getState }) => {
       // Get the token from your state or wherever you store it
       const token = localStorage.getItem('token');
@@ -53,7 +53,7 @@ export const importData = createAsyncThunk(
   async (payload) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch('http://127.0.0.1:8000/backend/connect_to_mt5/', {
+      const response = await fetch('https://tradtracker-backend-production.up.railway.app/backend/connect_to_mt5/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

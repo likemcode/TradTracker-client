@@ -117,7 +117,7 @@
 .page-content {
   background-color: #bbd6f722;
   height: 100vh;
-  overflow-y: hidden !important;
+  overflow-y: auto !important;
 }
 
 

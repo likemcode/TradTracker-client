@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Row, Col, Card, Select, Dropdown, Tag, Table, Typography , Result, Button} from 'antd';
+import { Row, Col, Card, Select, Dropdown, Tag, Table, Typography , Result, Button, Flex} from 'antd';
 import Loader from './Loader';
 import { WalletOutlined, DollarOutlined, ArrowDownOutlined, ArrowUpOutlined, BankOutlined, MoneyCollectOutlined } from '@ant-design/icons';
 import { useGetTradesQuery, useGetKeyMetricsQuery } from '../services/BackendApi';

@@ -42,43 +42,79 @@ const History = ({ selectedAccount }) => {
 
   const columns = [
     {
-      title: 'Trade ID',
-      dataIndex: 'tradeId',
-      key: 'tradeId',
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: 'Date',
+      dataIndex: 'dates',
+      key: 'dates',
+      render: (text) => new Date(text).toLocaleString(),
     },
     {
       title: 'Symbol',
       dataIndex: 'symbol',
       key: 'symbol',
-      render: symbol => <Tag color="blue">{symbol}</Tag>,
+      // render : (text) => {
+      //   return <Text strong >{text}</Text>
+      // }
     },
     {
-      title: 'Type',
-      dataIndex: 'type',
-      key: 'type',
-      render: type => (type === 'buy' ? <Tag color="green">Buy</Tag> : <Tag color="red">Sell</Tag>),
+      title: 'Buy/Sell',
+      dataIndex: 'buy_sell',
+      key: 'buy_sell',
+      render: (text, record) => {
+        if (record.profit >= 0 && text !== '0' && text !== '1') {
+          // Display "Deposit" in green
+          return <Tag color="green">Deposit</Tag>;
+        } else if (record.profit < 0 && text !== '0' && text !== '1') {
+          return <Tag color="red">Withdrawal</Tag>;  
+        } else {
+          return <Tag color={text === '1' ? 'blue' : 'red'}>
+          {text === '1' ? 'Buy' : 'Sell'}
+        </Tag>;
+        }
+      },
     },
     {
       title: 'Volume',
       dataIndex: 'volume',
       key: 'volume',
+      render:(text)=>{
+        if (text==0){
+          return '_'
+        }
+        else{
+          return text
+        }
+      }
     },
     {
       title: 'Profit',
       dataIndex: 'profit',
       key: 'profit',
+      render: (text) => (
+        <Tag color={text >=  0 ? 'green' : 'red'}>
+          {text >=  0 ? `+${text}` : text} $
+        </Tag>
+      )
     },
-    {
-      title: 'Date',
-      dataIndex: 'date',
-      key: 'date',
-    },
+
   ];
 
   return (
-    <div>
-      <RangePicker style={{ marginBottom: 16 }} />
-      <Table columns={columns} dataSource={filteredData} rowKey="tradeId" />
+    <div style={{marginLeft:'20px', marginRight:'20px'}}>
+      {/* Add the RangePicker component for date filtering */}
+      <RangePicker onChange={handleDateFilter} style={{ marginBottom: '16px', marginTop: '16px' }} />
+      <Table
+        columns={columns}
+        dataSource={filteredData} // Use filteredData instead of trades
+        rowKey="id"
+        size="middle" // or "small"
+        pagination={{ pageSize: 30 }}
+        format="YYYY-MM-DD"
+      />
     </div>
   );
 };
