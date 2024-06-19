@@ -31,6 +31,15 @@ const History = ({ selectedAccount }) => {
       );
       
   }
+  const handleDateFilter = (dates) => {
+    // Filter trades based on selected date range
+    const filteredTrades = trades.filter(
+      (trade) =>
+        new Date(trade.dates) >= dates[0].startOf('day') &&
+        new Date(trade.dates) <= dates[1].endOf('day')
+    );
+    setFilteredData(filteredTrades);
+  };
 
   if (!filteredData || filteredData.length === 0) {
    

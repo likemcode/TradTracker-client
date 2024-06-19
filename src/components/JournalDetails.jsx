@@ -30,7 +30,7 @@ const JournalDetails = () => {
     const fetchJournalEntry = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await fetch(`http://127.0.0.1:8000/backend/trades/journal_entry/${journalId}/`, {
+        const response = await fetch(`https://tradtracker-backend-production.up.railway.app/trades/journal_entry/${journalId}/`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ const JournalDetails = () => {
   const saveJournalEntry = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`http://127.0.0.1:8000/backend/trades/journal_entry/${journalId}/`, {
+      const response = await fetch(`https://tradtracker-backend-production.up.railway.app/backend/trades/journal_entry/${journalId}/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
