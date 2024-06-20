@@ -3,6 +3,7 @@ import {Menu,Avatar, Button, Flex} from 'antd';
 import{Link, useNavigate} from 'react-router-dom';
 import Logo from './Logo'
 import {CloudDownloadOutlined, TableOutlined,LogoutOutlined,AreaChartOutlined,UserOutlined, ReadOutlined, StopOutlined, MenuOutlined} from '@ant-design/icons';
+import AccountModal from './User';
 import  ImportComponent  from './Import';
 
 
@@ -10,6 +11,8 @@ const Navbar = ({darkTheme, collapsed }) => {
   const [activeMenu, setActiveMenu]= useState(true)
   const [screenSize, setScreenSize] = useState(null)
   const [isImportModalVisible, setIsImportModalVisible] = useState(false);
+
+  const [isAccountModalVisible, setAccountModalVisible] = useState(false);
   const navigate= useNavigate()
 
   useEffect(() => {
@@ -36,6 +39,15 @@ const Navbar = ({darkTheme, collapsed }) => {
 
   const handleCloseImportModal = () => {
     setIsImportModalVisible(false);
+  };
+
+
+  const handleOpenAccountModal = () => {
+    setAccountModalVisible(true);    
+  };
+
+  const handleCloseAccountModal = () => {
+    setAccountModalVisible(false);
   };
 
   const handleLogout= async () => {
@@ -74,8 +86,8 @@ const Navbar = ({darkTheme, collapsed }) => {
               key="Profile" icon={<UserOutlined />} 
               title="Profile" 
             >
-              <Menu.Item key="User" icon={<UserOutlined />}>
-                <Link to="/user">User</Link>
+              <Menu.Item key="User" icon={<UserOutlined />} onClick={handleOpenAccountModal}>
+                My Account
               </Menu.Item>
               <Menu.Item key="Logout" icon={<LogoutOutlined />} onClick={handleLogout}>
                 Logout
@@ -88,7 +100,8 @@ const Navbar = ({darkTheme, collapsed }) => {
         </Menu>
         )}
         <ImportComponent visible={isImportModalVisible} onClose={handleCloseImportModal} />
-        
+
+        <AccountModal visible={isAccountModalVisible} onCancel={handleCloseAccountModal} />
         </div>
       
   )

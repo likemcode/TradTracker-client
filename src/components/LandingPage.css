@@ -97,17 +97,16 @@
    transition: transform 0.3s ease-in-out;
    
 }
+
 .ant-card {
 transition: transform 0.3s ease;
 }
 
-.ant-card:hover {
-   transform: translateY(-10px);
- }
 
 .feature-card:hover {
    transform: scale(1.05);
    box-shadow: #4695fc;
+   transform: translateY(-10px);
 }
 
 /* Responsive Styles */
