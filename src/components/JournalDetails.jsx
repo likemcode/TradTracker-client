@@ -25,12 +25,13 @@ const JournalDetails = () => {
   
   const [content, setContent] = useState('');
  
-
+  
   useEffect(() => {
     const fetchJournalEntry = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await fetch(`https://tradtracker-backend-production.up.railway.app/trades/journal_entry/${journalId}/`, {
+        console.log(journalId);
+        const response = await fetch(`https://tradtracker-backend-production.up.railway.app/backend/trades/journal_entry/${journalId}/`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

@@ -11,7 +11,7 @@ const Navbar = ({darkTheme, collapsed }) => {
   const [activeMenu, setActiveMenu]= useState(true)
   const [screenSize, setScreenSize] = useState(null)
   const [isImportModalVisible, setIsImportModalVisible] = useState(false);
-
+  const [userId, setUserId] = useState(null);
   const [isAccountModalVisible, setAccountModalVisible] = useState(false);
   const navigate= useNavigate()
 
@@ -49,6 +49,30 @@ const Navbar = ({darkTheme, collapsed }) => {
   const handleCloseAccountModal = () => {
     setAccountModalVisible(false);
   };
+
+  useEffect(() => {
+    // Fetch user details to get the user id
+    const fetchUserId = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const response = await fetch('http://127.0.0.1:8000/auth/user/', {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Token ${token}`,
+            },
+          });
+          if (response.ok) {
+            const data = await response.json();
+            setUserId(data.id); // Assuming the user object has an id field
+          }
+        } catch (error) {
+          console.error('Error fetching user id:', error);
+        }
+      }
+    };
+    fetchUserId();
+  }, []);
 
   const handleLogout= async () => {
     const response = await fetch('http://127.0.0.1:8000/auth/logout/', {
@@ -101,7 +125,7 @@ const Navbar = ({darkTheme, collapsed }) => {
         )}
         <ImportComponent visible={isImportModalVisible} onClose={handleCloseImportModal} />
 
-        <AccountModal visible={isAccountModalVisible} onCancel={handleCloseAccountModal} />
+        <AccountModal visible={isAccountModalVisible} onCancel={handleCloseAccountModal} userId={userId}/>
         </div>
       
   )
