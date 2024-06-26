@@ -23,11 +23,11 @@ const AccountModal = ({ visible, onCancel }) => {
       if (!response.ok) throw new Error('Failed to fetch user data');
 
       const data = await response.json();
+      console.log(data);
       setUserData(data);
       form.setFieldsValue({
         username: data.username,
         email: data.email,
-        profileImage: data.profile.profile_image ? [{ url: data.profile.profile_image }] : [],
       });
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -39,17 +39,17 @@ const AccountModal = ({ visible, onCancel }) => {
     if (visible) fetchUserData();
   }, [visible, fetchUserData]);
 
-  const handleUpload = ({ file }) => {
-    if (!['image/jpeg', 'image/png'].includes(file.type)) {
-      message.error('You can only upload JPG/PNG files!');
-      return false;
-    }
+  // const handleUpload = ({ file }) => {
+  //   if (!['image/jpeg', 'image/png'].includes(file.type)) {
+  //     message.error('You can only upload JPG/PNG files!');
+  //     return false;
+  //   }
 
-    const reader = new FileReader();
-    reader.onload = (e) => setPreviewImage(e.target.result);
-    reader.readAsDataURL(file);
-    return false;
-  };
+  //   const reader = new FileReader();
+  //   reader.onload = (e) => setPreviewImage(e.target.result);
+  //   reader.readAsDataURL(file);
+  //   return false;
+  // };
 
   const handleSubmit = async (values) => {
     setLoading(true);
@@ -57,9 +57,9 @@ const AccountModal = ({ visible, onCancel }) => {
     const body = {
       username: values.username,
       email: values.email,
-      profile: {
-        profile_image: previewImage,
-      },
+      // profile: {
+      //   profile_image: previewImage,
+      // },
     };
 
     try {
@@ -108,17 +108,16 @@ const AccountModal = ({ visible, onCancel }) => {
       setIsPasswordModalVisible(false);
       passwordForm.resetFields();
     } catch (error) {
-      console.error('Error changing password:', error);
       message.error(error.message || 'Failed to change password. Please try again.');
     }
   };
 
-  const uploadButton = (
-    <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
+  // const uploadButton = (
+  //   <div>
+  //     {loading ? <LoadingOutlined /> : <PlusOutlined />}
+  //     <div style={{ marginTop: 8 }}>Upload</div>
+  //   </div>
+  // );
 
   return (
     <>
@@ -131,7 +130,7 @@ const AccountModal = ({ visible, onCancel }) => {
       >
         {userData ? (
           <Form form={form} onFinish={handleSubmit} layout="vertical">
-            <Form.Item name="profileImage" label="Profile Image">
+            {/* <Form.Item name="profileImage" label="Profile Image">
               <Upload
                 name="avatar"
                 listType="picture-card"
@@ -140,7 +139,7 @@ const AccountModal = ({ visible, onCancel }) => {
               >
                 {uploadButton}
               </Upload>
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item
               name="username"
               label="Username"
