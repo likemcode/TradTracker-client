@@ -1,25 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Form, Input, Button, Checkbox, Typography, Select } from 'antd';
+import { Form, Input, Button, Checkbox, Typography, message } from 'antd';
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { signupStart, signupSuccess, signupFailure } from '../services/authSlice';
+import { Link } from 'react-router-dom';
+import './SignUpPage.css';
 
-import { Link } from 'react-router-dom'; // For navigation link
-import './SignUpPage.css'; // Ensure you import your CSS file
 const { Title } = Typography;
 
-
 const SignUp = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [messageApi, contextHolder] = message.useMessage();
 
+  useEffect(() => {
+    if (loading) {
+      messageApi.open({
+        type: 'loading',
+        content: 'Creating your account...',
+        duration: 0,
+      });
+    } else {
+      messageApi.destroy();
+    }
+  }, [loading, messageApi]);
 
-  const onFinish =  async (values) => {
+  const onFinish = async (values) => {
+    setLoading(true);
     dispatch(signupStart());
     try {
       const response = await fetch('http://127.0.0.1:8000/auth/register/', {
@@ -30,18 +40,34 @@ const SignUp = () => {
         body: JSON.stringify(values),
       });
       const data = await response.json();
+      if (!response.ok) {
+        throw new Error(JSON.stringify(data));
+      }
       dispatch(signupSuccess(data));
       localStorage.setItem('token', data.token);
-        // Redirect user to login page after successful signup
-        navigate('/Login');
+      message.success('Account created successfully!');
+      navigate('/Login');
     } catch (error) {
-      dispatch(signupFailure(error.message));
+      const errorData = JSON.parse(error.message);
+      dispatch(signupFailure(errorData));
+      // Handle specific field errors
+      Object.keys(errorData).forEach(field => {
+        form.setFields([
+          {
+            name: field,
+            errors: Array.isArray(errorData[field]) ? errorData[field] : [errorData[field]],
+          },
+        ]);
+      });
+      message.error('Failed to create account. Please check the form for errors.');
+    } finally {
+      setLoading(false);
     }
-
   };
 
   const validateConfirmPassword = (_, value) => {
-    if (value !== password) {
+    const password = form.getFieldValue('password');
+    if (value && value !== password) {
       return Promise.reject('Passwords do not match!');
     }
     return Promise.resolve();
@@ -49,8 +75,10 @@ const SignUp = () => {
 
   return (
     <div className="signup-container">
+      {contextHolder}
       <Title level={2} className="signup-title">TradeTracker</Title>
       <Form
+        form={form}
         name="normal_signup"
         className="signup-form"
         initialValues={{ remember: true }}
@@ -62,7 +90,7 @@ const SignUp = () => {
             { required: true, message: 'Please input your username!' },
           ]}
         >
-          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
         </Form.Item>
         <Form.Item
           name="email"
@@ -71,21 +99,18 @@ const SignUp = () => {
             { type: 'email', message: 'Invalid email address!' },
           ]}
         >
-          <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
         </Form.Item>
         <Form.Item
           name="password"
           rules={[
             { required: true, message: 'Please input your password!' },
-            { min: 6, message: 'Password must be at least 6 characters!' },
+            { min: 8, message: 'Password must be at least 8 characters!' },
           ]}
         >
           <Input.Password
             prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
             placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Item>
         <Form.Item
@@ -94,39 +119,19 @@ const SignUp = () => {
           hasFeedback
           rules={[
             { required: true, message: 'Please confirm your password!' },
-            ({ getFieldValue }) => ({
-              validator: validateConfirmPassword,
-              shouldUpdate: (next, prev) => next !== prev,
-            }),
+            { validator: validateConfirmPassword },
           ]}
         >
           <Input.Password
             prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
             placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </Form.Item>
-        {/* <Form.Item name="country"> */}
-          {/* <Select
-            defaultValue={country}
-            options={countries}
-            onChange={(value) => setCountry(value)}
-          >
-            Country options rendered dynamically */}
-            {/* {countries.map((country) => (
-              <Select.Option key={country.value} value={country.value}>
-                {country.label}
-              </Select.Option> */}
-            {/* ))}
-          </Select> */}
-        {/* </Form.Item> */}
         <Form.Item name="remember" valuePropName="checked" noStyle>
           <Checkbox>I agree to TradeTracker's Terms of Service</Checkbox>
         </Form.Item>
         <Form.Item>
-        <Button type="primary" htmlType="submit" className="signup-form-button">
+          <Button type="primary" htmlType="submit" className="signup-form-button" loading={loading}>
             Sign Up
           </Button>
           <span className="signup-form-or">or</span>
