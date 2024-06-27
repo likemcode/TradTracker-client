@@ -4,6 +4,7 @@ import{Link, useNavigate} from 'react-router-dom';
 import Logo from './Logo'
 import {CloudDownloadOutlined, TableOutlined,LogoutOutlined,AreaChartOutlined,UserOutlined, ReadOutlined, StopOutlined, MenuOutlined} from '@ant-design/icons';
 import AccountModal from './User';
+import DeleteAccountModal from './DeleteAccountModal';
 import  ImportComponent  from './Import';
 
 
@@ -13,6 +14,7 @@ const Navbar = ({darkTheme, collapsed }) => {
   const [isImportModalVisible, setIsImportModalVisible] = useState(false);
   const [userId, setUserId] = useState(null);
   const [isAccountModalVisible, setAccountModalVisible] = useState(false);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const navigate= useNavigate()
 
   useEffect(() => {
@@ -48,6 +50,14 @@ const Navbar = ({darkTheme, collapsed }) => {
 
   const handleCloseAccountModal = () => {
     setAccountModalVisible(false);
+  };
+
+  const showDeleteModal = () => {
+    setIsDeleteModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsDeleteModalVisible(false);
   };
 
   useEffect(() => {
@@ -116,8 +126,8 @@ const Navbar = ({darkTheme, collapsed }) => {
               <Menu.Item key="Logout" icon={<LogoutOutlined />} onClick={handleLogout}>
                 Logout
               </Menu.Item>
-              <Menu.Item key="Delete" icon={<StopOutlined /> } danger='true'>
-                <Link to="/delete">Delete</Link>
+              <Menu.Item key="Delete" icon={<StopOutlined /> } danger='true' onClick={showDeleteModal}>
+                Delete
               </Menu.Item>
         </Menu.SubMenu>
           
@@ -126,6 +136,8 @@ const Navbar = ({darkTheme, collapsed }) => {
         <ImportComponent visible={isImportModalVisible} onClose={handleCloseImportModal} />
 
         <AccountModal visible={isAccountModalVisible} onCancel={handleCloseAccountModal} userId={userId}/>
+
+        <DeleteAccountModal visible={isDeleteModalVisible} onCancel={handleCancel} />
         </div>
       
   )
