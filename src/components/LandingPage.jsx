@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Dashboardimage from '../assets/Dashboard.png';
+import { SlidersTwoTone } from '@ant-design/icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bars3Icon, XMarkIcon, ChartBarIcon,CpuChipIcon,ChartBarSquareIcon, CurrencyDollarIcon, ShieldCheckIcon, BookOpenIcon, ArrowUpTrayIcon, UsersIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
 
@@ -20,7 +22,7 @@ const LandingPage = () => {
       {/* Header */}
       <motion.header 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrollPosition > 50 ? 'bg-white bg-opacity-90 backdrop-blur-md shadow-lg' : 'bg-transparent'
+          scrollPosition > 50 ? 'bg-white bg-opacity-25 backdrop-blur-md shadow-lg' : 'bg-transparent'
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -34,8 +36,12 @@ const LandingPage = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <ChartBarIcon className="h-8 w-8 text-blue-600" />
-              <span className="ml-2 text-xl font-bold text-gray-800">TradeTracker</span>
+              <div className="w-8 h-8 flex items-center justify-center bg-blue-600 rounded-md">
+                <SlidersTwoTone twoToneColor="#ffffff" className="text-xl" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900">
+                Trade<span className="text-blue-600">Tracker</span>
+              </h3>
             </motion.div>
             <nav className="hidden md:flex space-x-6">
               {['Features', 'Pricing', 'Login'].map((item, index) => (
@@ -93,7 +99,7 @@ const LandingPage = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
                   <Link 
-                    to={`/${item.toLowerCase().replace(' ', '')}`} 
+                    to={`/${item.toUpperCase().replace(' ', '')}`} 
                     className={`text-2xl ${item === 'Sign Up' ? 'bg-blue-600 text-white px-6 py-3 rounded-md' : 'text-gray-600 hover:text-gray-800'} transition`}
                     onClick={toggleMenu}
                   >
@@ -155,7 +161,7 @@ const LandingPage = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             whileHover={{ scale: 1.02 }}
           >
-            <img src="/api/placeholder/1200/600" alt="TradeTracker Dashboard" className="w-full h-auto" />
+            <img src={ Dashboardimage } alt="TradeTracker Dashboard" className="w-full h-auto" />
           </motion.div>
           <motion.p 
             className="text-center mt-4 text-gray-600"
