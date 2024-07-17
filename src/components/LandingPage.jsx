@@ -1,160 +1,310 @@
-import React, { useState } from 'react';
-import { Layout, Row, Col, Button, Typography, Card, Avatar } from 'antd';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { RocketOutlined, DollarCircleOutlined, SafetyOutlined, MenuOutlined, SlidersTwoTone, ImportOutlined, TeamOutlined, LineChartOutlined, RobotOutlined, BookOutlined } from '@ant-design/icons';
-import './LandingPage.css';
-import Logo from './Logo';
-
-const { Header, Content, Footer } = Layout;
-const { Title, Paragraph } = Typography;
+import { motion, AnimatePresence } from 'framer-motion';
+import { Bars3Icon, XMarkIcon, ChartBarIcon,CpuChipIcon,ChartBarSquareIcon, CurrencyDollarIcon, ShieldCheckIcon, BookOpenIcon, ArrowUpTrayIcon, UsersIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
 
 const LandingPage = () => {
-  const [showNavbar, setShowNavbar] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
 
-  const handleShowNavbar = () => {
-    setShowNavbar(!showNavbar);
-  }
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollPosition(window.pageYOffset);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <Layout>
-      <Header className="header">
-        <div className='logo-container' style={{ display: 'flex', alignItems: 'center' }}>
-          <Avatar className='avatar-expanded' icon={<SlidersTwoTone />} />
-          <h3 style={{ marginLeft: '10px', fontSize: '17px', fontWeight: 'bold' }} className='logo-title'>TradeTracker</h3>
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-100 text-gray-800">
+      {/* Header */}
+      <motion.header 
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrollPosition > 50 ? 'bg-white bg-opacity-90 backdrop-blur-md shadow-lg' : 'bg-transparent'
+        }`}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <motion.div 
+              className="flex items-center"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <ChartBarIcon className="h-8 w-8 text-blue-600" />
+              <span className="ml-2 text-xl font-bold text-gray-800">TradeTracker</span>
+            </motion.div>
+            <nav className="hidden md:flex space-x-6">
+              {['Features', 'Pricing', 'Login'].map((item, index) => (
+                <motion.div
+                  key={item}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <Link to={`/${item.toLowerCase()}`} className="text-gray-600 hover:text-gray-800 transition">
+                    {item}
+                  </Link>
+                </motion.div>
+              ))}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link to="/signup" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
+                  Sign Up
+                </Link>
+              </motion.div>
+            </nav>
+            <motion.button 
+              onClick={toggleMenu} 
+              className="md:hidden text-gray-800"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              {isMenuOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
+            </motion.button>
+          </div>
         </div>
-        <div className={`nav-links ${showNavbar ? 'active' : ''}`}>
-          <Button type="link">
-            <Link to="/Login">Login</Link>
-          </Button>
-          <Button type="primary">
-            <Link to="/signup" style={{ color: 'white' }}>SignUp</Link>
-          </Button>
-        </div>
-        <div className='nav-button'>
-          <Button onClick={handleShowNavbar}>
-            <MenuOutlined />
-          </Button>
-        </div>
-      </Header>
-      <Content className="content" style={{ padding: '50px', backgroundColor: '#fff' }}>
-        <Row gutter={[24, 24]} justify="center">
-          <Col xs={24} md={12}>
-            <div className="hero-text" style={{ textAlign: 'center' }}>
-              <Title level={2} className='gradient-title' style={{ color: '#333', fontWeight: 'bold', fontSize: '41px' }}>Unlock Your Trading Potential with TradeTracker.</Title>
-              <Paragraph style={{ color: '#666' }}>
-                TradeTracker is an all-in-one trading platform that empowers you to monitor, analyze, and optimize your trading performance. Gain valuable insights, journal your trades, and leverage AI-powered recommendations to achieve your trading goals.
-              </Paragraph>
-              <Button type="primary" size="large" style={{ marginTop: '24px' }}>
-                <Link to="/signup">Get Started</Link>
-              </Button>
+      </motion.header>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div 
+            className="md:hidden fixed inset-0 z-40 bg-white bg-opacity-95 backdrop-blur-md"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -50 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex flex-col items-center justify-center h-full space-y-8">
+              {['Features', 'Pricing', 'Login', 'Sign Up'].map((item, index) => (
+                <motion.div
+                  key={item}
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <Link 
+                    to={`/${item.toLowerCase().replace(' ', '')}`} 
+                    className={`text-2xl ${item === 'Sign Up' ? 'bg-blue-600 text-white px-6 py-3 rounded-md' : 'text-gray-600 hover:text-gray-800'} transition`}
+                    onClick={toggleMenu}
+                  >
+                    {item}
+                  </Link>
+                </motion.div>
+              ))}
             </div>
-          </Col>
-        </Row>
-        <Row gutter={[24, 24]} className="features" style={{ marginTop: '50px' }}>
-          <Col xs={24} md={8}>
-            {/* Feature 1 */}
-            <Card hoverable style={{ width: '100%', textAlign: 'center' }}>
-              <BookOutlined style={{ fontSize: '48px', marginBottom: '16px', color: 'green' }} />
-              <h3 style={{ fontSize: '20px', fontWeight: 'bold' }}>Journal Your Trades</h3>
-              <Paragraph style={{ color: '#666' }}>Maintain a detailed log of your trades, including entry and exit points, trading rationale, and market conditions.</Paragraph>
-            </Card>
-          </Col>
-          <Col xs={24} md={8}>
-            {/* Feature 2 */}
-            <Card hoverable style={{ width: '100%', textAlign: 'center' }}>
-              <ImportOutlined style={{ fontSize: '48px', marginBottom: '16px', color: 'purple' }} />
-              <h3 style={{ fontSize: '20px', fontWeight: 'bold' }}>Import Trades from MT5</h3>
-              <Paragraph style={{ color: '#666' }}>Easily import your trades directly from MetaTrader 5 for seamless tracking and analysis.</Paragraph>
-            </Card>
-          </Col>
-          <Col xs={24} md={8}>
-            {/* Feature 3 */}
-            <Card hoverable style={{ width: '100%', textAlign: 'center' }}>
-              <TeamOutlined style={{ fontSize: '48px', marginBottom: '16px' }} />
-              <h3 style={{ fontSize: '20px', fontWeight: 'bold' }}>Multiple Account Support</h3>
-              <Paragraph style={{ color: '#666' }}>Manage and track trades across multiple accounts, brokers, and asset classes with ease.</Paragraph>
-            </Card>
-          </Col>
-        </Row>
-        <Row gutter={[24, 24]} className="additional-features" style={{ marginTop: '50px' }}>
-          <Col xs={24} md={8}>
-            {/* Feature 4 */}
-            <Card hoverable style={{ width: '100%', textAlign: 'center' }}>
-              <RocketOutlined style={{ fontSize: '48px', marginBottom: '16px', color: 'blue' }} />
-              <h3 style={{ fontSize: '20px', fontWeight: 'bold' }}>Boost Your Performance</h3>
-              <Paragraph style={{ color: '#666' }}>Identify patterns, optimize strategies, and improve your trading results with powerful analytics.</Paragraph>
-            </Card>
-          </Col>
-          <Col xs={24} md={8}>
-            {/* Feature 5 */}
-            <Card hoverable style={{ width: '100%', textAlign: 'center' }}>
-              <DollarCircleOutlined style={{ fontSize: '48px', marginBottom: '16px' }} />
-              <h3 style={{ fontSize: '20px', fontWeight: 'bold' }}>Gain Valuable Insights</h3>
-              <Paragraph style={{ color: '#666' }}>Track key metrics, visualize your progress, and make data-driven decisions for better trading outcomes.</Paragraph>
-            </Card>
-          </Col>
-          <Col xs={24} md={8}>
-            {/* Feature 6 */}
-            <Card hoverable style={{ width: '100%', textAlign: 'center' }}>
-              <SafetyOutlined style={{ fontSize: '48px', marginBottom: '16px' }} />
-              <h3 style={{ fontSize: '20px', fontWeight: 'bold' }}>Manage Risk Effectively</h3>
-              <Paragraph style={{ color: '#666' }}>Monitor risk metrics, set stop-loss limits, and trade with confidence using advanced risk management tools.</Paragraph>
-            </Card>
-          </Col>
-        </Row>
-        <Row gutter={[24, 24]} className="upcoming-features" style={{ marginTop: '50px' }}>
-          <Col xs={24} md={12}>
-            {/* Upcoming Feature 1 */}
-            <Card hoverable style={{ width: '100%', textAlign: 'center' }}>
-              <RobotOutlined style={{ fontSize: '48px', marginBottom: '16px', color: 'orange' }} />
-              <h3 style={{ fontSize: '20px', fontWeight: 'bold' }}>AI-Powered Trading Assistant</h3>
-              <Paragraph style={{ color: '#666' }}>Get personalized trading insights, recommendations, and alerts powered by advanced AI algorithms.</Paragraph>
-            </Card>
-          </Col>
-          <Col xs={24} md={12}>
-            {/* Upcoming Feature 2 */}
-            <Card hoverable style={{ width: '100%', textAlign: 'center' }}>
-              <LineChartOutlined style={{ fontSize: '48px', marginBottom: '16px' }} />
-              <h3 style={{ fontSize: '20px', fontWeight: 'bold' }}>Advanced Trade Tracking</h3>
-              <Paragraph style={{ color: '#666' }}>Keep a detailed record of all your trades, monitor their performance, and identify areas for improvement.</Paragraph>
-            </Card>
-          </Col>
-        </Row>
-        <Row style={{ marginTop: '50px' }}>
-         <div className="demo-video" style={{ textAlign: 'center', width: '100%' }}>
-           <iframe
-             width="560"
-             height="315"
-             src="https://www.youtube.com/embed/your-video-id"
-             title="YouTube video player"
-             frameBorder="0"
-             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-             allowFullScreen
-           ></iframe>
-         </div>
-       </Row>
-       <Row gutter={[24, 24]} justify="center" style={{ marginTop: '50px' }}>
-         <Col xs={24} md={12}>
-           <div className="testimonial-card" style={{ textAlign: 'center' }}>
-             <Avatar size={64} src="https://example.com/avatar.jpg" />
-             <Title level={4} style={{ marginTop: '16px' }}>
-               "TradeTracker has been a game-changer for my trading journey."
-             </Title>
-             <Paragraph style={{ color: '#666' }}>
-               "With TradeTracker, I can easily track my trades, analyze my performance, and gain valuable insights. The AI assistant is a real game-changer, providing personalized recommendations and helping me stay on top of my game."
-             </Paragraph>
-             <Title level={5}>- John Doe, Professional Trader</Title>
-           </div>
-         </Col>
-       </Row>
-     </Content>
-     <Footer className="footer">
-       <div className="footer-content">
-         <p>© 2023 TradeTracker. All rights reserved.</p>
-       </div>
-     </Footer>
-   </Layout>
- );
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Hero section */}
+      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto text-center">
+          <motion.h1 
+            className="text-5xl md:text-6xl font-extrabold mb-6 text-gray-900"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            Unlock Your <span className="text-blue-600">Trading Potential</span>
+          </motion.h1>
+          <motion.p 
+            className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            TradeTracker is an all-in-one platform that empowers you to monitor, analyze, and optimize your trading performance with AI-powered insights.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <Link to="/signup" className="bg-blue-600 text-white text-lg px-8 py-4 rounded-md hover:bg-blue-700 transition inline-block shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+              Get Started Free
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Screenshot section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.h2 
+            className="text-3xl font-bold text-center mb-12 text-gray-900"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            See TradeTracker in Action
+          </motion.h2>
+          <motion.div
+            className="bg-gray-200 rounded-lg shadow-lg overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            whileHover={{ scale: 1.02 }}
+          >
+            <img src="/api/placeholder/1200/600" alt="TradeTracker Dashboard" className="w-full h-auto" />
+          </motion.div>
+          <motion.p 
+            className="text-center mt-4 text-gray-600"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            TradeTracker's intuitive dashboard provides a comprehensive overview of your trading performance.
+          </motion.p>
+        </div>
+      </section>
+
+      {/* Features section */}
+      <section className="py-20 bg-blue-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.h2 
+            className="text-3xl font-bold text-center mb-12 text-gray-900"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            Powerful Features
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              { icon: <BookOpenIcon className="h-12 w-12 text-blue-600" />, title: "Journal Your Trades", description: "Maintain a detailed log of your trades, including entry and exit points, rationale, and market conditions." },
+              { icon: <ArrowUpTrayIcon className="h-12 w-12 text-blue-600" />, title: "Import Trades from MT5", description: "Easily import your trades directly from MetaTrader 5 for seamless tracking and analysis." },
+              { icon: <UsersIcon className="h-12 w-12 text-blue-600" />, title: "Multiple Account Support", description: "Manage and track trades across multiple accounts, brokers, and asset classes with ease." },
+              { icon: <RocketLaunchIcon className="h-12 w-12 text-blue-600" />, title: "Boost Your Performance", description: "Identify patterns, optimize strategies, and improve your trading results with powerful analytics." },
+              { icon: <CurrencyDollarIcon className="h-12 w-12 text-blue-600" />, title: "Gain Valuable Insights", description: "Track key metrics, visualize your progress, and make data-driven decisions for better trading outcomes." },
+              { icon: <ShieldCheckIcon className="h-12 w-12 text-blue-600" />, title: "Manage Risk Effectively", description: "Monitor risk metrics, set stop-loss limits, and trade with confidence using advanced risk management tools." },
+            ].map((feature, index) => (
+              <FeatureCard key={index} {...feature} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Coming Soon</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <FeatureCard
+              icon={<CpuChipIcon className="h-12 w-12 text-blue-600" />}
+              title="AI-Powered Trading Assistant"
+              description="Get personalized trading insights, recommendations, and alerts powered by advanced AI algorithms."
+            />
+            <FeatureCard
+              icon={<ChartBarSquareIcon className="h-12 w-12 text-blue-600" />}
+              title="Advanced Trade Tracking"
+              description="Keep a detailed record of all your trades, monitor their performance, and identify areas for improvement."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonial section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.h2 
+            className="text-3xl font-bold mb-8 text-gray-900"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            What Our Users Say
+          </motion.h2>
+          <motion.blockquote 
+            className="text-2xl italic mb-8 text-gray-700"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            "TradeTracker has been a game-changer for my trading journey. The insights and analytics have helped me improve my strategy and boost my profits."
+          </motion.blockquote>
+          <motion.p 
+            className="text-xl font-semibold text-gray-900"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            John Doe, Professional Trader
+          </motion.p>
+        </div>
+      </section>
+
+      {/* CTA section */}
+      <section className="py-20 bg-blue-100">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.h2 
+            className="text-3xl font-bold mb-8 text-gray-900"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            Ready to Elevate Your Trading?
+          </motion.h2>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Link to="/signup" className="bg-blue-600 text-white text-lg px-8 py-4 rounded-md hover:bg-blue-700 transition inline-block shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+              Start Your Free Trial
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-100 py-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="mb-4 md:mb-0">
+              <span className="text-2xl font-bold text-gray-900">TradeTracker</span>
+            </div>
+            <nav className="flex space-x-4 mb-4 md:mb-0">
+              {['Privacy Policy', 'Terms of Service', 'Contact Us'].map((item) => (
+                <Link key={item} to={`/${item.toLowerCase().replace(/\s+/g, '')}`} className="text-gray-600 hover:text-gray-800 transition">
+                  {item}
+                </Link>
+              ))}
+            </nav>
+            <div>
+              <p className="text-gray-600">&copy; 2023 TradeTracker. All rights reserved.</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
 };
+
+const FeatureCard = ({ icon, title, description, index }) => (
+  <motion.div 
+    className="bg-white rounded-lg p-6 hover:shadow-lg transition"
+    initial={{ opacity: 0, y: 50 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: index * 0.1 }}
+    whileHover={{ y: -5, boxShadow: "0 10px 30px -15px rgba(0, 0, 0, 0.3)"}}  
+  >
+    <div className="flex items-center justify-center mb-4">
+      {icon}
+    </div>
+    <h3 className="text-xl font-semibold mb-2 text-gray-900">{title}</h3>
+    <p className="text-gray-600">{description}</p>
+  </motion.div>
+);
 
 export default LandingPage;

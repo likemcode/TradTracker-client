@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import ImportModal from './ImportModal';
 import { FileTextOutlined } from '@ant-design/icons';
-import { Modal, Button, Card, message, Flex, Typography,Row, Col} from 'antd';
+import { Modal, Button, Card, message, Typography,Row, Col} from 'antd';
 import MetaTrader5Icon from '../assets/mt5 svg.svg' ;
 
 const { Title, Paragraph } = Typography;

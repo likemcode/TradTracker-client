@@ -6,7 +6,7 @@ import { LoadingOutlined, PlusOutlined, EditOutlined } from '@ant-design/icons';
 const AccountModal = ({ visible, onCancel }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const [previewImage, setPreviewImage] = useState('');
+  // const [previewImage, setPreviewImage] = useState('');
   const [userData, setUserData] = useState(null);
   const [isPasswordModalVisible, setIsPasswordModalVisible] = useState(false);
   const [passwordForm] = Form.useForm();
