@@ -5,6 +5,7 @@ import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { signupStart, signupSuccess, signupFailure } from '../services/authSlice';
 import { Link } from 'react-router-dom';
+import Logo from './Logo'
 import './SignUpPage.css';
 
 const { Title } = Typography;
@@ -76,7 +77,7 @@ const SignUp = () => {
   return (
     <div className="signup-container">
       {contextHolder}
-      <Title level={2} className="signup-title">TradeTracker</Title>
+      <Logo/>
       <Form
         form={form}
         name="normal_signup"

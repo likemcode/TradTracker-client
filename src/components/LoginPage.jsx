@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { loginStart, loginSuccess, loginFailure } from '../services/loginSlice';
 import { Link , useNavigate} from 'react-router-dom'; // For navigation link
 import './LoginPage.css'; // Ensure you import your CSS file
+import Logo from './Logo'
 
 const { Title } = Typography;
 
@@ -42,7 +43,7 @@ const LoginPage = () => {
 
   return (
     <div className="login-container">
-      <Title level={2} className="login-title">TradeTracker</Title>
+      <Logo/>
       <Form
         name="normal_login"
         className="login-form"
