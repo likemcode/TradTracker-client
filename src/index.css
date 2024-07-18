@@ -84,13 +84,11 @@
 }
 
 .avatar-collapsed {
-  background-color: rgba(70, 149, 252, 0.150);
   margin-left: 10px;
   transition: background-color 0.3s ease;
 }
 
 .avatar-expanded {
-  background-color: rgba(70, 149, 252, 0.150);
   margin-left: 0px;
 }
 

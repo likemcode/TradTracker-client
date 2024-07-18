@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Dashboardimage from '../assets/Dashboard.png';
 import { SlidersTwoTone } from '@ant-design/icons';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bars3Icon, XMarkIcon, ChartBarIcon,CpuChipIcon,ChartBarSquareIcon, CurrencyDollarIcon, ShieldCheckIcon, BookOpenIcon, ArrowUpTrayIcon, UsersIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon, CheckCircleIcon,CpuChipIcon,ChartBarSquareIcon, CurrencyDollarIcon, ShieldCheckIcon, BookOpenIcon, ArrowUpTrayIcon, UsersIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
 
 const LandingPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const featuresRef = useRef(null);
+  const pricingRef = useRef(null);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -17,6 +19,13 @@ const LandingPage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToSection = (elementRef) => {
+    window.scrollTo({
+      top: elementRef.current.offsetTop - 100, // Offset for the fixed header
+      behavior: 'smooth'
+    });
+    setIsMenuOpen(false);
+  };
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-100 text-gray-800">
       {/* Header */}
@@ -44,16 +53,26 @@ const LandingPage = () => {
               </h3>
             </motion.div>
             <nav className="hidden md:flex space-x-6">
-              {['Features', 'Pricing', 'Login'].map((item, index) => (
+              {[
+                { name: 'Features', action: () => scrollToSection(featuresRef) },
+                { name: 'Pricing', action: () => scrollToSection(pricingRef) },
+                { name: 'Login', action: '/Login' }
+              ].map((item, index) => (
                 <motion.div
-                  key={item}
+                  key={item.name}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <Link to={`/${item.toLowerCase()}`} className="text-gray-600 hover:text-gray-800 transition">
-                    {item}
-                  </Link>
+                  {typeof item.action === 'function' ? (
+                    <button onClick={item.action} className="text-gray-600 hover:text-gray-800 transition">
+                      {item.name}
+                    </button>
+                  ) : (
+                    <Link to={item.action} className="text-gray-600 hover:text-gray-800 transition">
+                      {item.name}
+                    </Link>
+                  )}
                 </motion.div>
               ))}
               <motion.div
@@ -91,20 +110,34 @@ const LandingPage = () => {
             transition={{ duration: 0.3 }}
           >
             <div className="flex flex-col items-center justify-center h-full space-y-8">
-              {['Features', 'Pricing', 'Login', 'Sign Up'].map((item, index) => (
+              {[
+                { name: 'Features', action: () => scrollToSection(featuresRef) },
+                { name: 'Pricing', action: () => scrollToSection(pricingRef) },
+                { name: 'Login', action: '/Login' },
+                { name: 'Sign Up', action: '/signup' }
+              ].map((item, index) => (
                 <motion.div
-                  key={item}
+                  key={item.name}
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <Link 
-                    to={`/${item.toUpperCase().replace(' ', '')}`} 
-                    className={`text-2xl ${item === 'Sign Up' ? 'bg-blue-600 text-white px-6 py-3 rounded-md' : 'text-gray-600 hover:text-gray-800'} transition`}
-                    onClick={toggleMenu}
-                  >
-                    {item}
-                  </Link>
+                  {typeof item.action === 'function' ? (
+                    <button 
+                      onClick={item.action}
+                      className={`text-2xl ${item.name === 'Sign Up' ? 'bg-blue-600 text-white px-6 py-3 rounded-md' : 'text-gray-600 hover:text-gray-800'} transition`}
+                    >
+                      {item.name}
+                    </button>
+                  ) : (
+                    <Link 
+                      to={item.action}
+                      className={`text-2xl ${item.name === 'Sign Up' ? 'bg-blue-600 text-white px-6 py-3 rounded-md' : 'text-gray-600 hover:text-gray-800'} transition`}
+                      onClick={toggleMenu}
+                    >
+                      {item.name}
+                    </Link>
+                  )}
                 </motion.div>
               ))}
             </div>
@@ -175,7 +208,7 @@ const LandingPage = () => {
       </section>
 
       {/* Features section */}
-      <section className="py-20 bg-blue-50">
+      <section ref={featuresRef} className="py-20 bg-blue-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2 
             className="text-3xl font-bold text-center mb-12 text-gray-900"
@@ -248,28 +281,80 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* CTA section */}
-      <section className="py-20 bg-blue-100">
+      
+      {/* CTA section with Pricing */}
+      <section ref={pricingRef} className="py-20 bg-blue-100">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h2 
-            className="text-3xl font-bold mb-8 text-gray-900"
+            className="text-4xl font-bold mb-8 text-gray-900"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            Ready to Elevate Your Trading?
+            Start Trading Smarter Today
           </motion.h2>
-          <motion.div
+          <motion.p
+            className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
           >
-            <Link to="/signup" className="bg-blue-600 text-white text-lg px-8 py-4 rounded-md hover:bg-blue-700 transition inline-block shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-              Start Your Free Trial
-            </Link>
+            Experience the power of TradeTracker absolutely free. No credit card required.
+          </motion.p>
+
+          <motion.div
+            className="bg-white rounded-lg shadow-xl overflow-hidden max-w-md mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <div className="px-6 py-8">
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Free Plan</h3>
+              <div className="text-4xl font-bold text-blue-600 mb-6">$0<span className="text-lg text-gray-500 font-normal">/month</span></div>
+              <ul className="text-left mb-8">
+                {[
+                  "Unlimited trade tracking",
+                  "Basic performance analytics",
+                  "Journal entries",
+                  "Email support"
+                ].map((feature, index) => (
+                  <motion.li 
+                    key={index} 
+                    className="flex items-center mb-3"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                  >
+                    <CheckCircleIcon className="h-5 w-5 text-green-500 mr-2" />
+                    <span>{feature}</span>
+                  </motion.li>
+                ))}
+              </ul>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link 
+                  to="/signup" 
+                  className="block w-full bg-blue-600 text-white text-lg px-6 py-3 rounded-md hover:bg-blue-700 transition shadow-md hover:shadow-lg transform hover:-translate-y-1"
+                >
+                  Start For Free
+                </Link>
+              </motion.div>
+            </div>
+            <div className="bg-blue-50 px-6 py-4">
+              <p className="text-sm text-gray-600">No credit card required.</p>
+            </div>
           </motion.div>
+
+          <motion.p
+            className="mt-12 text-gray-600"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1 }}
+          >
+            Questions? <a href="#" className="text-blue-600 hover:underline">Contact us</a>
+          </motion.p>
         </div>
       </section>
 
