@@ -365,15 +365,15 @@ const LandingPage = () => {
             <div className="mb-4 md:mb-0">
               <span className="text-2xl font-bold text-gray-900">TradeTracker</span>
             </div>
-            <nav className="flex space-x-4 mb-4 md:mb-0">
+            {/* <nav className="flex space-x-4 mb-4 md:mb-0">
               {['Privacy Policy', 'Terms of Service', 'Contact Us'].map((item) => (
                 <Link key={item} to={`/${item.toLowerCase().replace(/\s+/g, '')}`} className="text-gray-600 hover:text-gray-800 transition">
                   {item}
                 </Link>
               ))}
-            </nav>
+            </nav> */}
             <div>
-              <p className="text-gray-600">&copy; 2023 TradeTracker. All rights reserved.</p>
+              <p className="flex space-x-4 mb-4 md:mb-0 text-gray-600">&copy; 2023 TradeTracker. All rights reserved.</p>
             </div>
           </div>
         </div>

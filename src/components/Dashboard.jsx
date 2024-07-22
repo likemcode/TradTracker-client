@@ -283,4 +283,3 @@ const Dashboard = ({ selectedAccount }) => {
 };
 
 export default Dashboard;
-
