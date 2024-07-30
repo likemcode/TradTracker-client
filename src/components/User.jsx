@@ -14,7 +14,7 @@ const AccountModal = ({ visible, onCancel }) => {
   const fetchUserData = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://127.0.0.1:8000/auth/user/', {
+      const response = await fetch('https://tradtracker-backend-production.up.railway.app/auth/user/', {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Token ${token}`,
@@ -64,7 +64,7 @@ const AccountModal = ({ visible, onCancel }) => {
     };
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/auth/user/', {
+      const response = await fetch('https://tradtracker-backend-production.up.railway.app/auth/user/', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ const AccountModal = ({ visible, onCancel }) => {
   const handlePasswordChange = async (values) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://127.0.0.1:8000/auth/user/', {
+      const response = await fetch('https://tradtracker-backend-production.up.railway.app/auth/user/', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
