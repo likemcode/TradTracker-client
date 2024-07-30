@@ -15,7 +15,7 @@ const DeleteAccountModal = ({ visible, onCancel }) => {
     const token = localStorage.getItem('token');
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/auth/delete/', {
+      const response = await fetch('https://tradtracker-backend-production.up.railway.app/auth/delete/', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
