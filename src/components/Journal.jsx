@@ -61,7 +61,7 @@ const Journal = () => {
   const deleteInstance = async (entryId) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`https://tradtracker-backend-production.up.railway.app/backend/trades/journal_entry/${entryId}/`, {
+      const response = await fetch(`https://tradtracker-backend.onrender.com/backend/trades/journal_entry/${entryId}/`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

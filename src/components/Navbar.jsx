@@ -66,7 +66,7 @@ const Navbar = ({darkTheme, collapsed }) => {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          const response = await fetch('http://127.0.0.1:8000/auth/user/', {
+          const response = await fetch('https://tradtracker-backend.onrender.com/auth/user/', {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Token ${token}`,
@@ -85,7 +85,7 @@ const Navbar = ({darkTheme, collapsed }) => {
   }, []);
 
   const handleLogout= async () => {
-    const response = await fetch('http://127.0.0.1:8000/auth/logout/', {
+    const response = await fetch('https://tradtracker-backend.onrender.com/logout/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

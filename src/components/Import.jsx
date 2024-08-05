@@ -21,7 +21,7 @@ const ImportComponent = ({ visible, onClose  }) => {
     // Handle import sample trades logic here
     const token = localStorage.getItem('token');
       try {
-          const response = await fetch('https://tradtracker-backend-production.up.railway.app/backend/trades/import-sample-trades/', {
+          const response = await fetch('https://tradtracker-backend.onrender.com/backend/trades/import-sample-trades/', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',

@@ -18,7 +18,7 @@ const LoginPage = () => {
   const onFinish = async (values) => {
     dispatch(loginStart());
     try {
-      const response = await fetch('https://tradtracker-backend-production.up.railway.app/auth/login/', {
+      const response = await fetch('https://tradtracker-backend.onrender.com/auth/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

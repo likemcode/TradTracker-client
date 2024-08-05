@@ -33,7 +33,7 @@ const SignUp = () => {
     setLoading(true);
     dispatch(signupStart());
     try {
-      const response = await fetch('https://tradtracker-backend-production.up.railway.app/auth/register/', {
+      const response = await fetch('https://tradtracker-backend.onrender.com/auth/register/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

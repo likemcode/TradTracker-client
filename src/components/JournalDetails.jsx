@@ -31,7 +31,7 @@ const JournalDetails = () => {
       const token = localStorage.getItem('token');
       try {
         console.log(journalId);
-        const response = await fetch(`https://tradtracker-backend-production.up.railway.app/backend/trades/journal_entry/${journalId}/`, {
+        const response = await fetch(`https://tradtracker-backend.onrender.com/backend/trades/journal_entry/${journalId}/`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ const JournalDetails = () => {
   const saveJournalEntry = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`https://tradtracker-backend-production.up.railway.app/backend/trades/journal_entry/${journalId}/`, {
+      const response = await fetch(`https://tradtracker-backend.onrender.com/backend/trades/journal_entry/${journalId}/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
