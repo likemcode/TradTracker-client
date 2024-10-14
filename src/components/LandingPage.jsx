@@ -188,21 +188,34 @@ const LandingPage = () => {
             See TradeTracker in Action
           </motion.h2>
           <motion.div
-            className="bg-gray-200 rounded-lg shadow-lg overflow-hidden"
+            className="rounded-lg shadow-lg overflow-hidden"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             whileHover={{ scale: 1.02 }}
           >
-            <img src={ Dashboardimage } alt="TradeTracker Dashboard" className="w-full h-auto" />
+            <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+              <iframe 
+                src="https://www.loom.com/embed/856d6b82e8714a3c879d1e2ba126de88?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" 
+                frameBorder="0" 
+                allowFullScreen={true}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%'
+                }}
+              ></iframe>
+            </div>
           </motion.div>
           <motion.p 
-            className="text-center mt-4 text-gray-600"
+            className="text-center mt-6 text-gray-600"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            TradeTracker's intuitive dashboard provides a comprehensive overview of your trading performance.
+            Watch a full demo of TradeTracker's powerful features and intuitive interface.
           </motion.p>
         </div>
       </section>

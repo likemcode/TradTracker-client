@@ -24,14 +24,12 @@ const AccountModal = ({ visible, onCancel }) => {
       if (!response.ok) throw new Error('Failed to fetch user data');
 
       const data = await response.json();
-      console.log(data);
       setUserData(data);
       form.setFieldsValue({
         username: data.username,
         email: data.email,
       });
     } catch (error) {
-      console.error('Error fetching user data:', error);
       message.error('Failed to load user data. Please try again.');
     }
   }, [form]);

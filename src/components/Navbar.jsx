@@ -85,15 +85,13 @@ const Navbar = ({darkTheme, collapsed }) => {
   }, []);
 
   const handleLogout= async () => {
-    const response = await fetch('https://tradtracker-backend.onrender.com/logout/', {
+    const response = await fetch('https://tradtracker-backend.onrender.com/auth/logout/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         }
-        
       });
     const data = await response.json();
-    console.log(data);
     localStorage.removeItem('token')
     navigate('/')
   };
