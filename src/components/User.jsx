@@ -14,7 +14,7 @@ const AccountModal = ({ visible, onCancel }) => {
   const fetchUserData = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('https://tradtracker-backend-production.up.railway.app/auth/user/', {
+      const response = await fetch('https://tradtracker-backend.onrender.com/auth/user/', {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Token ${token}`,
@@ -64,7 +64,7 @@ const AccountModal = ({ visible, onCancel }) => {
     };
 
     try {
-      const response = await fetch('https://tradtracker-backend-production.up.railway.app/auth/user/', {
+      const response = await fetch('https://tradtracker-backend.onrender.com/auth/user/', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
