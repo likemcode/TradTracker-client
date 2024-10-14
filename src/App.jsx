@@ -14,7 +14,11 @@ const App = () => {
   const [selectedAccount, setSelectedAccount] = useState(null);
   const location = useLocation();
 
-  const { data: accounts, isLoading: accountsLoading, error: accountsError } = useGetAccountListQuery();
+  const isPublicRoute = ['/', '/Login', '/signup'].includes(location.pathname);
+
+  const { data: accounts, isLoading: accountsLoading, error: accountsError } = useGetAccountListQuery(undefined, {
+    skip: isPublicRoute,
+  });
 
   useEffect(() => {
     if (accounts && accounts.length > 0 && !selectedAccount) {
@@ -22,16 +26,19 @@ const App = () => {
     }
   }, [accounts, selectedAccount]);
 
-  if (accountsLoading) {
+  if (accountsLoading && !isPublicRoute) {
     return <Loader />;
   }
 
   return (
     <div className='app'>
-      {location.pathname === '/' && <LandingPage />}
-      {location.pathname === '/Login' && <LoginPage />}
-      {location.pathname === '/signup' && <SignUp />}
-      {!['/', '/Login', '/signup'].includes(location.pathname) && (
+      {isPublicRoute ? (
+        <>
+          {location.pathname === '/' && <LandingPage />}
+          {location.pathname === '/Login' && <LoginPage />}
+          {location.pathname === '/signup' && <SignUp />}
+        </>
+      ) : (
         <Layout hasSider>
           <Sider
             collapsed={collapsed}
@@ -91,7 +98,7 @@ const App = () => {
                   />
                   <Route
                     path='/JournalDetails/:journalId'
-                    element={ <JournalDetails />}
+                    element={<JournalDetails />}
                   />
                   <Route path='*' element={<NotFound />} />
                 </Route>
@@ -105,5 +112,3 @@ const App = () => {
 };
 
 export default App;
-
-
